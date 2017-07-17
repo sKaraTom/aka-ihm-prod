@@ -1,0 +1,103 @@
+<div class="container-fluid containerGeneral" style="padding:0;">
+
+ <!--LIGNE 1 TITRE CITATION-->
+  <div class="row ligneTitre" id="ligneTitreAccueil">
+      <div class="col col-xs-12">
+          <h1 class="titreRubrique">Bienvenue !</h1>
+      </div>
+      <div class="col" id="citation">
+        <citation></citation>
+      </div>
+  </div>
+    
+
+<!--LIGNE 2-->
+<div class="row" style="padding-bottom: 1%">
+  
+  <!--COLONNE 1-->
+  <div class="col-md-7">
+    
+      <!--CARD BIENVENUE-->
+      <div class="card" id="cardTexteBienvenue">
+        <div class="card-block">
+          <h3 class="card-title cardTitre">Akachan, qu'est-ce donc ?</h3>
+          <p class="card-text" id="texteBienvenue">Un site qui n'a d'autre vocation que vous aider à trouver un prénom en s'amusant ! <br>
+          Des prénoms vous sont proposés, avec ou sans options. Vous pourrez retrouver ceux aimés dans votre liste Akachan et les partager si vous le souhaitez.
+          <br>
+          Créez un compte, c'est rapide et gratuit, pour commencer vos recherches !
+
+
+          </p>
+          <Button id="btnInscription" (click)="accederInscription()" pButton type="button" label="Inscription" icon="fa-sign-in fa-2x" iconPos="right"></Button>
+        </div>
+      </div>
+    
+      <!--GALERIE CARROUSEL-->
+      <div id="carrousel">
+      <p-galleria [images]="images" panelWidth="100%" panelHeight="300" frameWidth="100%" 
+      [showFilmstrip]="true" [transitionInterval]="6000" showCaption="true"  effect="slide"></p-galleria>
+      </div>
+    </div>
+  
+  <!--COLONNE 2-->
+  <div class="col-md-5">
+    
+    <!--STATS GENERALES-->
+    <div class="card">
+      <div class="card-block" id="cardBlockStatsGen">
+        <h3 class="card-title cardTitre">Quelques chiffres</h3>
+
+        <div id="nbreEstims" class="ui two small statistics">               
+
+              <div class="statistic statWidget">
+                      <div class="value">
+                        <i class="fa fa-user-o iconeStatWidget"></i> <span class="chiffreStatsWidget"> {{totalClients}} </span>
+                      </div>
+                      <div class="label">
+                         membres
+                      </div>
+              </div>             
+
+                        <div class="statistic statWidget">
+                            <div class="value">
+                            <i class="fa fa-star-half iconeStatWidget"></i><span class="chiffreStatsWidget"> {{totalEstimations}} </span>
+                            </div>
+                            <div class="label">
+                            Prénoms estimés
+                            </div>
+                        </div>
+                 </div>        
+
+      </div>
+    </div>
+
+      <!--TOP 3 AKACHAN-->
+      <div class="card" style="margin-top:3%;">
+      <div class="card-block" id="cardBlockTopPrenoms">
+        <h3 class="card-title cardTitre">Top 3 des prénoms Akachan</h3>
+            <div class="row">
+              
+              <ul>
+                <li id="listePucesTop" *ngFor="let top of top3Garcons; let i = index">
+                  <div id="topGarcon"> {{i+1}}.<strong>{{top}}</strong> garçon </div>
+                </li>
+              </ul>
+
+              <ul>
+                <li id="listePucesTop" *ngFor="let top of top3Filles; let i = index">
+                  <div id="topFille"> {{i+1}}.<strong>{{top}}</strong> fille</div>
+                </li>
+            </ul>
+
+          </div>
+      </div>
+
+      
+    </div>
+
+
+
+  </div>
+</div> <!-- fin div blocs première ligne -->
+
+</div> <!-- fin div container -->

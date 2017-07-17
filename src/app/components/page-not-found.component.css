@@ -1,0 +1,57 @@
+
+#accrochePageNotFound {
+    font-size:2vh;
+}
+
+
+#lignePictos {
+    /*display: flex;
+    flex-direction: row;
+    justify-content: center;*/
+    margin-top : 3vh;
+    margin-bottom:3vh;
+    /*border-style:dotted;*/
+
+}
+
+.picto {
+    line-height: inherit;
+    font-size:2.2vh;
+    /*border-style:groove;*/
+    padding:0.5vw;
+}
+
+.pictoPoints {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align:center;
+    color: #1e9ecc;
+}
+
+.divMaison {
+    color: #eb505f;
+}
+
+
+#pictoFusee {
+    font-size:7vh;
+}
+
+#pictoMaison {
+    font-size:10vh;
+}
+
+    #pictoMaison:hover {
+        font-size:12vh;
+        color: #f1717e;
+    }
+
+    #pictoMaison:active {
+        color:#b60000;
+    }
+
+#ligneTexte {
+    font-size:2.8vh;
+
+}

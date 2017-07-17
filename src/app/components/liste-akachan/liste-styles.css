@@ -1,0 +1,187 @@
+
+.bleuAka {
+    color:#1e9ecc;
+}
+
+.garcon{ color:#47719d; }
+
+.fille{ color:#1e9ecc; }
+
+#colTitreListeN {
+    margin:0;
+    padding:0;
+}
+
+
+#accrocheListeA {
+    word-wrap: break-word;
+}
+
+/*DATATABLE LISTE AKACHAN*/
+
+/*datatable : style général*/
+:host /deep/ .tableAkaNoire {
+    text-align:center;
+    margin-left:auto; 
+    margin-right:auto;
+    width:62vw;
+    box-shadow: -1px 1px 20px rgba(0, 0, 0, 0.18);
+}
+
+:host /deep/ .col-chart {
+    width:7vh;
+    text-align: center;
+    font-size:2vmin;
+}   
+
+:host /deep/ .col-checkbox {
+    width:4vh;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    font-size:2vmin;
+}
+
+:host /deep/ .col-prenom {
+    width:35vh;
+    font-size:2vmin;
+}
+
+#champPrenom {
+  font-size: 2.8vmin;
+  font-weight: bold;
+  text-transform:capitalize; 
+}
+
+:host /deep/ .col-favoris {
+    width:13vh;
+    font-size:2vmin;
+}
+
+:host /deep/ .col-sexe {
+    width:14%;
+    font-size:2vmin;
+}
+
+#champSexe {
+    font-size:2.2vmin;
+}
+
+:host /deep/ .col-date {
+    width:19%;
+    font-size:2vmin;
+}
+
+#champDate {
+    /*font-size:2.2vmin;*/
+}
+
+#texteBasPageAka {
+    padding-top:1%;
+    font-size:2.1vmin;
+    word-wrap: break-word;
+}
+
+#astuceAka {
+    padding-top:0%;
+    padding-bottom:1.5%;
+    font-size:2.1vmin;
+}
+
+
+/* PARTIE DIALOG ENVOI MAIL */
+
+
+
+
+
+/*DATATABLE LISTE NOIRE : éléments différents*/
+:host /deep/ .col-noire-prenom {
+    font-size:2vmin;
+    height:5vh;
+}
+
+:host /deep/ .col-noire-date {
+    font-size:2vmin;
+}
+
+
+
+/* //////////// CSS mobile/tablette///////////// */
+@media (max-width: 768px) {
+
+    .conteneurListes {
+        margin-left:0;
+        margin-right:0;
+        padding:0;
+    }
+
+    /*DATATABLE LISTE AKACHAN*/
+    :host /deep/ .tableAkaNoire {
+        text-align:center;
+        margin-left:0; 
+        margin-right:0;
+        width:initial;
+        box-shadow: -1px 1px 20px rgba(0, 0, 0, 0.18);
+    }
+
+    :host /deep/ .col-chart {
+        width:initial;
+        text-align: center;
+        font-size:initial;
+    }   
+
+    :host /deep/ .col-checkbox {
+        width:initial;
+        text-align: center;
+        margin-left:auto;
+        margin-right:auto;
+        font-size:initial;
+    }
+
+    :host /deep/ .col-prenom {
+        width:initial;
+        font-size:initial;
+    }
+
+    #champPrenom {
+    font-size: initial;
+    font-weight: bold;  
+    }
+
+    :host /deep/ .col-favoris {
+        width:initial;
+        font-size:initial;
+    }
+
+    :host /deep/ .col-sexe {
+        width:initial;
+        font-size:initial;
+        overflow:visible;
+    }
+
+    #champSexe {
+        font-size:initial;
+    }
+
+    :host /deep/ .col-date {
+        width:initial;
+        font-size:initial;
+    }
+
+    #champDate {
+    font-size:initial;
+    }
+
+    /*DATATABLE LISTE NOIRE : éléments différents*/
+    :host /deep/ .col-noire-prenom {
+        font-size:initial;
+        height:initial;
+    }
+
+    :host /deep/ .col-noire-date {
+    font-size:initial;
+    }
+
+}
+

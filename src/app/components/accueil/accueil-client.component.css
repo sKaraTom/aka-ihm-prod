@@ -1,0 +1,76 @@
+
+
+#prenomClient {
+    font-family: "akaPolice";
+    font-size: 2em;
+    text-transform:capitalize;
+}
+
+#col-citation {
+    padding-right:0;
+}
+
+#coeurFavori {
+    color:#ff6d75;
+    border-color: #cd0707;
+    /*text-shadow: -2px 0 #cd0707, 0 2px #cd0707, 2px 0 #cd0707, 0 -2px #cd0707;*/
+    border-width: x-large;
+    font-size: 150%;
+    text-shadow: 0px -1px 0px #AA0101, -1px 0px 0px #AA0101, 0px 1px 0px #AA0101, 1px 0px 0px #AA0101 !important;
+}
+
+#listePucesFavoris {
+     list-style: none;
+     text-align: left;
+     margin:0;
+}
+
+#listePucesFavoris strong {
+    font-size:1.4em;
+}
+
+#favoriFille {
+    color:#1e9ecc;
+}
+
+#favoriGarcon {
+    color:#47719d;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+
+#ligneTitreAccueil {
+    padding-left:0;
+}
+
+}
+
+
+@media (min-width: 1590px) {
+
+  #listePucesFavoris strong {
+    font-size:2em;
+}
+
+.card-title {
+    font-size:1.5em;
+}
+
+.ui, .label {
+    margin:0;
+    padding:0;
+}
+
+.label {
+  padding-top:0.2em;
+}
+
+.statistic {
+   font-size:1.2em;
+}
+
+}

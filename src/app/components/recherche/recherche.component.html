@@ -1,0 +1,105 @@
+
+    <!--  GROWL -->
+    <p-growl [value]="msgs" [life]=5000></p-growl>
+
+
+<div class="container-fluid containerGeneral">
+    
+    <!--LIGNE 1 TITRE-->
+   <div class="row ligneTitre" id="ligneTitreRecherche">
+      <div class="col-md-6 col-sm-6 col-xs-12 colTitre" id="colTitreRecherche">
+         <h2 class="titreRubrique"> Rechercher un prénom</h2>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 phraseAccroche" id="accrocheRecherche">
+            <i class="fa fa-quote-left iconeGuillemets" aria-hidden="true"></i>
+            &nbsp;Une idée de prénom ? Faites vos propres recherches ici.&nbsp;
+            <i class="fa fa-quote-right iconeGuillemets" aria-hidden="true"></i>
+      </div>
+   </div>
+
+    <!--LIGNE 2 CHAMP RECHERCHE-->
+    <div class="row well" id="LigneInput">
+
+        <!--saisie recherche-->
+        <div class="col-md-6">
+            <form  #formRecherche="ngForm" (submit)="chercherPrenom($event)">   
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg"  id="inputSaisie" #saisie="ngModel" 
+                            ngModel name="saisie" [(ngModel)]="saisieRecherche" placeholder="entrer ma recherche" required />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="submit">
+                            <i class="glyphicon glyphicon-search" ></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            </form>
+        </div>
+
+        <!--boutons radio sexe-->
+        <div class="col-auto" id="radioSexe">
+        <md-radio-group [(ngModel)]="choixSexe">
+            <md-radio-button value="1">garçon</md-radio-button>
+            <md-radio-button value="2">fille</md-radio-button>
+        </md-radio-group>
+        </div>
+
+        <!--checkbox recherche exacte-->
+        <div class="col-auto" id="checkboxExacte">
+            <md-checkbox [(ngModel)]="estRechercheExacte"><span id="texteCheckbox">recherche exacte</span></md-checkbox>
+        </div>
+
+	</div>
+     
+
+<br/>
+
+<!--message si pas de résultat ou échec-->
+<p *ngIf="messageEchec"> {{messageEchec}} </p>
+
+<!--Liste de résultats-->
+<p-dataList [value]="resultatsAAfficher" [paginator]="true" [rows]="10" [alwaysShowPaginator]="false" [pageLinks]="5"
+     [rowsPerPageOptions]="[5,10,20]" emptyMessage="vous n'avez pas encore effectué de recherche." 
+    *ngIf="resultatsAAfficher.length != 0" id="datalistResultats">
+    
+    <ng-template let-recherche let-i="index" pTemplate="item">
+        <div class="ui-grid ui-grid-responsive ui-fluid" id="grilleDatalist">
+            <div class="ui-grid-row">
+                
+                <!--colonne chart-->
+                <div class="ui-grid-col-1"  id="divColChart" style="text-align:center;"><i class="fa fa-bar-chart" 
+                    (click)="afficherStats($event,recherche.prenom,op3);" id="iconeChart"></i></div>
+                
+                <!--colonne prénom-->
+                <div class="ui-grid-col-3" id="divColPrenom">
+                    <div class="ui-grid ui-grid-responsive ui-fluid" id="divMiseEnFormePrenom">
+                        <span [ngClass]="{'fille' : choixClasseCss == '2', 'garcon' : choixClasseCss =='1'}">{{recherche.prenom | capitalize}}</span>
+                    </div>
+                </div>
+
+                <!--colonne bouton aime-->
+                <div class="ui-grid-col-auto" style="text-align:center;">
+                    <em *ngIf="recherche.estEstime" id="texteRemplacementBouton"> prénom estimé. </em>
+                    
+                    <button  *ngIf="!recherche.estEstime" type="button" class="btn btn-outline-info" id="boutonAime"
+                        [style.display]="recherche.estEstime ? 'none':'initial'"
+                        (click)="estimerPrenom($event,recherche.prenom); recherche.estEstime=true;" >
+                        <i class="fa fa-star" id="iconeEtoile" aria-hidden="true"></i>
+                        <span id="texteBouton">J'aime</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+</p-dataList>
+
+</div> <!--fermeture container-->
+
+<p-overlayPanel #op3 appendTo="body">
+    
+    <h2>Popularité du prénom {{prenomSelectionne | capitalize }}</h2>
+     <p-chart type="bar" [data]="data" [options]="options" width=500vh ></p-chart>
+       <p style="text-align: right;">Source : INSEE.</p>
+    </p-overlayPanel>

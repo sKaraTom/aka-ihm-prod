@@ -1,0 +1,54 @@
+<!--  GROWL -->
+    <p-growl [value]="msgs"></p-growl>
+
+
+<div class="container" id="conteneur">
+    <div class="col-auto">
+        <div class="form-area">  
+            <form #formContact="ngForm">
+            <!--<br style="clear:both">-->
+                        <h3 id="titreContact">Contactez-nous</h3>
+                        <p id="texteIntro">Une remarque, une suggestion d'amélioration, ou un problème rencontré ? <br>
+                        Laissez-nous un message, cela sera fort apprécié ! </p>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" #prenom="ngModel" ngModel name="prenom" 
+                                [(ngModel)]="prenomClient" placeholder="Prenom" [disabled]="estDesactive" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" #email="ngModel" ngModel name="email"
+                                [(ngModel)]="mailClient" placeholder="Email" [disabled]="estDesactive" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" #sujet="ngModel" ngModel name="sujet"
+                            [(ngModel)]="sujetMail" placeholder="Sujet" required>
+                        </div>
+                        <!--<div [hidden]="sujet.valid || sujet.pristine" class="alert alert-danger">saisir un sujet est requis.</div>-->
+                        <div class="form-group">
+                        <textarea class="form-control" type="textarea" #message="ngModel" ngModel name="message" 
+                            [(ngModel)]="messageClient" placeholder="Message" maxlength="500" rows="7" required></textarea>
+                            <span class="help-block"><p id="characterLeft" class="help-block ">{{500 - messageClient.length}}</p></span>                    
+                        </div>
+                
+            <button type="button" md-dialog-close id="btnAnnuler" class="btn btn-outline-info boutonFormeGenerale pull-right">annuler</button>
+            <button type="submit" id="btnEnvoyer" (click)="envoyerMail(formContact)" name="submit" class="btn btn-outline-info boutonFormeGenerale pull-right">envoyer</button>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--message si envoi mail réussi-->
+<div *ngIf="messageSucces" class="alert alert-success" style="margin-top:10px;padding:3px;">
+    <i class="fa fa-check" aria-hidden="true" style="font-size:120%;"></i>
+    <strong> &nbsp;Merci !</strong> {{messageSucces}} <button  id="btnFermer" md-button  md-dialog-close>Fermer</button>
+</div>
+
+<!--message si erreur à l'envoi de mail-->
+<div *ngIf="messageErreur" class="alert alert-danger" style="margin-top:10px;padding:3px;">
+    <i class="fa fa-exclamation" aria-hidden="true" style="font-size:120%;"></i>
+    <strong> &nbsp;Oups,</strong> {{messageErreur}}
+</div>

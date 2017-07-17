@@ -1,0 +1,18 @@
+#citation {
+  text-align: right;
+  font-style: italic;
+  font-size:1vw;
+  word-wrap: break-word;
+}
+
+
+
+
+@media (max-width: 768px) {
+
+#citation {
+display:none;
+}
+
+}
+

@@ -1,0 +1,137 @@
+
+<div class="container-fluid containerGeneral">
+
+    <!--LIGNE 1 TITRE-->
+   <div class="row page-header justify-content-between ligneTitre" id="ligneTitrePrenomGen">
+      <div class="col-md-6 col-sm-6 col-xs-12 colTitre" id="colTitrePrenom">
+         <h2 class="titreRubrique"> La fabrique de prénoms</h2>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 phraseAccroche">
+            <i class="fa fa-quote-left iconeGuillemets" aria-hidden="true"></i>
+            &nbsp;Un prénom vous est proposé, c'est vous qui voyez.&nbsp;
+            <i class="fa fa-quote-right iconeGuillemets" aria-hidden="true"></i>
+      </div>
+   </div>
+
+
+    <!--LIGNE 2 BOUTONS ESTIMATIONS - PRENOM ALEAT - OPTIONS/LEGENDE -->
+  <div class="row justify-content-center" id="ligneDeuxPrenomEstimOptions">
+
+    <!--COLONNE ESTIMATIONS - PRENOM ALEAT -->
+    <div class="col-md-9 col-sm-9 col-xs-12" id="colZoneEstimationsPrenom">
+
+        <div class="row justify-content-end" id="ligneEstimPrenom">
+
+        <!-- bouton aime pas -->
+        <div class="col-md-3 col-sm-2 col-xs-12 btnEstimation" (click)="estimerPrenom('false')" id="btnAimePas"
+        [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}">
+                <i class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i>
+        </div>
+        <!-- prenom aleatoire -->
+        <div class="col-md-6 col-sm-5 col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}" >
+            <span [@fadeInOut] *ngIf="animation">{{ nouveauPrenomAleatoire }} </span>
+        </div>
+        <!-- bouton j aime -->
+        <div class="col-md-3 col-sm-2 col-xs-12 btnEstimation" id="btnAime"
+            (click)="estimerPrenom('true')" 
+            [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}"> 
+                <i class="fa fa-star fa-5x" aria-hidden="true"></i>
+        </div>
+
+        </div>
+
+    </div>
+
+    <!--COLONNE OPTIONS - LEGENDE-->
+    <div align="center" class="col-md-3 col-sm-3 col-xs-12" id="colZoneOptionsLegende">
+
+        <!-- options tendances-->
+        <div id="cadreChoixTendances"> <strong id="titreOptions">Options</strong>
+            <li><p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms tendances" offLabel="prénoms tendances" [(ngModel)]="estTendance"
+                    (onChange)="activerPrenomsTendances($event)"></p-toggleButton>
+            </li>
+            <li><p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms anciens" offLabel="prénoms anciens" [(ngModel)]="estAncien"
+                    (onChange)="activerPrenomsAnciens($event)"></p-toggleButton>
+            </li>
+        </div>
+
+        <!-- légende -->
+        <div class="divLegende">
+                <strong >Boutons</strong>
+                <li id="legendeAimePas"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>  &nbsp;je n'aime pas ce prénom.</li>
+                <li><i class="fa fa-star fa-lg" aria-hidden="true"></i>  &nbsp;ajouter à ma liste.</li>
+        </div>
+
+         <!-- Raccourcis -->
+        <div class="divLegende" id="texteRaccourcisClavier" >
+           <i class="fa fa-info-circle" aria-hidden="true" style="color:#1e9ecc" 
+            (mouseenter)="op1.show($event)" (mouseleave)="op1.hide($event)"></i>
+           <strong>&nbsp;Raccourcis clavier</strong>
+        </div>
+
+    </div>
+
+
+  </div>   <!--fermeture ligne 1-->
+
+  <!-- LIGNE 3 SEXE - CONFIRMATION - PASSER -->
+ <div class="row justify-content-start" id="ligneTrois">
+    
+    <!-- boutons radio sexe -->
+    <div align="right" class="col-md-3 centrerVerti" id="colBoutonRadioSexe">
+        <div>
+        <md-radio-group  [(ngModel)]="bouton_sexe">
+            <md-radio-button value="1" (change)="choisirSexe('1')">garçon</md-radio-button>
+            <md-radio-button value="2" (change)="choisirSexe('2')">fille</md-radio-button>
+        </md-radio-group>
+        </div>
+     
+    </div>
+
+    <!-- confirmation prénom estimé -->
+    <div class="col-md-4 centrerVerti" id="colConfirmation">
+        <div id="confirmation" *ngIf="nouvelleEstimation.prenom != null" [ngSwitch]="nouvelleEstimation.akachan">
+            <p *ngSwitchCase="'true'"> le prénom {{nouvelleEstimation.prenom}} est ajouté à votre liste Akachan.</p>
+            <p *ngSwitchCase="'false'"> le prénom {{nouvelleEstimation.prenom}} ne vous sera plus proposé.</p>
+        </div>
+    </div>
+
+    <!-- bouton passer -->
+    <div class="col-md-4" id="colBtnPasser">
+        <Button class="btn boutonAkachan btnPasser" id="btnPasser" (click)="nePasEstimer()">
+            &nbsp;passer&nbsp; <i class="fa fa-refresh" aria-hidden="true"></i> 
+        </Button>
+    </div>
+
+  </div>   <!--fermeture ligne 3-->
+
+    <br/>
+
+    <!--POPULARITE DU PRENOM-->
+    <div class="row justify-content-end" id="lignePopularite">
+    
+    <div class="col-md-8 col-sm-9 col-xs-12" id="colPopularite">
+        <p-fieldset [style]="{'color':'#1e9ecc'}" legend="Popularité du prénom" [toggleable]="true" [collapsed]="true" (onBeforeToggle)=peuplerChart()>
+            <div style="margin-left: auto; margin-right: auto; width:100%;">
+                    <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+                    <p id="insee">Source:INSEE.</p>
+            </div>
+        </p-fieldset>
+    </div>
+
+     <div class="col-md-3 col-sm-3 col-xs-12">
+     </div>
+
+    </div> 
+
+
+   </div>  <!--fermeture container-->
+
+    <p-overlayPanel #op1 appendTo="body">
+        <div id="raccourcis" >
+        <li><strong>CTRL +</strong> <i class="fa fa-arrow-left fa-lg"></i> &nbsp;je n'aime pas ce prénom.</li>
+        <li><strong>CTRL +</strong> <i class="fa fa-arrow-right fa-lg"></i> &nbsp;j'aime ce prénom.</li>
+        <li><strong>CTRL +</strong> <i class="fa fa-arrow-down fa-lg"></i> &nbsp;passer.</li>
+        <li><strong>CTRL +</strong> <i class="fa fa-arrow-up fa-lg"></i> &nbsp;changer le genre.</li>
+        </div>
+    </p-overlayPanel>

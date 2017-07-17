@@ -1,0 +1,196 @@
+
+<!--  GROWL -->
+    <p-growl [value]="msgs"></p-growl>
+
+<!--  CONFIRM DIALOG RECOMMENCER A ZERO -->
+    <p-confirmDialog header="Recommencer à zéro ?" icon="fa fa-exclamation" #cd>
+      <p-footer>
+          <button type="button" pButton icon="fa-close" label="Annuler" (click)="cd.reject()"></button>
+          <button type="button" pButton icon="fa-check" label="Ok" (click)="cd.accept()"></button>
+      </p-footer>
+
+    </p-confirmDialog>
+
+
+<div class="container-fluid containerGeneral" id="containerProfil">
+  
+    <!--LIGNE 1 TITRE-->
+   <div class="row page-header ligneTitre" id="ligneTitreCompte">
+      <div class="col-md-6 col-sm-6 col-xs-12 colTitre" id="colTitreCompte">
+         <h2 class="titreRubrique"> Mon compte</h2>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 phraseAccroche" id="accrocheCompte">
+            <i class="fa fa-quote-left iconeGuillemets" aria-hidden="true"></i>
+            &nbsp;Consultez ou modifiez ici vos informations personnelles.&nbsp;
+            <i class="fa fa-quote-right iconeGuillemets" aria-hidden="true"></i>
+      </div>
+      
+   </div>
+  
+  <!--LIGNE 2 PICTO FORMULAIRE COMPTE-->
+  <div class="row">
+    
+    <!-- COLONNE GAUCHE : PICTO -->
+    <div class="col-md-3 col-sm-6 col-xs-12" id="picto">
+      <div class="text-center" style="color:#1e9ecc;">
+        <span [ngClass]="{'femme' : genre == 2, 'homme' : genre =='1'}">
+        <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:20vh;"></i>
+        </span>
+      </div>
+
+      <!--bouton Déconnexion-->
+      <Button class="btn boutonAkachan btnColGauche" label="Déconnexion" 
+      (click)="deconnecter($event)">  
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
+      </Button>
+      <!--bouton Recommencer à zéro-->
+      <Button class="btn boutonAkachan btnColGauche"
+      (click)="confirmSuppressionToutesEstimations()">
+            <i class="fa fa-star-o" aria-hidden="true"></i> Remise à zéro ?
+      </Button>
+
+    </div>
+    
+    <!-- cOLONNE DROITE : EDITION COMPTE -->
+    <div class="col-md-9 col-sm-6 col-xs-12">
+      
+      <h3 id="titreInfosPersos">Informations personnelles</h3>
+      
+      <!--FORMULAIRE-->
+      <form class="form-horizontal" role="form" #formModif="ngForm" style="font-size:2.5vh;">
+        
+        <!--email-->
+        <div class="form-group">
+           <label class="col-lg-3 col-sm-6 control-label">Email:</label>
+           <div class="col-lg-8 col-sm-6">
+              <label class="control-label">{{emailRef}}</label>
+           </div>
+        </div>        
+        
+        <!--prenom-->
+        <div class="form-group">
+          <label class="col-lg-3 col-sm-6 control-label">Prénom:</label>
+          <div class="col-lg-6 col-sm-6">
+            <input class="form-control form-control-lg inputFormulaire" #prenomCompte="ngModel" ngModel name="prenom" 
+            [(ngModel)]="prenom" type="text" required>
+          </div>
+        </div>
+        
+        <!--genre-->
+        <div class="form-group">
+          <label class="col-lg-3 col-sm-6 control-label">Genre:</label>
+          <div class="col-lg-6 col-sm-6">
+            <div class="ui-select">
+              <select class="form-control inputFormulaire" #genreCompte="ngModel" 
+                      ngModel name="genre" [(ngModel)]="genre" required>
+                <option value="1">Homme</option>
+                <option value="2">Femme</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!--mot de passe-->
+        <div class="form-group">
+          <label class="col-lg-3 col-sm-6 control-label">Mot de passe:</label>
+          <div class="col-lg-6 col-sm-6">
+            <input class="form-control form-control-lg inputFormulaire"  #mdpCompte="ngModel" ngModel name="mdp" type="password" required>
+          </div>
+        </div>
+
+        <!-- BOUTONS MODIF COMPTE -->
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-lg-9 col-sm-6">
+             
+               <!--bouton sauver les modifications.-->
+              <Button type="submit" class="btn boutonAkachan btnModifCompte"
+              (click)="modifierCompte(formModif)" [disabled] = "formModif.invalid">  
+                    Sauver les modifications
+              </Button>
+             
+             <!--bouton annuler.-->
+              <Button type="submit" class="btn boutonAkachan btnModifCompte" (click)="annulerModif(formModif)">  
+                    Annuler
+              </Button>
+             
+          </div>
+        </div>
+      </form>
+      
+      <div align="center" *ngIf="!modifMdpActive" id="TexteChangerMdp"> Changer de mot de passe ? <button md-button id="btnChangerMdp"
+       (click)="modifMdpActive = true">Cliquez ici !</button></div>
+
+        <!--FORMULAIRE CHANGEMENT DE MOT DE PASSE-->
+      <form *ngIf="modifMdpActive" class="form-horizontal" role="form" #formMdp="ngForm" style="font-size:2.5vh;"> 
+        
+         <!--mdp actuel-->
+        <div class="form-group">
+          <label class="col-lg-3 col-sm-6 control-label" style="font-size:2vh;">Mot de passe actuel:</label>
+          <div class="col-lg-6 col-sm-6">
+            <input class="form-control form-control-lg inputFormulaire"  #mdpActuel="ngModel" ngModel name="mdpActuel" type="password" placeholder="saisir votre mot de passe actuel" required>
+          </div>
+        </div>
+
+         <!--nouveau mdp -->
+        <div class="form-group">
+          <label class="col-lg-3 col-sm-6 control-label" style="font-size:2vh;">Nouveau:</label>
+          <div class="col-lg-6 col-sm-6">
+            <input class="form-control form-control-lg inputFormulaire"  #mdpNouveau="ngModel" ngModel name="mdpNouveau" type="password"  placeholder="saisir un nouveau mot de passe" required>
+          </div>
+        </div>
+
+         <!--confirmation nouveau mdp -->
+        <div class="form-group">
+          <label class="col-lg-3 col-sm-6 control-label" style="font-size:2vh;">Confirmation:</label>
+          <div class="col-lg-6 col-sm-6">
+            <input class="form-control form-control-lg inputFormulaire"  #mdpConfirm="ngModel" ngModel name="mdpConfirm" type="password"  placeholder="confirmer votre nouveau mot de passe" required>
+          </div>
+        </div>
+
+        <!--BOUTONS MODIF MDP-->
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-lg-9 col-sm-6">
+              <!--bouton enregistrer nouveau mot de passe.-->
+              <Button type="submit" class="btn boutonAkachan"
+              (click)="modifierMotDePasse(formMdp)" [disabled] = "formMdp.invalid">  
+                    Enregistrer
+              </Button>
+             
+             <!--bouton annuler.-->
+              <Button type="submit" class="btn boutonAkachan" (click)="annulerModifMotDePasse(formMdp)">  
+                    Annuler
+              </Button>
+          </div>
+        </div>
+
+      </form>
+
+
+    <!--Messages d'infos-->
+    <div *ngIf="erreurModif" class="alert alert-danger">
+      <i class="fa fa-exclamation" aria-hidden="true" style="font-size:120%;"></i> &nbsp;{{erreurModif}}
+    </div>
+    <div *ngIf="modifReussie" class="alert alert-success"><i class="fa fa-check" aria-hidden="true" style="font-size:120%;"></i>
+               &nbsp;Modification effectuée avec <strong> succès.</strong> </div>
+    
+    <div *ngIf="succesModifMdp" class="alert alert-success">
+        <i class="fa fa-check" aria-hidden="true" style="font-size:120%;"></i>
+        &nbsp;{{succesModifMdp}}
+    </div>
+    
+    </div> <!--fermeture colonne droite-->
+    
+
+  </div> <!--fermeture ligne-->
+
+
+
+
+
+</div> <!--fermeture container-->
+
+
+
+  

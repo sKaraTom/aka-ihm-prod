@@ -1,0 +1,71 @@
+
+#conteneur {
+    width:30vw;
+    min-width:400px;
+}
+
+.form-area {
+    /*background-color: #FAFAFA;*/
+    /*padding: 10px 40px 60px;*/
+	/*margin: 10px 0px 60px;*/
+	/*border: 1px solid GREY;*/
+}
+
+#titreContact {
+    margin-bottom: 25px; text-align: center;
+}
+
+#texteIntro {
+    font-size:small;
+    text-align:justify;
+
+}
+
+
+input:disabled {
+    background: #f9e5ee;
+}
+
+
+.boutonFormeGenerale {
+         text-align: center;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#btnEnvoyer {
+    color : #1e9ecc;
+    border-color: #1e9ecc;
+    margin-right:1vw;
+}
+
+      #btnEnvoyer:hover {
+            background-color: #1e9ecc;
+            color:white;
+        }
+
+        #btnEnvoyer:active {
+            color:white;
+            background-color: #4e81b6;
+        }
+
+#btnAnnuler {
+    border-color: #eb505f;
+    color : #eb505f; 
+}
+
+        #btnAnnuler:hover {
+            background-color: #f1717e;
+            color:white;
+        }
+
+        #btnAnnuler:active {
+            background-color: #eb505f;
+            color: white;
+        }
+
+#btnFermer {
+    font-size: 2vh;
+    font-family: "Century Gothic",calibri,Arial, Helvetica, sans-serif;
+}

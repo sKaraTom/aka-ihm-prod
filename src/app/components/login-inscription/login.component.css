@@ -1,0 +1,78 @@
+
+/* pour enlever fond jaune sur champs préremplis de chrome. */
+input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+#colTitreLogin {
+    margin:0;
+    padding:0;
+}
+
+#colTitreInscription {
+    margin:0;
+    padding:0;
+}
+
+
+.zoneFormulaire {
+    text-align: center;
+    font-size: 1.4em;
+    width:100%;
+
+}
+
+.formulaireConnexion {
+    width: 90%;
+    color:#4e81b6;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.formulaireInscription {
+    width: 40%;
+    color:#4e81b6;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.btnLoginInscription {
+    margin-top: 20px;
+    font-size:2.8vh;
+}
+
+
+#textePasEncoreDeCompte {
+    font-size: 2vh;
+    padding-top:2%;
+}
+ 
+
+#btnCliquez {
+    font-size: 2vh;
+    font-family: "Century Gothic",calibri,Arial, Helvetica, sans-serif;
+}
+
+    #btnCliquez:focus {
+        outline: none;
+    }
+
+
+
+   @media (max-width: 768px) {
+
+    #zoneInputsConnexion {
+        font-size: 1em;
+        display: block;
+        flex-direction: column;
+        justify-content: center;
+        text-align:center;
+        
+    }
+
+    h2 {
+        padding-left:3px;
+
+    }
+
+   }

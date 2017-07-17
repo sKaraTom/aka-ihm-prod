@@ -1,0 +1,173 @@
+
+
+#colTitreListeA {
+    width:44vh;
+    margin:0;
+    padding:0;
+}
+
+
+/***** DATATABLE  ********/
+.coeurFavori {
+    color:#ff6d75;
+    border-color: #cd0707;
+    border-width: x-large;
+    font-size: 4.5vh;
+    text-shadow: none !important;
+    -webkit-transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
+    transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.15);
+}
+
+ .coeurFavoriActive {
+    font-size: 4.5vh;
+    text-shadow: none !important;
+    -webkit-transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
+    transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.15);
+    background: transparent !important;
+    color: #FF6D75 !important;
+    text-shadow: 0px -1px 0px #AA0101, -1px 0px 0px #AA0101, 0px 1px 0px #AA0101, 1px 0px 0px #AA0101 !important;
+}
+
+.coeurFavori:hover, .coeurFavoriActive:hover  {
+    background: transparent;
+    background: transparent !important;
+    color: #b60000 !important;
+    text-shadow: 0px -1px 0px #CD0707, -1px 0px 0px #CD0707, 0px 1px 0px #CD0707, 1px 0px 0px #CD0707 !important;
+}
+
+
+/**** PARTIE BOUTON MAIL & AIME PLUS ********/
+#ligneBoutons {
+    margin-bottom:1.5%;
+    margin-left:auto; 
+    margin-right:auto;
+    width:62vw; /* pour que le bouton soit aligné avec datatable */
+}
+
+    .iconeBouton {
+        font-size:3.5vh;
+    }
+
+
+    #colBtnAimePlus {
+        /*padding-right:0;*/
+    }
+
+    #colBtnMail {
+        margin-right:2%;
+    }
+
+    .boutonFormeGenerale {
+        min-width:50px;
+        width:7vh;
+        height : 6.5vh;
+        text-align: center;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+        .boutonFormeGenerale:focus {
+            outline:none;
+        }
+
+    #btnMail {
+        color : #1e9ecc;
+        border-color: #1e9ecc;
+    }
+
+        #btnMail:hover {
+            background-color: #1e9ecc;
+            color:white;
+        }
+
+        #btnMail:active {
+            color:white;
+            background-color: #4e81b6;
+        }
+
+    #btnAimePlus {
+        border-color: #eb505f;
+        color : #eb505f; 
+    }
+
+        #btnAimePlus:hover {
+            background-color: #f1717e;
+            color:white;
+        }
+
+        #btnAimePlus:active {
+            background-color: #eb505f;
+            color: white;
+        }
+
+
+/* *****PARTIE DIALOG MAIL****** */
+
+/* remplacer css natif primeng */
+:host /deep/ .dialogMail {
+    font-size:2vh;
+}
+
+.colDialog {
+    padding:5px;
+    /*text-align: center;*/
+    /*border-style:groove;*/
+}
+
+
+/*boucle prénoms sélectionnés*/
+#introBoucle {
+    font-size:1.8vh;
+    padding-bottom:2vh;
+}
+
+#ligneBoucleSelectionMail {
+    min-width:40vw;
+    max-width:80vw;
+    max-height:80vh;
+}
+
+#boucleSelectionMail {
+    font-size:2.6vh;
+    text-transform:capitalize;
+    font-weight:bold;
+}
+
+/*Checkbox*/
+
+#ligneCheckbox {
+    padding-top:2vh;
+}
+
+#introCheckboxMail {
+    text-align:right;
+    font-size:1.8vh;
+}
+
+.texteCheckbox {
+  font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding-left:0.5vw;
+}
+
+
+#alertDialogMail {
+    padding-top:3px;
+    padding-bottom:3px;
+    margin:0;
+}
+
+
+@media (max-width: 768px) {
+
+    #ligneBoutons {
+        margin-right:0;
+    }
+
+
+}

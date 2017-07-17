@@ -1,0 +1,75 @@
+   /* pour enlever fond jaune sur champs préremplis de chrome. */
+input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+/*changement de couleur du picto suivant sexe*/
+.femme {
+    color:#1e9ecc;
+}
+
+.homme {
+    color:#4e81b6 ;
+}
+
+#ligneTitreCompte {
+    margin-bottom:1.5%;
+    padding-bottom:2vh;
+    margin-top:0;
+}
+
+#colTitreCompte {
+    width:27vh;
+    margin:0;
+    padding:0;
+}
+
+#titreInfosPersos {
+    font-size:3vh;
+    padding-bottom:1vh;
+}
+
+/*augmenter taille du texte dans input du formulaire*/
+.inputFormulaire {
+    font-size:2vh;
+    min-height:4vh;
+}
+
+
+.btnColGauche {
+    font-size:2.2vh;
+    margin-top:4vh;
+}
+
+.btnModifCompte {
+    margin-right:auto;
+    margin-left:auto;
+}
+
+#TexteChangerMdp {
+    font-size: 2vh;
+}
+
+
+#btnChangerMdp {
+    font-size: 2vh;
+    font-family: "Century Gothic",calibri,Arial, Helvetica, sans-serif;
+}
+
+    #btnChangerMdp:focus {
+        outline: none;
+    }
+
+
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    #picto {
+        display:none;
+    }
+
+
+}

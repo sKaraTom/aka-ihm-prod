@@ -1,0 +1,272 @@
+
+/*1ère ligne titre*/
+
+#ligneTitrePrenomGen {
+  margin-top:0;
+  padding-bottom : 2vh;
+  margin-bottom:4vh;
+}
+
+#colTitrePrenom {
+    /* width:47vh; */
+    margin:0;
+    padding:0;
+}
+
+/* 2ème ligne */
+#ligneDeuxPrenomEstimOptions {
+    min-height:250px; 
+    height:39vh; 
+    max-height: 350px;
+}
+
+/*colonne qui englobe les boutons estimations et le prénom aléat. */
+#colZoneEstimationsPrenom {
+    /*border-style:groove;*/
+}
+
+  /*ligne pour aligner en fin les colonnes à l'intérieur*/
+  #ligneEstimPrenom {
+    height:100%;
+  }
+
+/*colonne qui englobe les options et la légende. */
+#colZoneOptionsLegende {
+   padding-left:0;
+   padding-right:0;
+}
+
+
+/******** PARTIE BOUTONS ESTIMATIONS *********/
+
+.btnEstimation {
+    font-size:2.5vw;
+    color: white;
+    max-width:10.5vw;
+    overflow: hidden;
+    display: flex; /* 3 lignes pour centrer verticalement:*/
+    flex-direction: column; /* direction d'affichage verticale */
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    /*border-style:groove;*/
+}
+
+    .btnEstimation:hover {
+      font-size: 2.7vw;
+      -webkit-box-shadow: inset 3px 0px 10px 1px rgba(255, 255, 255, 0.4);
+      -moz-box-shadow:    inset 3px 0px 10px 1px rgba(255, 255, 255, 0.4);
+      box-shadow: 3px 0px 10px 1px rgba(255, 255, 255, 0.4) inset,2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .btnEstimation:active {
+      font-size: 2.3vw;
+      box-shadow: 3px 0px 10px 1px rgba(0,0, 0, 0.2) inset,2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+
+#btnAimePas {
+    text-indent: -2vw;
+}
+
+#btnAime {
+    padding-left:5px; 
+}
+
+    .btnEstiGarcon {
+        background-color:#4e81b6 ;
+    }
+
+    .btnEstiFille {
+        background-color: #1e9ecc;
+    }
+
+      .btnEstiGarcon:hover {
+        background-color: #7aa8d8;
+      }
+
+      .btnEstiFille:hover {
+        background-color: #4ac2f4;
+      }
+
+/* Classe CSS pour raccourcis claviers boutons estimations (ctrl + flèche gauche ou droite)*/
+.btnEstiActive {
+    font-size: 2.3vw;
+    box-shadow: 3px 0px 10px 1px rgba(0,0, 0, 0.2) inset,2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+
+/******* PARTIE PRENOM ALEATOIRE *********/
+
+#colPrenomAleatoire {
+  text-align:center;
+  color: white;
+  font-family: AkaPolice;
+  font-size: 6vmax;
+  Line-Height: 0.8;
+  white-space : pre-line;
+  min-width: 55%;
+  overflow: hidden;
+  display: flex; /* 3 lignes pour centrer verticalement:*/
+  flex-direction: column; /* direction d'affichage verticale */
+  justify-content: center;
+  margin-left:5px;
+  margin-right:5px;
+  border-radius: 10px;
+}
+
+   .garcon {
+  background-color:#4e81b6 ;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  }
+
+   .fille {
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  background-color: #1e9ecc;
+  }
+
+
+/***** PARTIE OPTIONS TENDANCES LEGENDE **********/
+
+#cadreChoixTendances {
+    width:18vw;
+    border-style: solid;
+    border-width: small;
+    border-radius: 8px;
+    border-color: #1e9ecc;
+    color : #1e9ecc; 
+    text-align: center;
+    list-style-type: none;  /* pour supprimer puces et liste */
+}
+    
+    #cadreChoixTendances li {
+        padding : 0.5vh;
+    }
+
+#titreOptions {
+  font-size:1.2vw;
+}
+  
+:host /deep/ .ui-togglebutton {
+  border-radius: 6px;
+  font-size:1.2vw;
+}
+
+
+/* LEGENDE */
+
+.divLegende {
+    width:18vw;
+    padding-top:1vh;
+    color : #1e9ecc;
+    font-size: 1.2vmax;
+    text-align: center;
+    list-style-type: none;  /* pour supprimer puces et liste */
+}
+
+    .divLegende li {
+      margin-left:3px;
+      padding-bottom:2vh;
+      font-size:1vmax;
+      font-style:italic;
+      text-align: left;
+    }
+
+    #legendeAimePas {
+      padding-top:1vh;
+    }
+
+#texteRaccourcisClavier {
+  font-size:1.2vmax;
+  text-align: left;
+}
+
+    #texteRaccourcisClavier i {
+      font-size:3.2vh;
+    }
+
+
+/* OVERLAY RACCOURCIS CLAVIER */
+
+#raccourcis {
+  list-style-type: none;
+  font-size: 0.9em;
+  color : #1e9ecc;
+}
+
+
+/********LIGNE 3 BOUTONS RADIO - CONFIRMATION - BOUTON PASSER *********/
+
+#ligneTrois {
+  margin-top:1%;
+}
+
+.centrerVerti {
+  display: flex; /* 3 lignes pour centrer verticalement:*/
+  flex-direction: column; /* direction d'affichage verticale */
+  justify-content: center; 
+}
+
+/* BOUTON RADIO */
+#colBoutonRadioSexe {
+  font-size: 1.3vmax;
+  padding-right:0px;
+  padding-left:0px;
+}
+
+
+/* PHRASE CONFIRMATION */
+#colConfirmation {
+  min-width: 37%;
+  padding-left:3px;
+  padding-right:3px;
+}
+
+#confirmation {
+  text-align: center;
+  font-size:1.6vh;
+  font-style: italic;
+}
+
+
+/* BOUTON PASSER */
+
+#colBtnPasser {
+  padding-left:0px;
+  padding-right:0px;
+}
+
+.btnPasser {
+    margin-left:5px;
+    font-size: 1.3vmax;
+}
+
+
+/* Classe active pour raccourci clavier */
+.btnPasserActive {     
+  background-color: #4e81b6;
+  color: white;
+}
+
+
+
+/****** CHART *********/
+
+#lignePopularite {
+  font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+  margin-top:0px;
+}
+
+#colPopularite {
+  font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+}
+
+/* remplacer css natif primeng pour titre du fieldset */
+:host /deep/ .ui-fieldset-legend {
+    font-size:1.3vmax;
+}
+
+#insee {
+  text-align: right;
+  font-size:2.2vh;
+}

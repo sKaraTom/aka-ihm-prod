@@ -1,0 +1,52 @@
+   
+<div class="container-fluid containerGeneral">
+
+    <!--LIGNE 1 TITRE-->
+   <div class="row ligneTitre" style="margin-bottom:7vh;">
+      <div class="col-md-5 col-sm-5 col-xs-12 colTitre" id="colTitreLogin">
+         <h2 class="titreRubrique"> Connexion</h2>
+      </div>
+      <div class="col-md-7 col-sm-7 col-xs-12 phraseAccroche">
+            <i class="fa fa-quote-left iconeGuillemets" aria-hidden="true"></i>
+            &nbsp; Authentifiez-vous pour accéder à toutes les fonctionnalités du site.&nbsp;
+            <i class="fa fa-quote-right iconeGuillemets" aria-hidden="true"></i>
+      </div>
+   </div>
+
+
+    <form  #formulaireConnexion="ngForm" class="zoneFormulaire" (submit)="connecter($event)" *ngIf="!isAuthentifie">
+
+  <table class="formulaireConnexion" cellspacing="0">
+    <tr>
+      <td>
+        <md-input-container class="formulaireConnexion">
+          <input mdInput type="text"  #emailConnexion="ngModel" ngModel name="email" [(ngModel)]="email" placeholder="email" required>
+        </md-input-container>
+      </td>
+      <td>
+        <md-input-container class="formulaireConnexion">
+          <input mdInput type="password"  #mdpConnexion="ngModel" ngModel name="mdp" [(ngModel)]="password" 
+              placeholder="mot de passe" minlength="4" required>
+        </md-input-container>
+    </td>
+    </tr>
+  </table>
+       
+       <Button type="submit" class="btn boutonAkachan btnLoginInscription"> Connexion </Button>
+  
+  </form>
+
+  <div align="center" id="textePasEncoreDeCompte"> Pas encore de compte ? <button md-button id="btnCliquez" (click)="afficherInscription()">Cliquez ici !</button></div>
+
+   <div align="center" *ngIf="error" class="alert alert-danger">
+      <i class="fa fa-exclamation" aria-hidden="true" style="font-size:120%;"></i>&nbsp;{{error}}
+  </div>
+  
+  <hr *ngIf="inscriptionAffichee" style="margin-top:6%; padding-bottom: 3%;">
+
+
+
+  <inscription *ngIf="inscriptionAffichee"></inscription>
+
+
+</div>

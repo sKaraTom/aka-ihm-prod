@@ -1,0 +1,135 @@
+
+
+#ligneTitreAccueil {
+    margin-bottom:1.5%;
+}
+
+.cardTitre {
+    font-size:2.8vh;
+}
+
+
+/*CARD TEXTE DE BIENVENUE*/
+#cardTexteBienvenue {
+    margin-bottom:2%;
+}
+
+#texteBienvenue {
+    font-size:1.9vh;
+}
+
+#btnInscription {
+    width : 9.5em;
+    height : 2.7em;  
+    font-family: century gothic;
+    border-radius: 8px;
+    background-color: white;
+    border-color: #1e9ecc;
+    color : #1e9ecc; 
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    float: right;
+    text-align: left;
+}
+
+    #btnInscription:hover {
+        background-color: #1e9ecc;
+        color:white;
+   }
+
+   #btnInscription:active {
+        background-color: #4e81b6;
+        color: white;
+   }
+
+/*CARD STATS GENERALES*/
+#cardBlockStatsGen {
+    padding-bottom:0;
+    
+}
+
+        .statWidget {
+            font-size:2vh;
+        }
+
+        #nbreEstims {
+            margin:0px;
+            padding:0px;
+            width:100%;
+        }
+
+        .iconeStatWidget {
+            color:#af0000;
+            font-size:7vh;
+
+        }
+
+        .chiffreStatsWidget {
+            font-size:7vh;
+        }
+
+/*TOP 3 PRENOMS*/
+#cardBlockTopPrenoms {
+
+}
+
+    #listePucesTop {
+        list-style: none;
+        text-align: left;
+        margin:0;
+    }
+
+    #listePucesTop strong {
+        font-size:1.4em;
+    }
+
+    #topFille {
+        color:#1e9ecc;
+
+    }
+
+    #topGarcon {
+        color:#47719d;
+
+    }
+
+
+
+
+@media (min-width: 1590px) {
+
+  #listePucesTop strong {
+    font-size:2em;
+}
+
+
+
+ #btnInscription {
+    font-size:1.3em;
+ }
+
+.ui, .label {
+    margin:0;
+    padding:0;
+}
+
+.label {
+  padding-top:0.5em;
+}
+
+
+}
+
+@media (max-width: 768px) {
+
+#ligneTitreAccueil {
+padding-left:2%;
+}
+
+
+#carrousel {
+ display:none;
+
+}
+
+}
+

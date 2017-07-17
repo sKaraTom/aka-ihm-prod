@@ -1,0 +1,193 @@
+
+
+#ligneTitreRecherche {
+    margin-bottom:3vh;
+}
+
+#colTitreRecherche {
+    width:44vh;
+    margin:0;
+    padding:0;
+}
+
+/*CHAMP INPUT RECHERCHE*/
+
+#LigneInput {
+    margin:0;
+}
+
+#inputSaisie {
+    font-size:2.5vh;
+    
+}
+
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+        #custom-search-input input{
+            border: 0;
+            box-shadow: none;
+            -webkit-box-shadow: 0 0 0 1000px white inset; /* pour enlever fond jaune sur champs préremplis de chrome. */
+        }
+
+        #custom-search-input button{
+            margin: 2px 0 0 0;
+            background: none;
+            box-shadow: none;
+            border: 0;
+            color: #666666;
+            border-left: solid 1px #ccc;
+        }
+
+        #custom-search-input button:hover{
+            border: 0;
+            box-shadow: none;
+            color:#1e9ecc;
+            border-left: solid 1px #ccc;
+        }
+
+        #custom-search-input button:active{
+            color:#4e81b6;
+        }
+
+        #custom-search-input button:focus{
+            outline: none;
+        }
+
+        #custom-search-input .glyphicon-search{
+            font-size: 23px;
+        }
+
+
+
+.garcon{ color:#47719d; }
+
+.fille{ color:#1e9ecc; }
+
+
+#radioSexe {
+    padding-left:1em;
+    display: flex; /* 3 lignes pour centrer verticalement:*/
+    flex-direction: column; /* direction d'affichage verticale */
+    justify-content: center; 
+    font-size:1.3vmax;
+}
+
+#checkboxExacte {
+    padding-left:1em;
+    display: flex; /* 3 lignes pour centrer verticalement:*/
+    flex-direction: column; /* direction d'affichage verticale */
+    justify-content: center; 
+    font-size:1.3vmax;
+}
+
+#texteCheckbox {
+  font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+}
+
+#grilleDatalist {
+    padding:2vh;
+    /*border-bottom:1px solid #D5D5D5;*/
+}
+
+#divColChart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#iconeChart {
+    font-size: 3vh;
+    cursor:pointer;
+    text-align: left;
+}
+
+        #iconeChart:hover {
+            color:#1e9ecc;
+        }
+
+        #iconeChart:active {
+            color:#4e81b6 !important;
+        }
+
+
+#divColPrenom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+        #divMiseEnFormePrenom {
+            text-transform:capitalize;
+            font-size:2.8vh;
+        }
+
+#boutonAime {
+    width:15vh;
+    height:4.8vh;
+    overflow: hidden;
+    color : #1e9ecc;
+    background-color: white;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border-color: #1e9ecc;
+    padding-left:0;
+    vertical-align : middle;
+    /*text-indent: -5vh;*/
+    /*padding-top:0;*/
+}
+
+        #boutonAime:hover {
+            background-color: #1e9ecc;
+            color:white;
+        }
+
+        #boutonAime:focus {
+        outline: none;
+        }
+
+        #boutonAime:active {
+            background-color: #4e81b6;
+            color: white;
+        }
+
+
+#iconeEtoile {
+    /*float:left;*/
+    position: relative;
+    top: -2.2vh;
+    left: -0.8vh;
+    /*text-indent: -15vh;*/
+    font-size:6.5vh;
+    padding-top:0;
+}
+
+#texteBouton {
+    position: relative;
+    /*font-weight: bold;*/
+    top: -3.6vh;
+    left: -1vh;
+    font-size:2.3vh;
+}
+
+#texteRemplacementBouton {
+    /*font-size:small;*/
+    font-size:1.6vh;
+}
+
+/*////////////MOBILE TABLETTE//////////// */
+
+@media (max-width: 768px) {
+
+#LigneInput {
+    padding-left :0;
+    padding-right:0;
+}
+
+
+
+}

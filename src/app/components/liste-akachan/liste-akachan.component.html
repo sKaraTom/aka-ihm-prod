@@ -1,0 +1,183 @@
+
+    <!--  GROWL -->
+    <p-growl [value]="msgs"></p-growl>
+
+  <!--  CONFIRM DIALOG DELETE -->
+    <p-confirmDialog #cd>
+        <p-footer>
+          <button type="button" pButton icon="fa-close" label="Annuler" (click)="cd.reject()"></button>
+          <button type="button" pButton icon="fa-check" label="Oui" (click)="cd.accept()"></button>
+        </p-footer>
+
+    </p-confirmDialog>
+
+<div class="container-fluid conteneurListes">
+
+    <!--LIGNE 1 TITRE ACCROCHE -->
+  <div class="row ligneTitre" style="margin-bottom:20px;">
+      <div class="col-md-6 col-sm-6 col-xs-12 colTitre" id="colTitreListeA">
+         <h2 class="titreRubrique"> Ma liste <span style="font-family:Akapolice; font-size:2em;">Akachan</span></h2>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 phraseAccroche" id="accrocheListeA">
+             <i class="fa fa-quote-left iconeGuillemets" aria-hidden="true"></i>
+             &nbsp;Retrouvez ici tous les prénoms que vous avez aimés.
+            <i class="fa fa-quote-right iconeGuillemets" aria-hidden="true"></i>
+      </div>
+  </div>    
+
+  <!-- LIGNE 2 BOUTONS -->
+  <div class="row justify-content-end" id="ligneBoutons">
+        <!--bouton envoyer un mail-->
+        <div class="col-auto"  id="colBtnMail">
+                <button class="btn btn-outline-info boutonFormeGenerale" id="btnMail" type="button" (click)="ouvrirDialogMail()"
+                     mdTooltip="envoyer ma sélection" >
+                    <i class="fa fa-envelope iconeBouton" aria-hidden="true"></i>
+                </button>
+        </div>
+        <!--bouton je n'aime plus-->
+        <div class="col-auto"  id="colBtnAimePlus">
+                <button class="btn btn-outline-info boutonFormeGenerale" id="btnAimePlus" type="button" (click)="confirmerSuppression()" mdTooltip="je n'aime plus">
+                     <i class="fa fa-thumbs-down iconeBouton" aria-hidden="true"></i>
+                </button>
+        </div>
+  </div>
+
+<!--  DATA TABLE LISTE AKACHAN ORDINATEUR -->
+
+    <p-dataTable styleClass="tableAkaNoire" [value]="listeAkachan" sortField="dateEstimation" [sortOrder]="-1" 
+    [resizableColumns]="true" [contextMenu]="cm" [responsive]="true"
+     selectionMode="multiple" [(selection)]="estimSelectionnees" dataKey="uuid" [rows]="10" [paginator]="true" [pageLinks]="5"
+     [rowsPerPageOptions]="[10,20,30]" [headerCheckboxToggleAllPages]="true"
+     emptyMessage="vous n'avez pas encore ajouté de prénom à votre liste." [loading]="loading" #dt>
+
+        <!--  CHECKBOX -->
+        <p-column styleClass="col-checkbox" selectionMode="multiple" name="check"></p-column>
+
+        <!--  CHART -->
+        <p-column styleClass="col-chart" header="pop.">
+            <ng-template let-estimation="rowData" pTemplate="body">
+                <button type="button" pButton (click)="selectEstim($event,estimation,op3);" icon="fa-bar-chart "></button>
+            </ng-template>
+        </p-column>
+
+        <!--  PRENOM -->
+         <p-column styleClass="col-prenom" sortable="true" field="prenom" header="prénom"
+            [filter]="true" filterPlaceholder="chercher un prénom">
+                <ng-template let-prenom let-estimation="rowData" pTemplate="body">
+                    <span [ngClass]="{'fille' : estimation.sexe == 2, 'garcon' : estimation. sexe =='1'}" id="champPrenom">
+                       {{estimation[prenom.field] | capitalize}}
+                    </span>
+                </ng-template>
+        </p-column>
+
+        <!--  FAVORIS -->
+        <p-column styleClass="col-favoris" sortable="true" field="favori" header="mes favoris">
+            <ng-template let-colonne let-estimation="rowData" pTemplate="body">
+                     <!-- <sm-rating class="massive heart" (onRate)="modifierEstimation(estimation)" [initialRating]=estimation.favori [maxRating]="1"></sm-rating>     -->
+                <div [ngClass]="{'coeurFavori' : !estimation.favori, 'coeurFavoriActive' : estimation.favori }"     (click)="modifierEstimation(estimation);!estimation.favori = estimation.favori"> 
+                     <i class="fa fa-heart"></i>
+                </div>
+                <!-- <div *ngIf="estimation.favori == '0'" [ngClass]="{'coeurFavori' : estimation.favori == '0', 'coeurFavoriActive' : estimation.favori == '1'}"     (click)="modifierEstimation(estimation);estimation.favori == '1'"> 
+                     <i class="fa fa-heart"></i>
+                </div>  -->
+            </ng-template>
+        </p-column>
+
+        <!--  SEXE -->
+        <p-column styleClass="col-sexe" [style]="{'overflow':'visible'}" sortable="true" field="sexe" header="sexe" [filter]="true" filterMatchMode="equals">
+            <!--  filtre par sexe -->
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="listeGenre" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+            <!--  champs -->
+             <ng-template let-colonne let-sexe="rowData" pTemplate="body">
+                    <span id="champSexe" [ngClass]="{'fille' : sexe[colonne.field]== '2', 'garcon' : sexe[colonne.field]=='1'}">{{sexe[colonne.field] | genre }}</span>
+                </ng-template>
+        </p-column>
+
+        <!--  DATE AJOUT -->
+        <p-column styleClass="col-date" sortable="true" field="dateEstimation" header="date d'ajout">
+                <ng-template let-date let-estimation="rowData" pTemplate="body">
+                    <span id="champDate">{{estimation.dateEstimation | date:'dd/MM/y  HH:mm'}}</span>
+                </ng-template>
+        </p-column>
+
+        <p-footer>  
+        </p-footer>
+    </p-dataTable>
+
+
+  <p id="texteBasPageAka"> <i class="fa fa-info-circle fa-2x bleuAka" aria-hidden="true"></i> Vous n'aimez plus certains prénoms ? <br>
+    En les sélectionnant, vous pouvez les retirer de votre liste à l'aide du bouton ou du clic droit.</p>
+ <p id="astuceAka"> <span class="bleuAka">Astuce :</span>
+ sélectionnez plusieurs lignes à l'aide de la touche CTRL.</p>
+
+</div> <!-- fermeture div container -->
+
+    <!-- Elements complémentaires à la datatable : contextMenu et overlay de stats -->  
+
+    <p-contextMenu #cm appendTo="body" [model]="items"></p-contextMenu>
+
+    <p-overlayPanel #op3 appendTo="body" >
+    
+    <h2>Popularité du prénom {{ estimationSelectionnee.prenom | capitalize }}</h2>
+     <p-chart type="bar" [data]="data" [options]="options" width=500vh ></p-chart>
+       <p style="text-align: right;">Source : INSEE.</p>
+    </p-overlayPanel>
+
+
+    <!--********* DIALOG ENVOI MAIL *******-->
+    <p-dialog styleClass="dialogMail" header="Envoyer ma sélection" [(visible)]="dialogMailEstVisible" 
+            modal="modal" [responsive]="true" [resizable]="false" [closable]="false">
+        
+        <!--Afficher la sélection de prénoms-->
+        <div class="row justify-content-md-center" id="introBoucle">
+                Les prénoms que je souhaite partager :
+        </div>
+        <div class="row justify-content-md-center" id="ligneBoucleSelectionMail"> 
+            
+                <div *ngFor="let estim of listePrenomsAEnvoyer; let last=last;" id="boucleSelectionMail" 
+                    [ngClass]="estim.sexe == '1' ? 'garcon' : 'fille'">
+                        <span  *ngIf="!last"> {{estim.prenom | capitalize }} -&nbsp;</span> 
+                        <span *ngIf="last">{{estim.prenom | capitalize }} </span>
+                </div>
+        </div>
+
+        <!--checkbox pour choix du mail-->
+        <div class="row justify-content-md-center" id="ligneCheckbox">   
+            <div class="col-auto colDialog" id="introCheckboxMail">
+                Envoyer à : 
+            </div>
+            <div class="col-auto colDialog">
+                 <md-checkbox [(ngModel)]="mailClientCheck"><span class="texteCheckbox">&nbsp;{{mailClient}}</span></md-checkbox>
+            </div>
+            <div class="col-auto colDialog">
+                 <md-checkbox [(ngModel)]="mailAutreCheck"><span class="texteCheckbox">autre</span></md-checkbox>
+            </div>
+        </div>
+
+        <!--input mail autre-->
+        <div class="row justify-content-md-center">
+            <div class="col colDialog">
+            <input type="email" class="form-control input" [style.visibility]="mailAutreCheck ? 'visible':'hidden'"
+               [(ngModel)]="mailAutre" placeholder="saisir une adresse email"/>
+            </div>
+        </div>
+
+        <!--boutons-->
+         <p-footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="button" pButton icon="fa-close" (click)="annulerDialogMail()" label="Annuler"></button>
+                <button type="button" pButton icon="fa-paper-plane" (click)="envoyerMail();" label="Envoyer"></button>
+            </div>
+        </p-footer>
+
+         <div *ngIf="messageErreur" class="alert alert-danger" id="alertDialogMail">
+            <i class="fa fa-exclamation" aria-hidden="true" style="font-size:120%;"></i> &nbsp;{{messageErreur}}
+         </div>
+
+
+    </p-dialog>
+
+
+    

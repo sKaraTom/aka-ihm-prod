@@ -1,0 +1,61 @@
+
+<div class="container-fluid">
+
+    <!--LIGNE 1 TITRE ACCROCHE -->
+  <div class="row ligneTitre" style="margin-bottom:2%;">
+      <div class="col-md-5 col-sm-6 col-xs-12 colTitre" id="colTitreListeN">
+         <h2 class="titreRubrique" style="color:#eb505f"> Envie de changer d'avis ?</h2>
+      </div>
+      <div class="col-md-7 col-sm-6 col-xs-12 phraseAccroche" id="accrocheListeN">
+             <i class="fa fa-quote-left iconeGuillemets" aria-hidden="true"></i>
+             &nbsp;Ici vous pouvez à tout moment repêcher des prénoms éliminés.
+            <i class="fa fa-quote-right iconeGuillemets" aria-hidden="true"></i>
+      </div>
+  </div>
+
+
+    <!--  GROWL -->
+    <p-growl [value]="msgs"></p-growl>
+
+<!--  DATA TABLE LISTE NOIRE -->
+<!--<div align="center" id="divDataTable">-->
+    <p-dataTable styleClass="tableAkaNoire" [value]="listeNoire" sortField="dateEstimation" [sortOrder]="-1" 
+    [resizableColumns]="true" [contextMenu]="cm" [responsive]="true"
+     selectionMode="single" [(selection)]="estimARepecher" dataKey="uuid" [rows]="10" [paginator]="true" [pageLinks]="10"
+     [rowsPerPageOptions]="[10,20,30]" emptyMessage="pas de prénom à afficher." [loading]="loading" #dt>
+
+
+        <!--  PRENOM -->
+         <p-column styleClass="col-noire-prenom" sortable="true" field="prenom" header="prénom" [filter]="true" filterPlaceholder="chercher un prénom">
+                <ng-template let-prenom let-estimation="rowData" pTemplate="body">
+                    <span [ngClass]="{'fille' : estimation.sexe == 2, 'garcon' : estimation. sexe =='1'}" id="champPrenom">
+                     {{estimation[prenom.field] | capitalize}}
+                    </span>
+                </ng-template>
+        </p-column>
+
+        <!--  SEXE -->
+        <p-column styleClass="col-sexe" sortable="true" field="sexe" header="sexe" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
+            <ng-template pTemplate="filter" let-col>
+            <p-dropdown [options]="listeGenre" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+             </ng-template>
+             <ng-template let-colonne let-sexe="rowData" pTemplate="body">
+                    <span id="champSexe" [ngClass]="{'fille' : sexe[colonne.field]== '2', 'garcon' : sexe[colonne.field]=='1'}">{{sexe[colonne.field] | genre }}</span>
+             </ng-template>
+
+        </p-column>
+
+        <!--  DATE AJOUT -->
+        <p-column styleClass="col-noire-date" sortable="true" field="dateEstimation" header="date d'ajout">
+                <ng-template let-date let-estimation="rowData" pTemplate="body">
+                    <span>{{estimation.dateEstimation | date:'dd/MM/y  HH:mm'}}</span>
+                </ng-template>
+        </p-column>
+
+        <p-footer>  
+        </p-footer>
+    </p-dataTable>
+
+</div>
+
+  <p-contextMenu #cm appendTo="body" [model]="items"></p-contextMenu>

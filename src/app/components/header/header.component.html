@@ -1,0 +1,78 @@
+        <!--LIGNE 1 LOGO MARQUE BOUTON CONNEXION-->
+        <div class="row" id="ligneLogoConnexion">
+            
+            <!--LOGO MARQUE-->
+            <div class="col col-xs-10">
+                <a routerLink="/accueil" routerLinkActive="active">
+                    <img id="logoMarque" src="assets/img/akachan-logo.png" alt="Akachan" /> 
+                </a>
+            </div>
+
+            <!--BOUTON CONNEXION-->
+            <div class="col-auto" id="col-btnConnexion">
+                        <a routerLink="/compte" id="lienConnexion"> 
+                            <div class="connexionMenu" >
+                                <i class="fa fa-user-circle" id="iconeConnexion" aria-hidden="true"></i>
+                                <div *ngIf="prenomClient" class="liensTexte" id="lienPrenom">{{prenomClient }}</div>
+                                <div *ngIf="!prenomClient" class="liensTexte">Connexion</div>
+                            </div>
+                        </a>
+            </div>
+        
+           <!--BOUTON DECONNEXION-->
+            <div class="col-auto" *ngIf="prenomClient" id="col-btnDeconnexion" mdTooltip="Déconnexion">
+                            <div class="connexionMenu" id="btnDeconnexion" (click)="deconnecter($event)" >
+                            <i class="fa fa-sign-out" id="iconeDeconnexion" aria-hidden="true"></i>
+                            </div>
+            </div>    
+            
+
+            <!--Menu Mobile-->
+            
+            <div class="col-auto col-xs-2" id="col-menuMobile">
+            <button md-icon-button [mdMenuTriggerFor]="menu">
+               <i class="fa fa-bars fa-3x"></i>
+            </button>
+          
+            <md-menu #menu="mdMenu" yPosition="below" xPosition="before">
+                <!--Accueil-->
+                <a routerLink="/accueil">
+                <button md-menu-item>
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <span>Accueil</span>
+                </button>
+                </a>
+                <!--Connexion-->
+                <a routerLink="/compte">
+                <button md-menu-item>
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    <span *ngIf="!prenomClient">Connexion</span>
+                    <span *ngIf="prenomClient">Mon compte</span>
+                </button>
+                </a>
+                <!--Prenom-->
+                <a routerLink="/prenom">
+                <button md-menu-item>
+                    <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                    <span>Prénom</span>
+                </button>
+                </a>
+                <!--Ma liste-->
+                <a routerLink="/liste">
+                <button md-menu-item>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <span>Ma liste</span>
+                </button>
+                </a>
+                <!--Recherche-->
+                <a routerLink="/recherche">
+                <button md-menu-item>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <span>Recherche</span>
+                </button>
+                </a>
+            </md-menu>
+            </div>
+
+        
+        </div>

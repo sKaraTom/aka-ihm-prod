@@ -1,0 +1,60 @@
+<div class="container-fluid" style="padding-left:0; margin-left:0;">
+
+
+<div class="row ligneTitre" style="margin-bottom:7vh;">
+      <div class="col-md-6 col-sm-6 col-xs-12 colTitre" id="colTitreInscription">
+         <h2 class="titreRubrique">Inscription</h2>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 phraseAccroche" id="accrocheInscription">
+            <i class="fa fa-quote-left iconeGuillemets" aria-hidden="true"></i>
+            &nbsp;Créez un compte, et trouvez un prénom pour la vie !&nbsp;
+            <i class="fa fa-quote-right iconeGuillemets" aria-hidden="true"></i>
+      </div>
+   </div>
+
+
+<div align="center">
+    <form #formInscription="ngForm" class="zoneFormulaire" (submit)="creerCompte(formInscription)" style="padding-bottom:10px;">
+            
+            <md-input-container class="formulaireInscription">
+                <input mdInput  type="email" #emailInscription="ngModel" ngModel name="email" placeholder="email" required email>
+                <md-error style="font-size:x-small;">ce champ est requis</md-error>
+            </md-input-container>
+            <br>
+            <md-input-container class="formulaireInscription">
+                <input mdInput  type="password" #mdpInscription="ngModel" ngModel name="mdp" placeholder="mot de passe" required>
+                <md-error style="font-size:x-small;">ce champ est requis</md-error>
+            </md-input-container>
+            <br>
+            <md-input-container class="formulaireInscription">
+                <input mdInput type="password" #mdpConfirm="ngModel" ngModel name="mdpConfirm" placeholder="confirmation du mot de passe" required>
+                <md-error style="font-size:x-small;">champs requis.</md-error>
+            </md-input-container>
+            <br>
+            <md-input-container class="formulaireInscription" style="width:30%" >
+                <input mdInput type="text" #prenomInscription="ngModel" ngModel name="prenom" placeholder="prénom (ou pseudo)" required>
+                 <md-error style="font-size:x-small;">ce champ est requis</md-error>
+            </md-input-container>
+            <md-select placeholder="Genre" #genreInscription="ngModel" ngModel name="genre" required>
+                    <md-option value="1"> Homme </md-option>
+                    <md-option value="2"> Femme </md-option>
+            </md-select>
+
+            <br>
+
+              <Button type="submit" class="btn boutonAkachan btnLoginInscription"> Créer mon compte </Button>
+    </form>
+
+    <div *ngIf="erreur" class="alert alert-danger">
+        <i class="fa fa-exclamation" aria-hidden="true" style="font-size:120%;"></i> &nbsp;{{erreur}}
+    </div>
+
+  <div *ngIf="inscriptionReussie" class="alert alert-success">
+      <i class="fa fa-check" aria-hidden="true" style="font-size:120%;"></i>
+      <strong> &nbsp;Bravo !</strong> votre compte est maintenant créé. 
+  <button md-button (click)="redirigerVersPageLogin()"> Se connecter</button>
+
+</div>
+
+
+</div>

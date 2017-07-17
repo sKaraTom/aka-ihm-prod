@@ -1,0 +1,23 @@
+    <div class="container-fluid" style="min-height:100vh;">
+        
+        <!--LIGNE 1 HEADER LOGO CONNEXION-->
+        <aka-header></aka-header>
+
+        
+           <!--LIGNE 2 MENU CONTENU PAGE -->
+        <div class="row ligneMenuContenu">
+
+                <!--Menu Gauche-->
+                <aka-menu></aka-menu>
+
+                  <!--Contenu page-->
+                  <div class="col" id="colContenu">
+                           <div id="contenuPage">
+                                 <router-outlet ></router-outlet>
+                            <aka-footer></aka-footer>
+                            </div>
+                  </div>
+
+        </div>
+
+    </div> 

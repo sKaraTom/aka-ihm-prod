@@ -1,0 +1,37 @@
+
+
+/*LIGNE 2 MENU CONTENU*/
+
+.ligneMenuContenu {
+  margin-right:0;
+  width:100vw;
+}
+
+#colContenu {
+  margin:0;
+  padding:0;
+}
+
+#contenuPage {
+  padding:2% 4%;
+  padding-bottom: 1%;
+  min-height:88vh;
+  box-shadow: -1px 1px 20px rgba(0, 0, 0, 0.5);
+  background: white;
+  -webkit-border-top-left-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  border-top-left-radius: 8px;
+}
+
+
+
+/* ///////////TABLETTE MOBILE///////// */
+@media (max-width: 768px) {
+
+#contenuPage {
+padding-left:0;
+padding-right:0;
+width:100%;
+}
+
+}

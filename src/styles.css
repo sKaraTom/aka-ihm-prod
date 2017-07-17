@@ -1,0 +1,206 @@
+@font-face {
+  font-family: "AkaPolice";
+  src: url("./assets/DancingScript-Regular.otf");
+}
+
+html {
+  font-size: 100%;
+  font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+  height: 100%;
+
+  }
+
+body {
+  font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+  font-size:1em;
+  width:100%;
+  background: #eb505f;
+}
+
+#footer {
+text-align:right;
+font-size: 2vh;
+word-wrap: break-word;
+color: #eb505f;
+}
+
+
+/*ELEMENTS COMMUNS*/
+
+.containerGeneral {
+  min-height:77vh;
+  max-width: 100%;
+  padding:0;
+}
+
+.ligneTitre {
+  margin-right:0;
+  margin-left:0;
+  padding:0;
+}
+
+.colTitre {
+}
+
+
+.titreRubrique {
+}
+
+.titreRubrique::first-letter {
+  font-family:Akapolice;
+  /* font-size:8vh; */
+  font-size:4vw;
+  padding:0;
+  margin:0;
+}
+
+.phraseAccroche {
+  text-align: right;
+  font-size:1.2vmax;
+  padding-top:1em;
+  padding-right:0;
+  word-wrap: break-word;
+}
+
+.iconeGuillemets {
+  color:#eb505f;
+}
+
+.boutonAkachan {
+    font-family: "Century Gothic",calibri,Arial, Helvetica, sans-serif;
+    text-align: center;
+    color : #1e9ecc;
+    font-size:2.4vh;
+    padding:0.5em 0.8em 0.5em 0.8em;
+    border-radius: 8px;
+    border-color: #1e9ecc;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+    .boutonAkachan i {
+        font-size: 3.5vh;
+        vertical-align: middle;
+    }
+
+    .boutonAkachan:focus {
+        outline: none;
+        color : #1e9ecc;
+    }
+
+    .boutonAkachan:hover{
+     background-color: #1e9ecc;
+     color:white;
+   }
+
+   .boutonAkachan:active {
+     outline: 0 none !important;
+     background-color: #4e81b6;
+     color: white;
+   }
+
+
+/* MISE EN FORME GENERALE */
+div, h1, h2, h3, p, p-contextMenu, button, a {
+   font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: #1e9ecc;
+}
+
+h2 {
+  color: #1e9ecc;
+  /* font-size:3.6vh; */
+  font-size:2vmax;
+}
+
+
+/*  PARTIE PAGE DE CHARGEMENT */
+#logoChargement {
+  text-align: right;
+}
+
+#texteChargement {
+  display: flex;
+  flex-direction: row;
+  font-size:5.5vh;
+}
+
+  @keyframes dots {
+    50% {
+      transform: translateY(-.4rem);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .d {
+    animation: dots 1.5s ease-out infinite;
+  }
+  .d-2 {
+    animation-delay: .5s;
+  }
+  .d-3 {
+    animation-delay: 1s;
+  }
+
+
+/* @media screen and (device-aspect-ratio: 1280/1024) {
+
+  .phraseAccroche {
+  text-align: left;
+  font-size:1.2vw;
+  color:blue;
+  padding-top:1em;
+  word-wrap: break-word;
+}
+
+  } */
+
+
+/*////////////MOBILE TABLETTE//////////// */
+
+@media (max-width: 768px) {
+  
+  .ligneTitre {
+    margin:auto;
+  }
+
+  #footer {
+    font-size: initial;
+    padding-right:2%;
+  }
+
+  .phraseAccroche {
+    text-align: left;
+    font-size:3.2vw;
+    word-wrap: break-word; 
+  }
+
+  #logoChargement {
+    text-align: center;
+  }
+
+  #texteChargement {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top:3%;
+  }
+
+
+
+  body { word-wrap: break-word; }
+  pre { white-space: pre-wrap; } /* pour firefox et les <pre> */
+
+  h2 {
+    font-size : 3vh;
+    padding-left:2%;}
+}
+
+
+
+

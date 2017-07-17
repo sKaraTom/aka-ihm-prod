@@ -1,0 +1,131 @@
+
+<div class="container-fluid containerGeneral">
+
+
+  <!--LIGNE 1 TITRE CITATION-->
+  <div class="row ligneTitre" id="ligneTitreAccueil" style="margin-bottom:1.5%;">
+      <div class="col-md-6 col-sm-6 col-xs-12" style="padding-left:0;">
+          <h2 class="titreRubrique"> B{{bonjourOuBonsoir}} 
+                <span id="prenomClient" style="text-transform:capitalize;">{{prenomClient}}</span> !</h2>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12"id="col-citation">
+        <citation></citation>
+      </div>
+  </div>
+
+<!--LIGNE 2 CARDS-->
+<div class="row" style="padding-bottom: 1%;margin:0; width:100%;">
+  
+  <!--FAVORIS-->
+  <div class="col-sm-4 col-md-4 col-lg-4" style="padding-left:0;padding-right:1%;">
+    <div class="card">
+      <div class="card-block">
+        <h3 class="card-title">Mes prénoms favoris <i id="coeurFavori" class="fa fa-heart"></i></h3>
+
+            <ul style="text-decoration:none;">
+            <li id="listePucesFavoris" *ngFor="let favori of listeFavoris" style="text-align: left">
+              <div id="favoriFille" *ngIf="favori.sexe == 2">  <strong>{{favori.prenom }} </strong> fille
+              </div>
+              <div id="favoriGarcon" *ngIf="favori.sexe == 1">   <strong>{{favori.prenom }} </strong> garçon
+              </div>
+              </li>
+        </ul>
+        <!--Affichage si pas de favoris-->
+        <p class="card-text" *ngIf="listeFavoris?.length == 0"> vous n'avez pas encore indiqué de favoris.</p>
+       
+      </div>
+    </div>
+  </div>
+  
+  <!--CHART ESTIMATIONS FILLES GARCONS-->
+  <div class="col-sm-4 col-md-4 col-lg-4" style="padding-left:0;padding-right:1%;">
+    <div class="card">
+      <div class="card-block">
+        <h3 class="card-title">Mes estimations filles-garçons</h3>
+        <div class="card-text" *ngIf="statsEstimsVide"> vous n'avez pas encore estimé de prénoms. Allez à la rubrique "Prénom" et commencez à jouer !</div>
+        <p-chart *ngIf="!statsEstimsVide" type="doughnut" [data]="data"></p-chart>
+       
+      </div>
+    </div>
+  </div>
+
+  <!--COLONNES STATISTIQUES-->
+  <div class="col-sm-4 col-md-4 col-lg-4" style="padding-left:0;padding-right:0;">
+    
+     <!--MES STATS-->
+    <div class="card">
+      <div class="card-block" style="padding-bottom:0px;">
+        <h3 class="card-title">Mes statistiques</h3>
+               <div class="ui statistics">
+                        <div class="statistic">
+                            <div class="value">
+                            <i class="fa fa-star-half red" style="color:#af0000;"></i> {{totalEstimationsClient}}
+                            </div>
+                            <div class="label">
+                            Prénoms estimés
+                            </div>
+                        </div>
+                 </div>        
+
+      </div>
+    </div>
+
+      <!--TOP 3 PRENOMS AKACHAN-->
+      <div class="card" style="margin-top:3%;">
+      <div class="card-block" style="padding-bottom:0px;">
+        <h3 class="card-title">Top 3 des prénoms Akachan</h3>
+            <div class="row">
+              
+              <ul>
+                <li id="listePucesFavoris" *ngFor="let top of top3Garcons; let i = index" style="text-align: left">
+                  <div id="favoriGarcon"> {{i+1}}.<strong>{{top}}</strong> garçon </div>
+                </li>
+              </ul>
+
+              <ul>
+                <li id="listePucesFavoris" *ngFor="let top of top3Filles; let i = index" style="text-align: left">
+                  <div id="favoriFille"> {{i+1}}.<strong>{{top}}</strong> fille</div>
+                </li>
+            </ul>
+
+          </div>
+      </div>
+
+      
+    </div>
+
+      <!--QUELQUES CHIFFRES (STATS GENERALES)-->
+      <div class="card" style="margin-top:3%;">
+          <div class="card-block" style="padding-bottom:0px;">
+              <h3 class="card-title">Quelques chiffres</h3>
+                    <div align="center" class="ui two small statistics" style="margin:0;padding:0;  ">
+                              <div class="statistic" >
+                                  <div class="value" style="color:#eb505f;">
+                                    <i class="fa fa-user-o" style="color:#af0000;"></i> {{totalClients}}
+                                  </div>
+                                  <div class="label">
+                                     Total des membres
+                                  </div>
+                              </div>
+                            
+                            
+                              <div class="statistic" >
+                                  <div class="value" style="color:#eb505f;">
+                                  <i class="fa fa-star-half red" style="color:#af0000;"></i> {{totalEstimations}}
+                                  </div>
+                                  <div class="label" >
+                                  Total des prénoms<br> estimés
+                                  </div>
+                              </div>
+
+
+
+                    </div>        
+          </div>
+      </div>
+      
+  </div>
+
+</div> <!-- fin div blocs première ligne -->
+
+</div>  <!--fin div container-->

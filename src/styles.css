@@ -116,50 +116,6 @@ h2 {
 }
 
 
-/*  PARTIE PAGE DE CHARGEMENT */
-/* #logoChargement {
-  text-align: right;
-}
-
-#texteChargement {
-  display: flex;
-  flex-direction: row;
-  font-size:5.5vh;
-}
-
-  @keyframes dots {
-    50% {
-      transform: translateY(-.4rem);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-
-  .d {
-    animation: dots 1.5s ease-out infinite;
-  }
-  .d-2 {
-    animation-delay: .5s;
-  }
-  .d-3 {
-    animation-delay: 1s;
-  } */
-
-
-/* @media screen and (device-aspect-ratio: 1280/1024) {
-
-  .phraseAccroche {
-  text-align: left;
-  font-size:1.2vw;
-  color:blue;
-  padding-top:1em;
-  word-wrap: break-word;
-}
-
-  } */
-
-
 /*////////////MOBILE TABLETTE//////////// */
 
 @media (max-width: 768px) {

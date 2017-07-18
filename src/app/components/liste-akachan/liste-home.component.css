@@ -1,10 +1,19 @@
 
 #sousMenuTab {
-
     margin-bottom: 2%;
 }
 
 .tab {
-    font-size: 2.2vmin;
+    font-size: 1.2vmax;
+
+}
+
+
+@media (max-width: 768px) {
+
+.tab {
+    font-size: 100%;
+}
+
 
 }

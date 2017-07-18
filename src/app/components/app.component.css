@@ -1,4 +1,10 @@
 
+#conteneurInitial {
+  min-height:100vh;
+  max-width:100vw;
+  /* padding:0; */
+}
+
 
 /*LIGNE 2 MENU CONTENU*/
 
@@ -13,7 +19,8 @@
 }
 
 #contenuPage {
-  padding:2% 4%;
+  margin:0;
+  padding:2% 4%; 
   padding-bottom: 1%;
   min-height:88vh;
   box-shadow: -1px 1px 20px rgba(0, 0, 0, 0.5);
@@ -29,9 +36,8 @@
 @media (max-width: 768px) {
 
 #contenuPage {
-padding-left:0;
-padding-right:0;
-width:100%;
+
+  /* width:100%; */
 }
 
 }

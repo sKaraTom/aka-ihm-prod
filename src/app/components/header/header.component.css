@@ -19,7 +19,7 @@ i {
 
 .liensTexte {
   /*font-size: 1.1rem;*/
-  font-size: 1.5vw;
+  font-size: 1.5vmax;
   letter-spacing: 0.1rem;
   text-align: center;
 }

@@ -13,7 +13,9 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class EstimationService {
 
- private urlAka:string = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
+//  private urlAka:string = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
+private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
+
  private headers = new Headers({'Content-Type': 'application/json'});
 
  private token:string;
@@ -80,12 +82,6 @@ constructor(private http: Http) {
         .map((data:Response) =>data.json())
     }
 
-    //Vérifier si estimation existante : INUTILISE 
-    //  public verifierEstimationExistante(estimation: Estimation) : Observable<boolean> {
-    //     const url = `${this.urlAka +"estimation/recherche"}`;
-    //     return this.http.post(url, estimation, this.headers)
-    //         .map((data:Response) =>data.json());
-    //  }
 
     /** suppression de toutes les estimations d'un client.
      * option disponible pour le client dans sa page de compte.

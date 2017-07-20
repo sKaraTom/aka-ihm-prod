@@ -36,6 +36,10 @@
 }
 
 
+#mobile {
+  display:none;
+}
+
 /******** PARTIE BOUTONS ESTIMATIONS *********/
 
 .btnEstimation {
@@ -268,4 +272,54 @@
 #insee {
   text-align: right;
   font-size:2.2vh;
+}
+
+
+
+
+@media (max-width: 768px) {
+
+    #mobile {
+      display:initial;
+    }
+
+    #ligneDeuxPrenomEstimOptions {
+      display:none;
+    }
+
+    #colPrenomAleatoire {
+      height:20vh;
+    }
+
+    .btnPasser {
+      margin-left:5px;
+      font-size: initial;
+  }
+
+  .btnEstiFille,.btnEstiGarcon {
+    color:white;
+    width:50%;
+    height:10vh;
+  }
+
+  #ligneEstiMobile i {
+    font-size:10vw;
+  }
+
+  #colBoutonRadioSexe {
+    font-size: initial;
+    padding-right:2%;
+    padding-left:initial;
+  }
+
+  #ligneEstiMobile {
+    margin-top:4%;
+    margin-bottom:2%;
+    width:100%;
+  }
+
+  :host /deep/ .ui-fieldset-legend {
+    font-size:initial;
+}
+
 }

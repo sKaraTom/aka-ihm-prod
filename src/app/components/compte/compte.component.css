@@ -25,19 +25,25 @@ input:-webkit-autofill{
 }
 
 #titreInfosPersos {
-    font-size:3vh;
+    font-size:1.5vmax;
     padding-bottom:1vh;
 }
 
-/*augmenter taille du texte dans input du formulaire*/
+#formulaireCompte {
+    font-size:1.2vmax;
+}
+
 .inputFormulaire {
-    font-size:2vh;
+    font-size:1.2vmax;
     min-height:4vh;
 }
 
+#blocBtnGauche {
+    margin-top:4vh;
+}
 
 .btnColGauche {
-    font-size:2.2vh;
+    font-size:1vmax;
     margin-top:4vh;
 }
 
@@ -47,12 +53,12 @@ input:-webkit-autofill{
 }
 
 #TexteChangerMdp {
-    font-size: 2vh;
+    font-size: 1.2vmax;
 }
 
 
 #btnChangerMdp {
-    font-size: 2vh;
+    font-size: 1.2vmax;
     font-family: "Century Gothic",calibri,Arial, Helvetica, sans-serif;
 }
 
@@ -60,7 +66,13 @@ input:-webkit-autofill{
         outline: none;
     }
 
+#formMdp {
+    font-size:1.2vmax;
+}
 
+.labelFormMdp {
+    font-size:1vmax;
+}
 
 
 /* MOBILE */
@@ -71,5 +83,13 @@ input:-webkit-autofill{
         display:none;
     }
 
+    .inputFormulaire,#btnChangerMdp,#labelFormMdp,#TexteChangerMdp,#btnColGauche,#titreInfosPersos,.btnColGauche,
+    #formulaireCompte,#formMdp,.labelFormMdp  {
+        font-size:initial;
+    }
 
+    #blocBtnGauche {
+        margin-top:0;
+        margin-bottom:2vmax;
+    }
 }

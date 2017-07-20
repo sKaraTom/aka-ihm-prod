@@ -25,7 +25,7 @@
       </div>
   </div>    
 
-  <!-- LIGNE 2 BOUTONS -->
+  <!-- LIGNE 2 BOUTONS AIME PAS ET MAIL -->
   <div class="row justify-content-end" id="ligneBoutons">
         <!--bouton envoyer un mail-->
         <div class="col-auto"  id="colBtnMail">
@@ -43,7 +43,7 @@
   </div>
 
 <!--  DATA TABLE LISTE AKACHAN ORDINATEUR -->
-
+<div class="row justify-content-center">
     <p-dataTable styleClass="tableAkaNoire" [value]="listeAkachan" sortField="dateEstimation" [sortOrder]="-1" 
     [resizableColumns]="true" [contextMenu]="cm" [responsive]="true"
      selectionMode="multiple" [(selection)]="estimSelectionnees" dataKey="uuid" [rows]="10" [paginator]="true" [pageLinks]="5"
@@ -73,13 +73,10 @@
         <!--  FAVORIS -->
         <p-column styleClass="col-favoris" sortable="true" field="favori" header="mes favoris">
             <ng-template let-colonne let-estimation="rowData" pTemplate="body">
-                     <!-- <sm-rating class="massive heart" (onRate)="modifierEstimation(estimation)" [initialRating]=estimation.favori [maxRating]="1"></sm-rating>     -->
-                <div [ngClass]="{'coeurFavori' : !estimation.favori, 'coeurFavoriActive' : estimation.favori }"     (click)="modifierEstimation(estimation);!estimation.favori = estimation.favori"> 
+                <div [ngClass]="{'coeurFavori' : !estimation.favori, 'coeurFavoriActive' : estimation.favori }" 
+                    (click)="modifierEstimation(estimation);!estimation.favori = estimation.favori"> 
                      <i class="fa fa-heart"></i>
                 </div>
-                <!-- <div *ngIf="estimation.favori == '0'" [ngClass]="{'coeurFavori' : estimation.favori == '0', 'coeurFavoriActive' : estimation.favori == '1'}"     (click)="modifierEstimation(estimation);estimation.favori == '1'"> 
-                     <i class="fa fa-heart"></i>
-                </div>  -->
             </ng-template>
         </p-column>
 
@@ -105,7 +102,7 @@
         <p-footer>  
         </p-footer>
     </p-dataTable>
-
+</div>
 
   <p id="texteBasPageAka"> <i class="fa fa-info-circle fa-2x bleuAka" aria-hidden="true"></i> Vous n'aimez plus certains prénoms ? <br>
     En les sélectionnant, vous pouvez les retirer de votre liste à l'aide du bouton ou du clic droit.</p>
@@ -117,12 +114,14 @@
     <!-- Elements complémentaires à la datatable : contextMenu et overlay de stats -->  
 
     <p-contextMenu #cm appendTo="body" [model]="items"></p-contextMenu>
-
-    <p-overlayPanel #op3 appendTo="body" >
     
+    <!-- overlay STATS  -->
+    <p-overlayPanel #op3 appendTo="body">
+      <div id="divOverlayChart">  
     <h2>Popularité du prénom {{ estimationSelectionnee.prenom | capitalize }}</h2>
-     <p-chart type="bar" [data]="data" [options]="options" width=500vh ></p-chart>
+     <p-chart styleClass="chart" type="bar" [data]="data" [options]="options" ></p-chart>
        <p style="text-align: right;">Source : INSEE.</p>
+      </div>  
     </p-overlayPanel>
 
 

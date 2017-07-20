@@ -84,9 +84,9 @@ export class RechercheComponent implements OnInit {
             //supprimer les blancs superflus (envoi mw et dans input html)
             this.saisieRecherche = this.saisieRecherche.trim();
             
-            // valeur bouton radio (choixSexe) 
-            // style css personnalisé garçon/fille(choixClasseCss)
-            //différents pour ne pas changer de classe css en changeant valeur du bouton radio.
+            // transférer la valeur du bouton radio (choixSexe) dans une autre variable : choixClasseCss
+            // pour afficher style css personnalisé garçon/fille
+            // sans avoir de changement d'habillage en changeant la valeur du bouton radio.
             if (this.choixSexe == "1") { this.choixClasseCss = "1"; }
             if(this.choixSexe == "2")  { this.choixClasseCss = "2"; }
 

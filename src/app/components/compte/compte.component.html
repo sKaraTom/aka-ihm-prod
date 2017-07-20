@@ -31,14 +31,15 @@
   <div class="row">
     
     <!-- COLONNE GAUCHE : PICTO -->
-    <div class="col-md-3 col-sm-6 col-xs-12" id="picto">
-      <div class="text-center" style="color:#1e9ecc;">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="text-center" style="color:#1e9ecc;" id="picto">
         <span [ngClass]="{'femme' : genre == 2, 'homme' : genre =='1'}">
         <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:20vh;"></i>
         </span>
       </div>
 
       <!--bouton Déconnexion-->
+      <div id="blocBtnGauche">
       <Button class="btn boutonAkachan btnColGauche" label="Déconnexion" 
       (click)="deconnecter($event)">  
             <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
@@ -48,6 +49,7 @@
       (click)="confirmSuppressionToutesEstimations()">
             <i class="fa fa-star-o" aria-hidden="true"></i> Remise à zéro ?
       </Button>
+      </div>
 
     </div>
     
@@ -57,7 +59,7 @@
       <h3 id="titreInfosPersos">Informations personnelles</h3>
       
       <!--FORMULAIRE-->
-      <form class="form-horizontal" role="form" #formModif="ngForm" style="font-size:2.5vh;">
+      <form class="form-horizontal" role="form" #formModif="ngForm" id="formulaireCompte">
         
         <!--email-->
         <div class="form-group">
@@ -122,11 +124,11 @@
        (click)="modifMdpActive = true">Cliquez ici !</button></div>
 
         <!--FORMULAIRE CHANGEMENT DE MOT DE PASSE-->
-      <form *ngIf="modifMdpActive" class="form-horizontal" role="form" #formMdp="ngForm" style="font-size:2.5vh;"> 
+      <form *ngIf="modifMdpActive" class="form-horizontal" role="form" #formMdp="ngForm" id="formMdp"> 
         
          <!--mdp actuel-->
         <div class="form-group">
-          <label class="col-lg-3 col-sm-6 control-label" style="font-size:2vh;">Mot de passe actuel:</label>
+          <label class="col-lg-3 col-sm-6 control-label labelFormMdp">Mot de passe actuel:</label>
           <div class="col-lg-6 col-sm-6">
             <input class="form-control form-control-lg inputFormulaire"  #mdpActuel="ngModel" ngModel name="mdpActuel" type="password" placeholder="saisir votre mot de passe actuel" required>
           </div>
@@ -134,7 +136,7 @@
 
          <!--nouveau mdp -->
         <div class="form-group">
-          <label class="col-lg-3 col-sm-6 control-label" style="font-size:2vh;">Nouveau:</label>
+          <label class="col-lg-3 col-sm-6 control-label labelFormMdp">Nouveau:</label>
           <div class="col-lg-6 col-sm-6">
             <input class="form-control form-control-lg inputFormulaire"  #mdpNouveau="ngModel" ngModel name="mdpNouveau" type="password"  placeholder="saisir un nouveau mot de passe" required>
           </div>
@@ -142,9 +144,9 @@
 
          <!--confirmation nouveau mdp -->
         <div class="form-group">
-          <label class="col-lg-3 col-sm-6 control-label" style="font-size:2vh;">Confirmation:</label>
+          <label class="col-lg-3 col-sm-6 control-label labelFormMdp">Confirmation:</label>
           <div class="col-lg-6 col-sm-6">
-            <input class="form-control form-control-lg inputFormulaire"  #mdpConfirm="ngModel" ngModel name="mdpConfirm" type="password"  placeholder="confirmer votre nouveau mot de passe" required>
+            <input class="form-control form-control-lg inputFormulaire labelFormMdp"  #mdpConfirm="ngModel" ngModel name="mdpConfirm" type="password"  placeholder="confirmer votre nouveau mot de passe" required>
           </div>
         </div>
 

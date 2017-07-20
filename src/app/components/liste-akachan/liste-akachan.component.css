@@ -12,7 +12,7 @@
     color:#ff6d75;
     border-color: #cd0707;
     border-width: x-large;
-    font-size: 4.5vh;
+    font-size: 2.3vw;
     text-shadow: none !important;
     -webkit-transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
     transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
@@ -21,7 +21,7 @@
 }
 
  .coeurFavoriActive {
-    font-size: 4.5vh;
+    font-size: 2.3vw;
     text-shadow: none !important;
     -webkit-transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
     transition: opacity 0.1s ease, background 0.1s ease, text-shadow 0.1s ease, color 0.1s ease;
@@ -37,6 +37,10 @@
     background: transparent !important;
     color: #b60000 !important;
     text-shadow: 0px -1px 0px #CD0707, -1px 0px 0px #CD0707, 0px 1px 0px #CD0707, 1px 0px 0px #CD0707 !important;
+}
+
+#divOverlayChart {
+    width:35vw;
 }
 
 
@@ -169,5 +173,8 @@
         margin-right:0;
     }
 
+    #divOverlayChart {
+        width:95vw;
+    }
 
 }

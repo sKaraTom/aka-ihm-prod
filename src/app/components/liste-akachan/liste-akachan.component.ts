@@ -373,7 +373,7 @@ public construireGraphique() {
             ]        
     }
     this.options = {
-                    responsive: false,
+                    responsive: true,
                     title: {
                         display: true,
                         fontSize: 16 },

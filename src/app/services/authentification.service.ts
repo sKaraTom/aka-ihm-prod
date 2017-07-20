@@ -15,7 +15,8 @@ import { Router } from "@angular/router";
 @Injectable()
 export class AuthentificationService {
   
-  private urlAka:String = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
+//   private urlAka:String = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
+  private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
  
   private headers = new Headers({'Content-Type': 'application/json'});
   private headers2 = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});

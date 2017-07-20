@@ -70,7 +70,7 @@ color: #eb505f;
     font-family: "Century Gothic",calibri,Arial, Helvetica, sans-serif;
     text-align: center;
     color : #1e9ecc;
-    font-size:2.4vh;
+    font-size:1.3vmax;
     padding:0.5em 0.8em 0.5em 0.8em;
     border-radius: 8px;
     border-color: #1e9ecc;
@@ -147,6 +147,9 @@ h2 {
     padding-top:3%;
   }
 
+  .boutonAkachan{
+    font-size:initial;
+  }
 
 
   body { word-wrap: break-word; }

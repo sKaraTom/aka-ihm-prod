@@ -6,32 +6,24 @@ import { Http,Response } from "@angular/http";
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Observable"
 
-import { PrenomInsee } from "../objetmetier/prenominsee";
 import { Estimation } from "../objetmetier/estimation";
 
 
 @Injectable()
 export class PrenomService {
 
-    private urlAka:String = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
+    // private urlAka:String = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
+    private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
 
     constructor(private http: Http) { }
 
-      //OBSERVABLE PRENOM ALEATOIRE
-  public getPrenomAleatoire(choixSexe:String, refClient:String, choixTendance:Number): Observable<String> {
-     const url = `${this.urlAka + "prenom" }/${choixSexe}/${refClient}/${choixTendance}`;
-        return this.http.get(url)
-                        .map((response:Response) => response.text());
-  }
-
-    //OBSERVABLE NOMBRE DE NAISSANCES ENTRE 1900 et 2015
-    public getNaissances(prenom: String, sexe: String): Observable<Number[]>{
-           const url = `${this.urlAka + "prenom/pop" }/${sexe}/${prenom}`; 
-            return this.http.get(url)
-            .map((response:Response) => response.json());
-     }
-    
-      // OBSERVABLE RECHERCHE DE PRENOM : retourne un tableau de prénoms (SQL LIKE ou 1 prenom si recherche exacte)
+    /**
+     * rechercher un prénom : obtenir une map de prénoms et booleen si estimation existante pour ce client.
+     * 
+     * @param estimation : passer un objet estimation pour ses variables prenom, sexe, uuid client.
+     * @param  rechercheExacte : SQL LIKE si false, recherche exacte si true)
+     * @return une map<String le prénom, Booleen si estimation existante)
+     */
      public rechercherPrenomEtEstimExistante(estimation:Estimation, rechercheExacte:boolean){
            const url = `${this.urlAka + "prenom/recherche" }/${rechercheExacte}`;
             return this.http.post(url,estimation)
@@ -43,6 +35,42 @@ export class PrenomService {
               }
             }
             );
+     }
+    
+   
+  /**
+   * obtenir un prénom aléatoire
+   * 
+   * @param choixSexe 
+   * @param refClient 
+   * @param choixTendance 
+   * @return String un prénom aléatoire
+   */
+  public getPrenomAleatoire(choixSexe:String, refClient:String, choixTendance:Number): Observable<String> {
+        
+        const url = `${this.urlAka + "prenom" }/${choixSexe}/${refClient}/${choixTendance}`;
+        
+        return this.http.get(url)
+                        .map((response:Response) => {
+                            if(response.status == 204) {
+                              return response.status.toString() }
+                            else{
+                            return response.text();
+                            }
+                        });
+  }  
+
+  /**
+   * obtenir un tableau de naissances entre 1900 et 2015
+   * 
+   * @param prenom le prénom pour lequel obtenir les stats de naissances
+   * @param sexe le sexe du prénom
+   * @return un tableau Number[] de naissances de 1900 (=index 0) à 2015
+   */
+  public getNaissances(prenom: String, sexe: String): Observable<Number[]>{
+           const url = `${this.urlAka + "insee/pop" }/${sexe}/${prenom}`; 
+            return this.http.get(url)
+            .map((response:Response) => response.json());
      }
 
 }

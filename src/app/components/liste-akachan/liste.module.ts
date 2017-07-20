@@ -21,7 +21,6 @@ import { NgSemanticModule } from "ng-semantic/ng-semantic";
 import { MdTooltipModule, MdCheckboxModule } from "@angular/material";
 
 import { ListeRoutingModule } from "./liste-routing.module";
-import { PrenomStatsComponent } from "./prenom-stats.component";
 import { ListeHomeComponent } from "./liste-home.component";
 import { ListeAkachanComponent } from "./liste-akachan.component";
 import { ListeNoireComponent } from "./liste-noire.component";
@@ -42,7 +41,7 @@ import { EmailService } from "../../services/email.service";
    TabMenuModule,CommonModule,FormsModule,PartageModule,ListeRoutingModule
   ],
   declarations: [ 
-   PrenomStatsComponent,ListeHomeComponent,ListeAkachanComponent,ListeNoireComponent,GenrePipe
+   ListeHomeComponent,ListeAkachanComponent,ListeNoireComponent,GenrePipe
   ],
    providers: [
     ClientService,PrenomService,EstimationService,EmailService

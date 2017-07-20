@@ -4,7 +4,6 @@ import { Component, OnInit, ViewEncapsulation, trigger, transition, style, anima
 import { PrenomService } from "../../services/prenom.service";
 import { Client } from "../../objetmetier/client";
 import { Estimation } from "../../objetmetier/estimation";
-import { PrenomInsee } from "../../objetmetier/prenominsee";
 import { EstimationService } from "../../services/estimation.service";
 import { AuthentificationService } from "../../services/authentification.service";
 
@@ -24,10 +23,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     trigger('fadeInOut', [
         transition(':enter', [   // :enter est équivalent à 'void => *'
         style({opacity:0}),
-        animate(100, style({opacity:1})) 
+        animate(200, style({opacity:1})) 
         ]),
         transition(':leave', [   // :leave est équivalent à '* => void'
-        animate(50, style({opacity:0})) 
+        animate(13, style({opacity:0})) 
         ])
     ])
   ],
@@ -44,7 +43,6 @@ export class GenerateurComponent implements OnInit {
     public  bouton_sexe:String = '1'; //valeur par défaut du bouton radio
     public nouvelleEstimation:Estimation;
 
-    public msgs:Message[]=[];
 
     public afficheStats:Boolean =  false;
     
@@ -63,8 +61,11 @@ export class GenerateurComponent implements OnInit {
     //prénom aléatoire
     public nouveauPrenomAleatoire:String;
     private animation:boolean = true; // booleen pour gérer animation fondu in/out entre chaque prénom.
-
-
+    
+    //growl Primeng
+    public msgs:Message[]=[];
+ 
+    
     constructor(
     private prenomService: PrenomService,
     private estimationService: EstimationService,
@@ -102,7 +103,7 @@ export class GenerateurComponent implements OnInit {
     
 }
 
-activerRaccourciClavier(event){
+private activerRaccourciClavier(event){
         // fleche bas : passer
         if (event.keyCode == 40 && event.ctrlKey){
             this.nePasEstimer();
@@ -147,9 +148,26 @@ activerRaccourciClavier(event){
         this.animation = false;
         
         this.prenomService.getPrenomAleatoire(this.nouvelleEstimation.sexe,this.uuidClient, this.choixTendance)
-                    .subscribe(res => { this.nouveauPrenomAleatoire = res; this.animation = true;
-                    this.getNaissancesStats();
-                });
+                    .subscribe(res => { 
+                                        if(res == "204") {
+                                            this.msgs = [],
+                                           this.msgs.push({severity:'info', summary:'Bravo',
+                                           detail:'il n\'y a plus de prénom à estimer pour cette catégorie.'});
+                                        }
+                                        else {
+                                            this.nouveauPrenomAleatoire = res;
+                                            this.nouveauPrenomAleatoire = res; 
+                                            this.animation = true;
+                                            this.getNaissancesStats();
+                                        }
+                                         },
+                                erreur => { 
+                                    this.msgs = [],
+                                    this.msgs.push({severity:'warn', summary:'problème serveur ',
+                                    detail:erreur._body}); 
+                                        }
+
+                                );
     }
 
 

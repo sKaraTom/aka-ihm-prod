@@ -33,51 +33,50 @@
 }
 
 :host /deep/ .col-chart {
-    width:7vh;
+    width:4vw;
     text-align: center;
-    font-size:2vmin;
+    font-size:1.2vw;
 }   
 
 :host /deep/ .col-checkbox {
-    width:4vh;
+    width:4vw;
     text-align: center;
     margin-left:auto;
     margin-right:auto;
-    font-size:2vmin;
+    font-size:1.2vw;
 }
 
 :host /deep/ .col-prenom {
-    width:35vh;
-    font-size:2vmin;
+    width:20vw;
+    font-size:1.2vw;
 }
 
 #champPrenom {
-  font-size: 2.8vmin;
+  font-size: 1.5vw;
   font-weight: bold;
   text-transform:capitalize; 
 }
 
 :host /deep/ .col-favoris {
-    width:13vh;
-    font-size:2vmin;
+    width:10vw;
+    font-size:1.2vw;
 }
 
 :host /deep/ .col-sexe {
-    width:14%;
-    font-size:2vmin;
+    width:10vw;
+    font-size:1.2vw;
 }
 
 #champSexe {
-    font-size:2.2vmin;
+    font-size:1.2vw;
 }
 
 :host /deep/ .col-date {
-    width:19%;
-    font-size:2vmin;
+    width:14vw;
+    font-size:1.2vw;
 }
 
 #champDate {
-    /*font-size:2.2vmin;*/
 }
 
 #texteBasPageAka {

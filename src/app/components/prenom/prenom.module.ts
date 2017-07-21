@@ -15,7 +15,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { NgSemanticModule } from "ng-semantic/ng-semantic";
 import { MdRadioModule } from "@angular/material";
- 
+import { EstimationService } from "../../services/estimation.service";
+
 
 @NgModule({
   imports: [ 
@@ -27,7 +28,7 @@ import { MdRadioModule } from "@angular/material";
     GenerateurComponent
   ],
   providers: [
-    PrenomService
+    EstimationService,PrenomService
   ]
 })
 export class PrenomModule {}

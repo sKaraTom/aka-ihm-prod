@@ -1,5 +1,4 @@
 import { OnInit, Component } from "@angular/core";
-import { Router } from '@angular/router';
 
 //primeng
 import { OverlayPanel } from "primeng/primeng";
@@ -19,9 +18,7 @@ import { EmailService } from "../../services/email.service";
 @Component({
     selector:'liste-akachan',
     templateUrl : './liste-akachan.component.html',
-    styleUrls: ['./liste-styles.css','./liste-akachan.component.css'],
-    providers : [ConfirmationService]
-    
+    styleUrls: ['./liste-styles.css','./liste-akachan.component.css']
 })
 export class ListeAkachanComponent implements OnInit {
         
@@ -55,7 +52,6 @@ export class ListeAkachanComponent implements OnInit {
 
 
     constructor(
-        private router: Router,
         private clientService: ClientService,
         private prenomService: PrenomService,
         private confirmationService: ConfirmationService,
@@ -74,8 +70,8 @@ export class ListeAkachanComponent implements OnInit {
     
         this.authService.idClientObs.subscribe(
             res => {
-            if(res) { this.uuidClient = res;}
-            else {  this.uuidClient = null; }
+                if(res) {  this.uuidClient = res;}
+                else    {  this.uuidClient = null; }
             })
         
     }
@@ -99,13 +95,15 @@ export class ListeAkachanComponent implements OnInit {
 
     }
     
-    /** à partir d'une estimation sélectionnée ouvrir l'overlay contenant les stats du prénom (chart).
+    /** 
+     * à partir d'une estimation sélectionnée ouvrir l'overlay contenant les stats du prénom (chart).
+     * 
      * @param event pour afficher l'overlay de stats (chart)
-     * @param estimation // permet de récupérer l'estimation depuis la datatable et l'attribuer à une variable
+     * @param estimation permet de récupérer l'estimation depuis la datatable et l'attribuer à une variable
      * qui servira à l'affichage de la chart (et prénom dans son titre)
      * @param overlaypanel  l'overlay à ouvrir.
      */
-    private selectEstim(event,estimation: Estimation, overlaypanel: OverlayPanel):void {
+    private selectEstim(event,estimation: Estimation, overlaypanel: OverlayPanel) : void {
             
             this.estimationSelectionnee = estimation; 
             this.data = null; // remettre à null si une chart avait déjà été affichée.
@@ -113,13 +111,14 @@ export class ListeAkachanComponent implements OnInit {
             overlaypanel.toggle(event); // afficher le pop-up overlay
     }
 
-    /** obtenir la liste akachan (prénoms aimés)
+    /** 
+     * obtenir la liste akachan (prénoms aimés)
      *  pour afficher dans la datatable.
      */
     private obtenirListeAkachan() : void {
          
          if(!this.listeAkachan) {
-         this.clientService.obtenirListeAkachan(this.uuidClient)
+         this.estimationService.obtenirListeAkachan(this.uuidClient)
                                 .subscribe(
                                     liste => this.listeAkachan = liste,
                                     erreur => {},
@@ -128,7 +127,8 @@ export class ListeAkachanComponent implements OnInit {
         }
     }
 
-    /** dropdown choix du filtre par genre dans la datatable.
+    /** 
+     * dropdown choix du filtre par genre dans la datatable.
      * tous, garçons ou filles.
      */    
     private peuplerFiltreGenre() : void {
@@ -139,7 +139,8 @@ export class ListeAkachanComponent implements OnInit {
         this.listeGenre.push({label: 'fille', value: '2'});
     }
 
-    /** obtenir mail du client pour l'envoi de prénoms par mail.
+    /** 
+     * obtenir mail du client pour l'envoi de prénoms par mail.
      * 
      */
     private obtenirClient() : void {
@@ -149,11 +150,12 @@ export class ListeAkachanComponent implements OnInit {
                         );
     }
 
-    /** ouvrir la fenêtre dialog pour envoi de mail
+    /** 
+     * ouvrir la fenêtre dialog pour envoi de mail
      * vérifier que des estim ont bien été sélectionnées.
      * copier ces estim dans une liste indépendante pour l'envoi.
      */
-    private ouvrirDialogMail():void {
+    private ouvrirDialogMail() : void {
 
         if( this.estimSelectionnees.length != 0  ) {
             this.dialogMailEstVisible = true;
@@ -168,7 +170,8 @@ export class ListeAkachanComponent implements OnInit {
         }
     }
 
-    /** envoyer au mw une sélection  de prénoms, le prénom du client,
+    /** 
+     * envoyer une sélection  de prénoms, le prénom du client,
      * le mail du client ou "nonVoulu", un autre mail saisi ou "nonVoulu" (si checkbox non cochées).
      */
     private envoyerMail() : void {
@@ -190,7 +193,8 @@ export class ListeAkachanComponent implements OnInit {
         }
     }
 
-    /** si succès de l'envoi, fenêtre dialog se ferme et affichage d'un growl de succès.
+    /** 
+     * si succès de l'envoi, fenêtre dialog se ferme et affichage d'un growl de succès.
      * 
      */
     private confirmerEnvoiMail():void {
@@ -201,7 +205,8 @@ export class ListeAkachanComponent implements OnInit {
 
     }
 
-    /** méthode de validation globale chargée d'afficher les messages d'erreur.
+    /** 
+     * méthode de validation globale chargée d'afficher les messages d'erreur.
      * 
      */
     private validerEnvoi() : boolean {
@@ -223,7 +228,8 @@ export class ListeAkachanComponent implements OnInit {
         }
     }
 
-    /** vérifier qu'au moins un mail est sélectionné (checkbox)
+    /** 
+     * vérifier qu'au moins un mail est sélectionné (checkbox)
      * 
      */
     private validerCheckMinimumUnMail() : boolean {
@@ -235,7 +241,8 @@ export class ListeAkachanComponent implements OnInit {
         }
     }
 
-    /** vérifier que l'email n'est pas null et ne contient pas d'espace.
+    /** 
+     * vérifier que l'email n'est pas null et ne contient pas d'espace.
      * validation simple, le mw se charge du reste.
      * 
      * @param email email autre saisi par client
@@ -255,7 +262,8 @@ export class ListeAkachanComponent implements OnInit {
 
     }
 
-    /** regex qui vérifie si le mail contient des espaces entre caractères.
+    /** 
+     * regex qui vérifie si le mail contient des espaces entre caractères.
      * 
      * @param mot 
      */
@@ -264,7 +272,8 @@ export class ListeAkachanComponent implements OnInit {
     }
 
 
-    /** Annuler l'envoi de mail : fermeture de la fenêtre dialog. 
+    /** 
+     * Annuler l'envoi de mail : fermeture de la fenêtre dialog. 
      * vider la liste de prénoms sélectionnés
      * fermer la fenêtre avec booleen dialogMailEstVisible=false.
      */
@@ -274,7 +283,8 @@ export class ListeAkachanComponent implements OnInit {
         this.dialogMailEstVisible=false;
     }
 
-    /** dialog de confirmation avant retrait estimations de la liste
+    /** 
+     * dialog de confirmation avant retrait estimations de la liste
      * vérifier d'abord si des estimations ont été sélectionnées.
      */
    private confirmerSuppression() {
@@ -296,8 +306,10 @@ export class ListeAkachanComponent implements OnInit {
             
     }
 
-    /** si fenêtre confirmation : OK active cette méthode.
+    /** 
+     * si fenêtre confirmation : OK active cette méthode.
      * retrait des estim dans la liste côté ihm et mw.
+     * 
      * @param estimations la sélection d'estim sélectionnées
      */
     public passerEstimDansListeNoire( estimations: Estimation[]) {
@@ -318,7 +330,8 @@ export class ListeAkachanComponent implements OnInit {
     }
 
 
-/** modifier estim pour ajouter ou enlever marqueur favori.
+/** 
+ * modifier estim pour ajouter ou enlever marqueur favori.
  * 
  */
  public modifierEstimation(estimation:Estimation) {
@@ -339,7 +352,7 @@ export class ListeAkachanComponent implements OnInit {
 
 /** méthode globale.
  *  1.récupérer  les nombres de naissances de l'estimation sélectionnée
- * 2. construire avec ses paramètres le graphique.
+ *  2. construire avec ses paramètres le graphique.
  */ 
  public getNaissancesStats() {
          this.prenomService.getNaissances(this.estimationSelectionnee.prenom.toUpperCase(), this.estimationSelectionnee.sexe)
@@ -348,7 +361,8 @@ export class ListeAkachanComponent implements OnInit {
                                     });
   }
 
-/** Boucle pour générer abscisse(x) : années de la chart.
+/**
+ *  Boucle pour générer abscisse(x) : années de la chart.
  * 
  */ 
 public remplirXChart(): void {
@@ -358,6 +372,9 @@ public remplirXChart(): void {
     }
 }
 
+/**
+ * construire la chart
+ */
 public construireGraphique() {
 
     this.data = {

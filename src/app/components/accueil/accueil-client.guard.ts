@@ -29,7 +29,15 @@ export class AccueilClientGuard implements CanActivate, CanActivateChild, CanLoa
     return true;
 }
 
- 
+ /**
+   * vérifier que le compte est connecté :
+   * - si localStorage contient le token, id et prénom.
+   * - si le token est valide.
+   * - redirection vers page accueil prospect si échec.
+   * 
+   * @param url
+   * @return boolean si compte connecté et valide.
+   */
   checkLogin(url: string): Observable<boolean> {
 
       if( (localStorage.getItem('token')) && (localStorage.getItem('id')) && (localStorage.getItem('prenom')) ) { 

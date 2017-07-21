@@ -13,7 +13,7 @@ import { ConfirmationService, Message } from "primeng/primeng";
 
 @Component({
   templateUrl :'./compte.component.html',
-  styleUrls: ['./compte.component.css'],
+  styleUrls: ['./compte.component.css']
 })
 
 export class CompteComponent implements OnInit {
@@ -28,15 +28,15 @@ export class CompteComponent implements OnInit {
     private prenom:string;
     private genre:string;
 
+    // si le formulaire de modification de mot de passe est visible.
     private modifMdpActive : boolean = false;
 
-
     //messages erreur-succès
-    erreurModif:string;
-    modifReussie:boolean = false;
-    succesModifMdp:string;
+    private erreurModif:string;
+    private modifReussie:boolean = false;
+    private succesModifMdp:string;
 
-     msgs: Message[] = []; // growl primeng
+    private msgs: Message[] = []; // growl primeng
 
     constructor(
       public authService:AuthentificationService,
@@ -47,29 +47,30 @@ export class CompteComponent implements OnInit {
       private confirmationService: ConfirmationService
     ){
       this.client = new Client();
-
       this.authService.idClientSource.next(localStorage.getItem('id'));
-
 
     }
    
     ngOnInit(): void {
-           if (!localStorage.getItem('token')) {
-          this.authService.idClientSource.next(null);
-       }
+        if (!localStorage.getItem('token')) {
+            this.authService.idClientSource.next(null);
+        }
        
       this.authService.idClientObs.subscribe(
         res => {
-          if(res) {  this.idClient = res;    }
-          else {     this.idClient = null;   }
+            if(res) {  this.idClient = res;    }
+            else    {  this.idClient = null;   }
         })
    
         this.obtenirClient();
     }
 
-
-private obtenirClient() {
-    // Client est la ref, les variables prenom et genre sont les variables qui seront modifiables.
+/**
+ * obtenir un client, charger les variables qui seront modifiables dans le formulaire
+ * sans altérer ce client tant que la modification n'est pas confirmée.
+ */
+private obtenirClient() : void {
+    // Client est la référence, les variables prenom et genre sont les variables qui seront modifiables.
     this.clientService.obtenirClient(this.idClient).subscribe(res =>  {this.client = res},
                                                               err => {},
                                                               () => { this.emailRef = this.client.compte.email;
@@ -78,8 +79,13 @@ private obtenirClient() {
 
 }
 
-
-public deconnecter(event:Event):void {
+/**
+ * déconnecter le compte 
+ * et renvoyer vers la page d'accueil prospect.
+ * 
+ * @param event 
+ */
+public deconnecter(event:Event) : void {
   event.preventDefault();
   this.authService.deconnecter();
   this.idClient = null;
@@ -87,11 +93,12 @@ public deconnecter(event:Event):void {
   event.stopPropagation();
 }
 
-/** modifier les informations du client lié à un compte.
+/** 
+ * modifier les informations du client (et compte lié).
  * 
  * @param form (prenom, sexe, et mot de passe)
  */
-public modifierCompte(form:NgForm):void {
+public modifierCompte(form:NgForm) : void {
   
     //si formulaire validé, envoyer un nouveau compte (avec client lié) au mw.
     if(this.validerFormulaire(form)) {
@@ -100,6 +107,7 @@ public modifierCompte(form:NgForm):void {
         let compte = new Compte();
         let clientModifie = new Client();
         
+        // créer un compte/client avec valeurs du formulaire.
         compte.email = this.client.compte.email; // l'email n'est pas éditable (clef primaire).
                                                 // on le définie à compte.email pour binder la modif avec le compte en bdd.
         compte.password = form.value.mdp;
@@ -113,7 +121,7 @@ public modifierCompte(form:NgForm):void {
             .subscribe(res => { 
                                 // si le prénom est modifié, mettre à jour le local storage et variable globale.
                                 if((localStorage.getItem('prenom').toUpperCase()) != (clientModifie.prenom.toUpperCase())){
-                                  //on formate le prénom pour mettre à jour directement le prénom côté ihm
+                                  //on formate le prénom pour le mettre à jour directement le prénom côté ihm
                                   let prenomFormate =  clientModifie.prenom.charAt(0).toUpperCase() + form.value.prenom.slice(1);
                                   localStorage.setItem('prenom',prenomFormate);
                                   this.authService.prenomClientSource.next(prenomFormate);
@@ -129,11 +137,12 @@ public modifierCompte(form:NgForm):void {
     }
 }
 
-/** formulaire de changement de mot de passe
+/** 
+ * modifier un mot de passe via son formulaire
  * 
  * @param formMdp (mot de passe actuel, nouveau, et confirmation)
  */
-private modifierMotDePasse(formMdp:NgForm):void {
+private modifierMotDePasse(formMdp:NgForm) : void {
 
     let email = this.emailRef;
     let passwordActuel = formMdp.value.mdpActuel;
@@ -154,14 +163,20 @@ private modifierMotDePasse(formMdp:NgForm):void {
     }
 }
 
- private confirmSuppressionToutesEstimations() : void {
+/**
+ * confirmer la suppression de toutes les estimations
+ * fenêtre dialogue primeng.
+ */
+private confirmSuppressionToutesEstimations() : void {
         this.confirmationService.confirm({
             message: 'Attention : tous vos prénoms estimés seront effacés.',
             accept: () => { this.supprimerToutesEstimations(); }
         });
     }
 
-
+/**
+ * supprimer toutes les estimations d'un client.
+ */
 private supprimerToutesEstimations() : void {
     this.estimationService.supprimerToutesEstimationsClient(this.idClient)
                 .subscribe(res => {},
@@ -172,10 +187,12 @@ private supprimerToutesEstimations() : void {
                 });
 }
 
-/** annuler la modification du compte
- *  Remettre le prenom et genre à leur valeur de référence.
+/** 
+ *  annuler la modification du compte
+ *  Remettre le prenom et genre à leur valeur initiale (client/compte de référence).
  *  vider le champ du mot de passe.
- * @param form 
+ * 
+ * @param form le formulaire de compte.
  */
 private annulerModif(form:NgForm) :void {
       this.prenom = this.client.prenom;
@@ -184,9 +201,11 @@ private annulerModif(form:NgForm) :void {
 }
 
 
-/** annuler le formulaire de modif du mot de passe.
- *  retirer le formulaire de la vue (booleen) et vider les saisies.
- * @param formMdp 
+/** 
+ * annuler le formulaire de modif du mot de passe.
+ * retirer le formulaire de la vue (booleen) et vider les saisies.
+ * 
+ * @param formMdp le formulaire mot de passe.
  */
 private annulerModifMotDePasse(formMdp:NgForm) : void {
     formMdp.resetForm();
@@ -194,7 +213,8 @@ private annulerModifMotDePasse(formMdp:NgForm) : void {
 }
 
 
-/** valider le formulaire de modification du compte : 
+/** 
+ * valider le formulaire de modification du compte
  * 
  * @param formulaire (prénom, genre et mot de passe)
  * @return true si validé.
@@ -263,9 +283,15 @@ private validerFormulaireMdp(formMdp:NgForm) : boolean {
           return true;
       }
 
-       private contenirEspaces(mot:string):boolean {
+/**
+ * valider qu'une saisie (string) ne contient pas d'espace
+ * regex
+ * 
+ * @param mot la saisie à valider.
+ */
+private contenirEspaces(mot:string):boolean {
              return /\s/g.test(mot);
-       }
+}
 
 
 }

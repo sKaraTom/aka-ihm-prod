@@ -27,6 +27,8 @@ constructor(private http: Http) {
  /**
   * Obtenir une citation aléatoire
   * destination : accueil prospect et client (pas d'envoi de token).
+  *
+  * @return Citation une citation aléatoire.
   */
   public obtenirCitationAleatoire(): Observable<Citation>{
          const url = `${this.urlAka +"citation/aleatoire"}`;

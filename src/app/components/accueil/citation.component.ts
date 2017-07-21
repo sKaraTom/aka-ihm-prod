@@ -13,10 +13,9 @@ export class CitationComponent implements OnInit {
     private citationChargee:boolean = false;
         
 
-constructor(
-    private citationService:CitationService) {
+constructor( private citationService:CitationService ) {
         this.citationAleatoire = new Citation();
-    }
+}
 
 
 
@@ -24,10 +23,12 @@ ngOnInit(): void {
     
     this.obtenirCitationAleatoire();
 
-    }
+}
 
-
-    private obtenirCitationAleatoire() {
+    /**
+     * obtenir une citation aléatoire.
+     */
+    private obtenirCitationAleatoire() : void {
 
         this.citationService.obtenirCitationAleatoire()
                             .subscribe(res => {this.citationAleatoire = res; this.citationChargee = true; });

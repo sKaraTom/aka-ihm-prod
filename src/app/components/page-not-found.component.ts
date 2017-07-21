@@ -17,7 +17,9 @@ export class PageNotFoundComponent implements OnInit {
       
     }
 
-
+    /**
+     * méthode de redirection vers l'accueil
+     */
     retournerALAccueil():void {
         this.router.navigate(['/accueil/cli']);
 

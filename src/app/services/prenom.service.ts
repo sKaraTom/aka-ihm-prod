@@ -1,7 +1,7 @@
 
 
 import { Injectable } from "@angular/core";
-import { Http,Response } from "@angular/http";
+import { Http, Response, Headers,RequestOptions } from "@angular/http";
 
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Observable"
@@ -15,7 +15,13 @@ export class PrenomService {
     // private urlAka:String = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
     private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
 
-    constructor(private http: Http) { }
+    private headers = new Headers ({'content-type': 'application/json'});
+    private token:string;
+
+    constructor(private http: Http) { 
+        this.token = localStorage.getItem('token');
+        this.headers.append('Authorization', `Bearer ${this.token}`);
+    }
 
     /**
      * rechercher un prénom : obtenir une map de prénoms et booleen si estimation existante pour ce client.
@@ -26,15 +32,17 @@ export class PrenomService {
      */
      public rechercherPrenomEtEstimExistante(estimation:Estimation, rechercheExacte:boolean){
            const url = `${this.urlAka + "prenom/recherche" }/${rechercheExacte}`;
-            return this.http.post(url,estimation)
-            .map((response:Response) => {
-              if(response.status != 200) {
-                return response.status }
-              else{
-               return response.json();
+           let options = new RequestOptions({ headers: this.headers });
+            
+           return this.http.post(url,estimation,options)
+              .map((response:Response) => {
+                if(response.status != 200) {
+                  return response.status }
+                else{
+                return response.json();
+                }
               }
-            }
-            );
+              );
      }
     
    
@@ -49,8 +57,9 @@ export class PrenomService {
   public getPrenomAleatoire(choixSexe:String, refClient:String, choixTendance:Number): Observable<String> {
         
         const url = `${this.urlAka + "prenom" }/${choixSexe}/${refClient}/${choixTendance}`;
+        let options = new RequestOptions({ headers: this.headers });
         
-        return this.http.get(url)
+        return this.http.get(url,options)
                         .map((response:Response) => {
                             if(response.status == 204) {
                               return response.status.toString() }
@@ -68,9 +77,11 @@ export class PrenomService {
    * @return un tableau Number[] de naissances de 1900 (=index 0) à 2015
    */
   public getNaissances(prenom: String, sexe: String): Observable<Number[]>{
-           const url = `${this.urlAka + "insee/pop" }/${sexe}/${prenom}`; 
-            return this.http.get(url)
-            .map((response:Response) => response.json());
+          const url = `${this.urlAka + "insee/pop" }/${sexe}/${prenom}`;
+          let options = new RequestOptions({ headers: this.headers });
+
+          return this.http.get(url,options)
+              .map((response:Response) => response.json());
      }
 
 }

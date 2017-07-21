@@ -25,24 +25,46 @@ constructor(private http: Http) {
      this.headersForm.append('Authorization', `Bearer ${this.token}`);
 }
 
-    // INUTILISE POUR L'INSTANT
-    // public obtenirCompte(email:string):Observable<Compte> {
 
-    //     const url = `${this.urlAka +"obtenir"}`;
-        
-    //     //header form param + passer token dans 'authorization'
-    //     let options = new RequestOptions({ headers: this.headersForm });
-    //     // pour passer l'email en FormParam
-    //     let body = `email=${email}`;
-        
-    //     return this.http.post(url,body,options)
-    //                     .map(response => response.json())
-    // }
-
-
-    /** modifier un compte existant.
-     * envoi du token.
+     /** 
+     * création d'un compte
+     * 
      * @param compte objet de type Compte envoyé en json.
+     * @return string message succès.
+     */
+    public creerCompte(compte:Compte) {
+        const url = `${this.urlAka +"creer"}`;
+
+        return this.http.post(url, compte)
+                .map(data =>data.text());
+    }
+
+
+    /**
+     * obtenir un compte
+     * 
+     * @param email
+     * @return le compte du client. 
+     */
+    public obtenirCompte(email:string):Observable<Compte> {
+
+        const url = `${this.urlAka +"obtenir"}`;
+        
+        //header form param + passer token dans 'authorization'
+        let options = new RequestOptions({ headers: this.headersForm });
+        // pour passer l'email en FormParam
+        let body = `email=${email}`;
+        
+        return this.http.post(url,body,options)
+                        .map(response => response.json())
+    }
+
+
+    /** 
+     * modifier un compte existant.
+     * 
+     * @param compte objet de type Compte envoyé en json.
+     * @return le compte
      */
     public modifierCompte(compte:Compte):Observable<Compte> {
 
@@ -53,7 +75,15 @@ constructor(private http: Http) {
                         .map((response:Response) => response.json());
     }
 
-
+    /**
+     * modifier un mot de passe.
+     * envoyer une liste Array<String> contenant les champs.
+     * 
+     * @param email du client.
+     * @param passwordActuel 
+     * @param nouveauPassword
+     * @return string message succès. 
+     */
     public modifierMotDePasse(email:string, passwordActuel:string, nouveauPassword:string) {
          
         const url = `${this.urlAka +"modifier/password"}`;
@@ -67,16 +97,6 @@ constructor(private http: Http) {
     }
 
 
-    /** création d'un compte
-     * envoi du token.
-     * @param compte objet de type Compte envoyé en json.
-     */
-    public creerCompte(compte:Compte) {
-            const url = `${this.urlAka +"creer"}`;
-            let options = new RequestOptions({ headers: this.headers });
-
-            return this.http.post(url, compte, options)
-            .map(data =>data.json());
-    }
+  
 
 }

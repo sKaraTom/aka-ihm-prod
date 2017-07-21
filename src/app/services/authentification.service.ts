@@ -19,7 +19,7 @@ export class AuthentificationService {
   private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
  
   private headers = new Headers({'Content-Type': 'application/json'});
-  private headers2 = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+  private headersForm = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
   private token: string;
 
@@ -44,17 +44,18 @@ export class AuthentificationService {
     this.prenomClientSource.next(localStorage.getItem('prenom'));
     this.idClient = localStorage.getItem('id');
     this.idClientSource.next(localStorage.getItem('id'));
+    
     this.headers.append('authorization', `Bearer ${this.token}`);
  
   }
 
-    //  public creerCompte(compte:Compte) {
-    //     const url = `${this.urlAka +"compte/creer"}`;
-    //     return this.http.post(url, compte, this.headers)
-    //     .map((data:Response) =>data.json())
-    // }
-
-
+    /**
+     * connecter un compte
+     * 
+     * @param email 
+     * @param password 
+     * @return boolean si connexion réussie.
+     */
       public connecter(email:string, password:string): Observable<boolean> {
 
           const url = `${this.urlAka +"compte"}`;
@@ -62,12 +63,12 @@ export class AuthentificationService {
           // pour passer les credentiels en FormParam
           let body = `email=${email}&password=${password}`;
 
-       return this.http.post(url, body, { headers: this.headers2 })
+       return this.http.post(url, body, { headers: this.headersForm })
             .map((data: Response) => {
               let token = data.json() && data.json().token;
               
               if (token) {
-                this.headers2 = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded',
+                this.headersForm = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded',
                 'authorization': data.json().token});
                 this.token = data.json().token;
                 
@@ -90,6 +91,11 @@ export class AuthentificationService {
 
       }
 
+      /**
+       * déconnecter un client : réinitialiser toutes les variables
+       * et vider le localStorage.
+       * 
+       */
       public deconnecter(): void {
 
         this.token = null;
@@ -100,37 +106,13 @@ export class AuthentificationService {
         localStorage.clear();
     }
     
-    // OBSERVABLE. Si inutilisé à supprimer.
-    public validerToken(): Observable<string> {
 
-         const url = `${this.urlAka +"compte/token"}`;
-
-         // passer le token du local storage en Header pour validation côté mw.
-         let headersValid = new Headers({'Content-Type': 'application/json'});
-         headersValid.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
-          let options = new RequestOptions({ headers: headersValid });
-
-            return this.http.get(url,options)
-            .map((response:Response) => response.toString());
-        
-    }
-
-    // PROMISE. INUTILISE POUR L'INSTANT
-    public validerTokenPromise(): Promise<string> {
-        const url = `${this.urlAka +"compte/token"}`;
-
-        // passer le token du local storage en Header pour validation côté mw.
-        let headersValid = new Headers({'Content-Type': 'application/json'});
-        headersValid.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
-        let options = new RequestOptions({ headers: headersValid });
-
-       return this.http.get(url,options)
-                .toPromise()
-                .then(reponse => reponse.text());
-    }
-
+    /**
+     * valider le token : le récupérer depuis le localStorage
+     * et l'envoyer en header au mw.
+     * 
+     * @return booleen si connecté.
+     */
     public estConnecte() {
         
          const url = `${this.urlAka +"compte/token"}`;
@@ -141,13 +123,11 @@ export class AuthentificationService {
 
           let options = new RequestOptions({ headers: headersValid });
         
-        // si le token est valide : retourner true, si catch d'erreur (=> exception unauthorized) retourner false
+        // si le token est valide : retourner true, si catch d'erreur (=> exception unauthorized)
+        // déconnecter le client et retourner false
         return this.http.get(url,options)
             .map((response:Response) => 
-                 {      if(response) {
-                        return true;
-                    } 
-                    else { }
+                 {      if(response) {return true;} 
                 })
             .catch((error) => { 
                 this.deconnecter();

@@ -18,10 +18,12 @@ export class FooterComponent {
 
   constructor( public popUpContact: MdDialog) {}
 
-
-    public ouvrirPopUpContact() {
+  /**
+   * ouvrir le component ContactComponent dans un modal (Angular Material)
+   */
+  public ouvrirPopUpContact() : void {
           let dialogRef = this.popUpContact.open(ContactComponent);
-    }
+  }
 
 
 }

@@ -10,8 +10,6 @@ import { AuthentificationService } from "../../services/authentification.service
 
 //primeNg
 import { Message } from "primeng/components/common/api";
-//NgBootstrap
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -29,9 +27,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         animate(13, style({opacity:0})) 
         ])
     ])
-  ],
-  providers : [PrenomService, EstimationService],
-  //encapsulation: ViewEncapsulation.Native,
+  ]
 })
 
 export class GenerateurComponent implements OnInit {
@@ -43,9 +39,6 @@ export class GenerateurComponent implements OnInit {
     public  bouton_sexe:String = '1'; //valeur par défaut du bouton radio
     public nouvelleEstimation:Estimation;
 
-
-    public afficheStats:Boolean =  false;
-    
     //variables pour la Bar chart
     public data: any;
     public options: any;
@@ -79,7 +72,7 @@ export class GenerateurComponent implements OnInit {
     this.estAncien = false;
     this.choixTendance = 1;
 
-    this.nouvelleEstimation.sexe = "1"; 
+    this.nouvelleEstimation.sexe = "1";
     this.naissances = [];
 
     this.authService.idClientObs.subscribe(
@@ -103,7 +96,12 @@ export class GenerateurComponent implements OnInit {
     
 }
 
-private activerRaccourciClavier(event){
+/**
+ * méthode de paramétrage des raccourcis claviers.
+ * 
+ * @param event 
+ */
+private activerRaccourciClavier(event) : void {
         // fleche bas : passer
         if (event.keyCode == 40 && event.ctrlKey){
             this.nePasEstimer();
@@ -141,18 +139,19 @@ private activerRaccourciClavier(event){
 
    }
 
-
-
-    // méthode subscribe globale.
-    public getPrenomAleatoireStats() {
+    /**
+     * obtenir un prénom aléatoire puis activer 
+     * la méthode d'obtention des stats de naissances associées.
+     */
+    public getPrenomAleatoireStats() : void {
         this.animation = false;
         
         this.prenomService.getPrenomAleatoire(this.nouvelleEstimation.sexe,this.uuidClient, this.choixTendance)
                     .subscribe(res => { 
                                         if(res == "204") {
                                             this.msgs = [],
-                                           this.msgs.push({severity:'info', summary:'Bravo',
-                                           detail:'il n\'y a plus de prénom à estimer pour cette catégorie.'});
+                                            this.msgs.push({severity:'info', summary:'Bravo !',
+                                            detail:'il n\'y a plus de prénom à estimer pour cette catégorie.'});
                                         }
                                         else {
                                             this.nouveauPrenomAleatoire = res;
@@ -171,7 +170,9 @@ private activerRaccourciClavier(event){
     }
 
 
-
+/**
+ * générer le tableau de référence abscisse de la chart.
+ */
 public remplirXChart(): void {
     // boucle pour générer x années de la chart.
     for (var i = 1900; i <= 2015; i++) {
@@ -179,14 +180,19 @@ public remplirXChart(): void {
     }
 }
 
- public getNaissancesStats() {
+/**
+ * obtenir le nombre de naissances pour un prénom.
+ */
+public getNaissancesStats() : void {
          this.prenomService.getNaissances(this.nouveauPrenomAleatoire.toUpperCase(), this.nouvelleEstimation.sexe)
                                 .subscribe(liste => {(this.naissances) = liste;
                                 this.peuplerChart();
                                     });
-    }
+}
 
-
+/**
+ * construire la chart
+ */
 public peuplerChart() {
 
     this.data = {
@@ -222,8 +228,13 @@ public peuplerChart() {
 
 }
 
-
-    public choisirSexe(choix:String):String{     
+/**
+ * changer le sexe via le bouton radio
+ * et relancer l'obtention d'un prénom aléatoire si le sexe change.
+ * 
+ * @param choix 
+ */
+public choisirSexe(choix:String) : String {     
        
         if (this.nouvelleEstimation.sexe == choix || null) {
             return this.nouvelleEstimation.sexe;
@@ -233,10 +244,14 @@ public peuplerChart() {
             this.getPrenomAleatoireStats();
             return this.nouvelleEstimation.sexe;
         }
-    }
+}
 
-
-    public estimerPrenom(choix: String) :void {
+/**
+ * estimer un prénom puis obtenir un nouveau prénom aléatoire.
+ * 
+ * @param choix 
+ */
+public estimerPrenom(choix: String) : void {
         // aime ou aime pas.
         this.nouvelleEstimation.akachan = choix;
         
@@ -248,21 +263,31 @@ public peuplerChart() {
             this.estimationService.estimerPrenom(this.nouvelleEstimation,this.uuidClient)
                                     .subscribe(res => {},
                                     err => {},
-                                    () => { this.getPrenomAleatoireStats();  setTimeout(() => {
-                                                        this.nouvelleEstimation.prenom = null;}, 5000);}
+                                    () => {     this.getPrenomAleatoireStats();  setTimeout(() => {
+                                                this.nouvelleEstimation.prenom = null;}, 5000);}
                                     );
         }
         else {
             this.getPrenomAleatoireStats();
         }
-    }
+}
 
-    public nePasEstimer():void {
-        // ne pas estimer donc générer un nouveau prénom aléatoire.
+/**
+ * méthode attribuée au bouton "passer" : 
+ * obtenir un nouveau prénom aléatoire uniquement.
+ */
+public nePasEstimer() : void {
         this.getPrenomAleatoireStats();
     }
 
-    public activerPrenomsTendances(e) {
+/**
+ * bouton "prénom tendance" : booleen estTendance true,
+ * définir la variable choixTendance
+ * et générer un prénom aléatoire.
+ * 
+ * @param e 
+ */    
+public activerPrenomsTendances(e) : void {
             this.estTendance = e.checked;
             this.estAncien = false;
             this.choixTendance = 2;
@@ -272,7 +297,14 @@ public peuplerChart() {
             this.getPrenomAleatoireStats();
     }
 
-    public activerPrenomsAnciens(e) {
+/**
+ * bouton "prénom ancien" : booleen estAncien
+ * définir la variable choixTendance
+ * et générer un prénom aléatoire.
+ * 
+ * @param e 
+ */    
+public activerPrenomsAnciens(e) {
             this.estAncien = e.checked;
             this.estTendance = false;
             this.choixTendance = 3;
@@ -280,6 +312,6 @@ public peuplerChart() {
                 this.choixTendance = 1;
             }
             this.getPrenomAleatoireStats();
-    }
+}
 
  }

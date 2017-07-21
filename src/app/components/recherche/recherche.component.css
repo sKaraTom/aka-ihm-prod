@@ -119,12 +119,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+     text-transform: capitalize; 
 }
 
         #divMiseEnFormePrenom {
-            text-transform:capitalize;
             font-size:2.8vh;
         }
+
 
 #boutonAime {
     width:15vh;
@@ -188,6 +189,8 @@
     padding-right:0;
 }
 
-
+#radioSexe,#checkboxExacte {
+    font-size:0.8em;
+}
 
 }

@@ -8,7 +8,14 @@ import { Observable } from "rxjs/Observable";
 export class ContactGuard implements CanActivate  {
 
  constructor(private router: Router) {}
- 
+
+ /**
+  * pour rediriger vers l'accueil si tentative d'accéder au formulaire de contact
+  * par url du navigateur.
+  * 
+  * @param route 
+  * @param state 
+  */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 
       this.router.navigate(['/accueil']);  

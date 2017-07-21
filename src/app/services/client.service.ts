@@ -22,7 +22,12 @@ constructor(private http: Http) {
      this.headers.append('Authorization', `Bearer ${this.token}`);
  }
 
-// pas de validation de token car sert pour accueil prospect et client.
+/**
+ * obtenir le nombre total de clients.
+ * pas de validation de token car sert pour accueil prospect et client.
+ * 
+ * @return number le nombre total de clients.
+ */ 
 public obtenirTotalClients():Observable<number> {
      const url = `${this.urlAka +"client/total"}`;  
      return this.http.get(url)
@@ -30,9 +35,11 @@ public obtenirTotalClients():Observable<number> {
 } 
 
 
-/** obtenir client et compte associé.
- * envoi du token.
+/** 
+ * obtenir client et compte associé.
+ * 
  * @param refClient uuid du client. 
+ * @return Client le client.
  */
 public obtenirClient(refClient:String):Observable<Client> {
     const url = `${this.urlAka +"client"}/${refClient}`;
@@ -43,31 +50,6 @@ public obtenirClient(refClient:String):Observable<Client> {
 }
 
 
- //OBSERVABLE Liste Akachan
- public obtenirListeAkachan(refClient:String): Observable<Array<Estimation>>{
-         const url = `${this.urlAka +"client/listeA"}/${refClient}`;
-         let options = new RequestOptions({ headers: this.headers });
-          
-            return this.http.get(url, options)
-                    .map((response:Response) => response.json())
-     }
-
-
- //OBSERVABLE Liste noire
- public obtenirListeNoire(refClient:String): Observable<Array<Estimation>>{
-         const url = `${this.urlAka +"client/listeN"}/${refClient}`;
-          let options = new RequestOptions({ headers: this.headers });
-        
-            return this.http.get(url, options)
-            .map((response:Response) => response.json());
-     }
-
- //OBSERVABLE Liste favoris
- public obtenirListeFavoris(refClient:String): Observable<Array<Estimation>>{
-         const url = `${this.urlAka +"client/listeF"}/${refClient}`;
-            return this.http.get(url)
-            .map((response:Response) => response.json());
-     }
 
 
 } 

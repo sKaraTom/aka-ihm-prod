@@ -28,7 +28,6 @@ export class RechercheComponent implements OnInit {
         private resultatsMap : Map<string,boolean>; // map récupérée du mw, à convertir en array pour datalist.
         private resultatsAAfficher:Recherche[]; // array pour datalist.
 
-        public toggle = {}; // sert pour cacher bouton "j'aime après clic."
         private messageEchec:string;
 
         //partie stats
@@ -59,17 +58,19 @@ export class RechercheComponent implements OnInit {
                 }
        
        
-      ngOnInit(): void {
-          this.remplirXChart();
+    ngOnInit(): void {
+          
+        this.remplirXChart();
 
-
-
-
-      }
+    }
       
 
-
-    public chercherPrenom(event:Event) {
+    /**
+     * chercher un prénom saisi par l'utilisateur
+     * 
+     * @param event 
+     */
+    public chercherPrenom(event:Event) : void {
         event.preventDefault();
         
         // vider les listes si précédentes recherches. 
@@ -90,7 +91,7 @@ export class RechercheComponent implements OnInit {
             if (this.choixSexe == "1") { this.choixClasseCss = "1"; }
             if(this.choixSexe == "2")  { this.choixClasseCss = "2"; }
 
-            // créer une estimation pour vérifier existence côté mw.
+            // créer une estimation à envoyer au mw.
             let estimationAVerifier = new Estimation();
             estimationAVerifier.prenom = this.saisieRecherche;
             estimationAVerifier.sexe = this.choixSexe;
@@ -120,8 +121,13 @@ export class RechercheComponent implements OnInit {
         event.stopPropagation();
       }
 
-
-    public estimerPrenom(event:Event,prenom:string) :void {
+    /**
+     * estimer un prénom positivement (bouton "j'aime")
+     * 
+     * @param event 
+     * @param prenom 
+     */
+    public estimerPrenom(event:Event,prenom:string) : void {
             event.preventDefault();
             
             let estimation:Estimation = new Estimation();
@@ -151,8 +157,13 @@ export class RechercheComponent implements OnInit {
             event.stopPropagation();
         }
 
-
-    private validerSaisie (saisie:string) :boolean {
+    /**
+     * valider que la saisie est conforme
+     * 
+     * @param saisie
+     * @return booleen true si valide.
+     */
+    private validerSaisie (saisie:string) : boolean {
           
            // si la saisie est vide ou ne contient que des espaces.
         if(!saisie || !saisie.trim()) {
@@ -178,8 +189,11 @@ export class RechercheComponent implements OnInit {
 /////////// PARTIE STATS BAR CHART
 
 
-    // récupère le prénom de la datalist et le garde dans la variable prenomSelectionne.
-    // remplit la chart, et ouvre le pop-up overlay.
+    /**
+     * afficher les stats :
+     * récupèrer le prénom de la datalist et le stocke dans la variable prenomSelectionne.
+     * remplir la chart, et ouvrir le pop-up overlay dédié.
+     */ 
     public afficherStats(event:Event,prenom:string,overlaypanel: OverlayPanel):void {
         this.prenomSelectionne = prenom;
         this.getNaissancesStats();
@@ -187,7 +201,10 @@ export class RechercheComponent implements OnInit {
     }
 
 
-    // méthode globale.
+    /**
+     * obtenir les nombres de naissances pour un prénom.
+     * puis activer la méthode de construction de la chart.
+     */
     public getNaissancesStats() {
             this.prenomService.getNaissances(this.prenomSelectionne.toUpperCase(), this.choixSexe)
                                     .subscribe(liste => {(this.naissances) = liste;
@@ -195,14 +212,19 @@ export class RechercheComponent implements OnInit {
                                         });
     }
 
-
+    /**
+     * peupler un tableau des années (abscisse de la chart)
+     */
     public remplirXChart(): void {
         // boucle pour générer axe x années de la chart.
         for (var i = 1900; i <= 2015; i++) {
                 this.annees.push(i.toString());
         }
     }
-
+    
+    /**
+     * construire la chart
+     */
     public getStats() {
         // remplir la chart avec le binding année/nombres naissances.
         this.data = {

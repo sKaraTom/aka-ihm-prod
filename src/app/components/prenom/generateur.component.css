@@ -318,6 +318,11 @@
     width:100%;
   }
 
+  :host /deep/ .ui-togglebutton {
+  border-radius: 6px;
+  font-size:initial;
+}
+
   :host /deep/ .ui-fieldset-legend {
     font-size:initial;
 }

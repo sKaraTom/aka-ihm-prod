@@ -25,37 +25,21 @@ export class ListeHomeComponent implements OnInit {
 
 
  constructor(
-        private router: Router,private route: ActivatedRoute, private authService:AuthentificationService
+        private router: Router,
+        private route: ActivatedRoute,
+        private authService:AuthentificationService
     ) { }
 
 
 ngOnInit() {
-        this.items = [
+    
+    // construire le sous-menu (tab)
+    this.items = [
             {label: 'Ma liste Akachan', icon: 'fa fa-star-half red', routerLink: ['./']},
-            {label: 'La liste de mon ami(e)', icon: 'fa-calendar',disabled:true},
-            {label: 'Nos prénoms communs', icon: 'fa-book',disabled:true, visible:false, routerLink: ['c']},
             {label: 'Changer d\'avis ?', icon: 'fa-support',routerLink: ['n']}
-        ];
+    ];
         
    
-    //       if (!localStorage.getItem('token') || !this.authService.idClientSource.getValue()) {
-    //           this.authService.idClientSource.next(null);
-    //             
-    //       }
-       
-    //    // ajouter validation du token.   
-     
-    //   this.authService.idClientObs.subscribe(
-    //     res => {
-    //       if(res) {
-    //         this.isAuthentifie = true;
-    //         this.idClient = res;
-    //       }
-    //       else {
-    //         this.isAuthentifie = false;
-    //         this.idClient = null;
-    //       }
-    //     })
 
 }
 

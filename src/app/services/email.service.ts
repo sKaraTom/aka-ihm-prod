@@ -19,12 +19,14 @@ export class EmailService {
         this.headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
      }
 
-    /** envoyer au mw un formulaire de contact par une liste.
+    /** 
+     * envoyer au mw un formulaire de contact par une liste.
      * index 0. prenom client ou prospect
      * 1. email client ou prospect.
      * 2. sujet (titre)
      * 3. message
-     * formulaire accessible pour client ou prospect donc pas de token envoyé.
+     * (formulaire accessible pour client ou prospect donc pas de token envoyé.)
+     * 
      * @param listeChamps liste qui contient les champs saisis
      * @return un texte de confirmation si envoi effectué avec succès.
      */
@@ -38,12 +40,14 @@ export class EmailService {
      }
 
 
-     /** envoyer au mw une sélection de prénoms pour envoi par mail.
-      * validation du token.
-      * @param listePrenomsSelectionnes json : liste d'estimations (pour prénom et sexe).
-      * @param prenomClient path : le prénom du client.
-      * @param mailClient path : le mail du client ou "nonVoulu"
-      * @param mailAutre path : un mail saisi ou "nonVoulu"
+     /** 
+      * envoyer une sélection de prénoms pour envoi par mail.
+
+      * @param listePrenomsSelectionnes json : Estimation[] tableau d'estimations (pour prénom et sexe).
+      * @param prenomClient pathparam : le prénom du client.
+      * @param mailClient pathparam : le mail du client ou "nonVoulu"
+      * @param mailAutre pathparam : un mail saisi ou "nonVoulu"
+      * @return string message succès.
       */
      public envoyerMailSelectionPrenoms(listePrenomsSelectionnes: Estimation[], prenomClient:String,mailClient:string,mailAutre:string) {
         const url = `${this.urlAka +"email/selection"}/${prenomClient}/${mailClient}/${mailAutre}`;

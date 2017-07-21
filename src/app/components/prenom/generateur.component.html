@@ -84,14 +84,19 @@
     </div>
     <div class="row justify-content-center" id="ligneEstiMobile">
         <div class="btn-group btn-block" role="group" aria-label="Basic example">
-            <button type="button" class="btn boutonAkachan"  [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}">
+            <button type="button" class="btn boutonAkachan"  [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('false')">
                 <i class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i>
             </button>
-            <button type="button" class="btn boutonAkachan" [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}">
+            <button type="button" class="btn boutonAkachan" [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('true')">
                 <i class="fa fa-star fa-5x" aria-hidden="true"></i>
             </button>
         </div>
-    </div> 
+    </div>
+    <p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms tendances" offLabel="prénoms tendances" [(ngModel)]="estTendance"
+                    (onChange)="activerPrenomsTendances($event)"></p-toggleButton>
+    <p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms anciens" offLabel="prénoms anciens" [(ngModel)]="estAncien"
+                    (onChange)="activerPrenomsAnciens($event)"></p-toggleButton>
+
 </div>
 </div>
 <!-- ******************  -->

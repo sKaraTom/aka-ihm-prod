@@ -30,6 +30,7 @@ import { PrenomService } from "../../services/prenom.service";
 import { EstimationService } from "../../services/estimation.service";
 import { PartageModule } from "../partage.module";
 import { EmailService } from "../../services/email.service";
+import { AuthentificationService } from "../../services/authentification.service";
 
 
 
@@ -44,7 +45,7 @@ import { EmailService } from "../../services/email.service";
    ListeHomeComponent,ListeAkachanComponent,ListeNoireComponent,GenrePipe
   ],
    providers: [
-    ClientService,PrenomService,EstimationService,EmailService
+    AuthentificationService,ConfirmationService,ClientService,PrenomService,EstimationService,EmailService
    ]
 })
 export class ListeModule {}

@@ -38,12 +38,15 @@ export class InscriptionComponent implements OnInit {
         }
 
 
-
-       public creerCompte(formInscription:NgForm) {
+      /**
+       * créer un compte.
+       */
+       public creerCompte(formInscription:NgForm) : void {
           
-              // si le formulaire a des champs valides, création de compte envoyée au mw.
+              // si le formulaire a ses champs validés, compte à créer envoyé au mw.
               if(this.validerFormulaire(formInscription)) {
 
+                    // charger un compte compteInscription depuis le formulaire.
                     this.compteInscription.email = formInscription.value.email;
                     this.compteInscription.password = formInscription.value.mdp;
                     
@@ -79,7 +82,11 @@ export class InscriptionComponent implements OnInit {
               }
           }           
         
-
+      /**
+       * valider que le formulaire a des saisies valides.
+       * 
+       * @param formulaire 
+       */
       private validerFormulaire(formulaire:NgForm) : boolean {
 
         // vérifier que les 2 champs mdp matchent.
@@ -89,7 +96,7 @@ export class InscriptionComponent implements OnInit {
             return false;
           }
           
-        // si le password contient des espaces, message d'erreur..
+        // si le password contient des espaces, message d'erreur.
           else if(this.contenirEspaces(formulaire.value.mdp)) {
             this.erreur = "le mot de passe ne doit pas contenir d'espace.";
             setTimeout(() => { this.erreur = null; }, 3000);
@@ -99,12 +106,22 @@ export class InscriptionComponent implements OnInit {
 
       }
 
-       private contenirEspaces(mot:string):boolean {
+      /**
+       * valider qu'une string ne contient pas d'espace.
+       * 
+       * @param mot
+       * @return booleen true si le mot contient des espaces.
+       */
+      private contenirEspaces(mot:string):boolean {
              return /\s/g.test(mot);
-       }
+      }
 
-
-       public redirigerVersPageLogin() {
+      /**
+       * méthode de redirection :
+       * -  vers la page de login si l'on est sur la page /inscription.
+       * - remonter vers le haut de la page si l'on est dans la partie basse de la page /login.
+       */
+      public redirigerVersPageLogin() : void {
           
           if (this.router.url == '/login') {
               window.scrollTo(0,0);
@@ -113,6 +130,6 @@ export class InscriptionComponent implements OnInit {
           else {
               this.router.navigateByUrl('/login');
         }
-       }
+      }
 
 }

@@ -15,19 +15,23 @@ export class HeaderComponent implements OnInit {
                         public router: Router,){ 
 
         this.authService.prenomClientSource.next(localStorage.getItem('prenom'));
-        //this.authService.idClientSource.next(localStorage.getItem('id'));
     }
     
 
     ngOnInit(){
         this.authService.prenomClientObs.subscribe(
-        res => { if(res) { this.prenomClient = res; }
-                else { this.prenomClient = null;  }
+        res => { 
+            if(res) { this.prenomClient = res; }
+            else    { this.prenomClient = null; }
         });
        
     } 
 
-
+  /**
+   * déconnecter un client et redirection vers accueil prospect.
+   * 
+   * @param event 
+   */
   public deconnecter(event:Event):void {
         event.preventDefault();
         this.authService.deconnecter();

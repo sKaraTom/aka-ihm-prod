@@ -6,8 +6,6 @@ import { Client } from "../../objetmetier/client";
 import { MdDialogRef } from "@angular/material";
 
 
-
-
 @Component({
   selector:"contact",
   templateUrl :'./contact.component.html',
@@ -43,6 +41,10 @@ export class ContactComponent implements OnInit  {
 
   }
 
+  /**
+   * obtenir le mail du client
+   * pour champ prérempli du formulaire.
+   */
   private obtenirClient() : void {
       
       this.clientService.obtenirClient(localStorage.getItem("id"))
@@ -51,10 +53,11 @@ export class ContactComponent implements OnInit  {
   }
 
   /**
+   * envoyer un mail : créer une liste Array<String> des champs saisis.
    * 
    * @param formContact 
    */
-  private envoyerMail(formContact:NgForm) :void {
+  private envoyerMail(formContact:NgForm) : void {
 
     let listeChamps : Array<String> = new Array<String>();
     

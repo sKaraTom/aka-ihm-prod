@@ -29,7 +29,13 @@ export class LoginGuard implements CanActivate, CanActivateChild, CanLoad  {
     return true;
 }
 
- 
+  /**
+   * méthode de redirection : 
+   * si l'utilisateur est connecté, fermer l'accès à la page /login et /inscription
+   * et rediriger vers la page d'accueil client.
+   * 
+   * @param url 
+   */
   checkLogin(url: string): Observable<boolean> {
 
       if( (localStorage.getItem('token')) && (localStorage.getItem('id')) && (localStorage.getItem('prenom')) ) { 

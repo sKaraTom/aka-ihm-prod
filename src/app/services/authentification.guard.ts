@@ -21,35 +21,46 @@ export class AuthentificationGuard implements CanActivate, CanActivateChild, Can
   }
 
 
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
            
            return this.canActivate(route, state);  
-    }
+  }
 
-    canLoad(route: Route): Observable<boolean> {
-  let url = `/${route.path}`;
+  canLoad(route: Route): Observable<boolean> {
+      let url = `/${route.path}`;
 
-  return this.checkLogin(url);
-}
+      return this.checkLogin(url);
+  }
 
- checkLogin(url: string): Observable<boolean> {
+  
+  
+  /**
+   * vérifier que le compte est connecté :
+   * - si localStorage contient le token, id et prénom.
+   * - si le token est valide.
+   * - redirection vers page login si échec.
+   * 
+   * @param url
+   * @return boolean si compte connecté et valide.
+   */
+  checkLogin(url: string): Observable<boolean> {
 
-      if( (localStorage.getItem('token')) && (localStorage.getItem('id')) && (localStorage.getItem('prenom')) ) { 
+    if( (localStorage.getItem('token')) && (localStorage.getItem('id')) && (localStorage.getItem('prenom')) ) { 
           
-          // si token valid':navigation autorisée.
+          // si token validé :navigation autorisée.
           if(this.authService.estConnecte().toPromise()) {
             return  Observable.of(true);
           }
 
           else {
-               this.authService.redirectUrl = url;
+                this.authService.redirectUrl = url;
                 // échec valid' token : redirection vers page de login.
                 this.authService.prenomClientSource.next(null);
                 this.router.navigate(['/login']);
                 return Observable.of(false);
           }
 
-      }
+    }
 
     else {
         this.authService.redirectUrl = url;

@@ -1,9 +1,6 @@
 
 import { Component, OnInit } from "@angular/core";
 
-import { ActivatedRoute, Router } from "@angular/router";
-import { Http } from "@angular/http";
-import { ClientService } from "../../services/client.service";
 import { AuthentificationService } from "../../services/authentification.service";
 import { Estimation } from "../../objetmetier/estimation";
 import { SelectItem, MenuItem, Message } from "primeng/primeng";
@@ -15,9 +12,8 @@ import { EstimationService } from "../../services/estimation.service";
 @Component({
     selector:'liste-noire',
     templateUrl : './liste-noire.component.html',
-    styleUrls: ['./liste-styles.css'],
-    providers : [ClientService, AuthentificationService]
-    })
+    styleUrls: ['./liste-styles.css']
+})
 export class ListeNoireComponent implements OnInit {
     
     public listeNoire: Array<Estimation>;
@@ -34,10 +30,6 @@ export class ListeNoireComponent implements OnInit {
 
 
     constructor( 
-        private route: ActivatedRoute,
-        private router: Router,
-        private http: Http,
-        private clientService: ClientService,
         private authService : AuthentificationService,
         private estimationService : EstimationService) {
 
@@ -54,7 +46,7 @@ export class ListeNoireComponent implements OnInit {
 
         }
         
-        ngOnInit(): void {
+    ngOnInit(): void {
 
         this.loading = true;
         this.obtenirListeNoire();
@@ -72,17 +64,25 @@ export class ListeNoireComponent implements OnInit {
              }
         ]; 
 
-        }
+    }
 
-     public obtenirListeNoire() {
-         this.clientService.obtenirListeNoire(this.uuidClient)
+    /**
+     * obtenir la liste noire d'un client.
+     */
+    public obtenirListeNoire() : void {
+         this.estimationService.obtenirListeNoire(this.uuidClient)
                                 .subscribe(liste => this.listeNoire = liste,
                                 erreur => {},
                                 () => this.loading = false
                                 );
     }
 
-    
+    /**
+     * modifier une estimation pour la passer dans la liste Akachan
+     * et filtrer la listeNoire pour supprimer l'estimation côté ihm.
+     * 
+     * @param estimation l'estimation à modifier.
+     */
     public repecherPrenom(estimation:Estimation) {
 
             estimation.dateEstimation = new Date();

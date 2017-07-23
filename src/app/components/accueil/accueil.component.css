@@ -4,6 +4,10 @@
     margin-bottom:1.5%;
 }
 
+#titreAccueil {
+font-size:2vmax;
+}
+
 .cardTitre {
     font-size:2.8vh;
 }
@@ -93,10 +97,27 @@
     }
 
 
+@media (max-width: 768px) {
 
+
+#colTitreAccueil {
+    padding-left:0;
+}
+
+
+#titreAccueil {
+    font-size: 2em;
+}
+
+#titreAccueil:first-letter {
+    font-size: 1.5em;
+}
+
+}
 
 @media (min-width: 1590px) {
 
+    
   #listePucesTop strong {
     font-size:2em;
 }

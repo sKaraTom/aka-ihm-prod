@@ -77,11 +77,11 @@
 
 <!-- ***** MOBILE : ESTIMATION PRENOM ALEATOIRE *****  -->
 <div id="mobile">
-<div class="row justify-content-center">
-      <!-- prenom aleatoire -->
-    <div class="col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}" >
-        <span>{{ nouveauPrenomAleatoire }} </span>
-    </div>
+    <div class="row justify-content-center">
+        <!-- prenom aleatoire -->
+        <div class="col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}" >
+            <span>{{ nouveauPrenomAleatoire }} </span>
+        </div>
     <div class="row justify-content-center" id="ligneEstiMobile">
         <div class="btn-group btn-block" role="group" aria-label="Basic example">
             <button type="button" class="btn boutonAkachan"  [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('false')">

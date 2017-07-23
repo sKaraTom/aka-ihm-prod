@@ -301,6 +301,12 @@
     width:50%;
     height:10vh;
   }
+  
+  #ligneEstiMobile {
+    margin-top:15px;
+    margin-bottom:10px;
+    width:100%;
+  }
 
   #ligneEstiMobile i {
     font-size:10vw;
@@ -312,11 +318,6 @@
     padding-left:initial;
   }
 
-  #ligneEstiMobile {
-    margin-top:4%;
-    margin-bottom:2%;
-    width:100%;
-  }
 
   :host /deep/ .ui-togglebutton {
   border-radius: 6px;

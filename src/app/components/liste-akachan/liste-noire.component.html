@@ -29,7 +29,7 @@
          <p-column styleClass="col-noire-prenom" sortable="true" field="prenom" header="prénom" [filter]="true" filterPlaceholder="chercher un prénom">
                 <ng-template let-prenom let-estimation="rowData" pTemplate="body">
                     <span [ngClass]="{'fille' : estimation.sexe == 2, 'garcon' : estimation. sexe =='1'}" id="champPrenom">
-                     {{estimation[prenom.field] | capitalize}}
+                     {{estimation[prenom.field].toLowerCase()}}
                     </span>
                 </ng-template>
         </p-column>

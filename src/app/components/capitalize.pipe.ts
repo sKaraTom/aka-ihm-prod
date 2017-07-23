@@ -6,8 +6,6 @@ export class CapitalizePipe implements PipeTransform {
   public transform(value: string, args: string[]): any {
     if (!value) return value;
 
-    return value.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
+    return value.toLowerCase().replace(/(^.|-.)/g,function(e){return e.toUpperCase()});
   }
 }

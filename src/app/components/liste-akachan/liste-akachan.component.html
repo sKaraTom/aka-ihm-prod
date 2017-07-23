@@ -65,7 +65,7 @@
             [filter]="true" filterPlaceholder="chercher un prénom">
                 <ng-template let-prenom let-estimation="rowData" pTemplate="body">
                     <span [ngClass]="{'fille' : estimation.sexe == 2, 'garcon' : estimation. sexe =='1'}" id="champPrenom">
-                       {{estimation[prenom.field] | capitalize}}
+                       {{estimation[prenom.field].toLowerCase()}}
                     </span>
                 </ng-template>
         </p-column>
@@ -137,8 +137,8 @@
             
                 <div *ngFor="let estim of listePrenomsAEnvoyer; let last=last;" id="boucleSelectionMail" 
                     [ngClass]="estim.sexe == '1' ? 'garcon' : 'fille'">
-                        <span  *ngIf="!last"> {{estim.prenom | capitalize }} -&nbsp;</span> 
-                        <span *ngIf="last">{{estim.prenom | capitalize }} </span>
+                        <span  *ngIf="!last"> {{estim.prenom.toLowerCase() }} -&nbsp;</span> 
+                        <span *ngIf="last">{{estim.prenom.toLowerCase() }} </span>
                 </div>
         </div>
 

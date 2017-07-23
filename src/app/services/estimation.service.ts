@@ -13,8 +13,8 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class EstimationService {
 
-//  private urlAka:string = "http://akachan.jelastic.dogado.eu/akachan-0.1/ws/";
-private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
+ private urlAka:string = "http://akachan.jelastic.dogado.eu/ws/";
+// private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
 
  private headers = new Headers({'Content-Type': 'application/json'});
 
@@ -58,9 +58,8 @@ constructor(private http: Http) {
      */
     public obtenirTotalEstimClient (refClient:String): Observable<number> {
         const url = `${this.urlAka + "estimation/stats" }/${refClient}`;
-        let options = new RequestOptions({ headers: this.headers });
 
-            return this.http.get(url,options)
+            return this.http.get(url)
             .map((response:Response) => response.json());
     }
 
@@ -75,9 +74,8 @@ constructor(private http: Http) {
      */
     public obtenirTotalEstimClientParSexe(refClient:String, sexe: String): Observable<number>{
             const url = `${this.urlAka + "estimation/stats" }/${refClient}/${sexe}`; 
-            let options = new RequestOptions({ headers: this.headers });
 
-            return this.http.get(url,options)
+            return this.http.get(url)
             .map((response:Response) => response.json());
      }
 
@@ -118,9 +116,8 @@ constructor(private http: Http) {
      */
     public obtenirListeFavoris(refClient:String): Observable<Array<Estimation>>{
             const url = `${this.urlAka +"estimation/listeF"}/${refClient}`;
-            let options = new RequestOptions({ headers: this.headers });
 
-            return this.http.get(url,options)
+            return this.http.get(url)
                 .map((response:Response) => response.json());
         }
 

@@ -2,7 +2,7 @@
 
 #prenomClient {
     font-family: "akaPolice";
-    font-size: 2em;
+    font-size: 4vmax;
     text-transform:capitalize;
 }
 
@@ -45,8 +45,12 @@
 
 #ligneTitreAccueil {
     padding-left:0;
+    padding-top:0.7em;
 }
 
+#prenomClient {
+    font-size: 2em;
+}
 }
 
 
@@ -74,3 +78,6 @@
 }
 
 }
+
+
+

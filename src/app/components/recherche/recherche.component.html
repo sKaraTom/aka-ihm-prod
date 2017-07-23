@@ -99,7 +99,7 @@
 
 <p-overlayPanel #op3 appendTo="body">
     
-    <h2>Popularité du prénom {{ prenomSelectionne }}</h2>
+    <h2 id="titreChart">Popularité du prénom {{ prenomSelectionne | capitalize }}</h2>
      <p-chart type="bar" [data]="data" [options]="options" width=500vh ></p-chart>
        <p style="text-align: right;">Source : INSEE.</p>
     </p-overlayPanel>

@@ -41,7 +41,11 @@
 }
 
 #divOverlayChart {
-    width:35vw;
+    width:30vw;
+}
+
+#titreChart {
+    font-size:3vh;
 }
 
 

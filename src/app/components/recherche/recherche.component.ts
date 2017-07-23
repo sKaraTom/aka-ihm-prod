@@ -196,6 +196,7 @@ export class RechercheComponent implements OnInit {
      */ 
     public afficherStats(event:Event,prenom:string,overlaypanel: OverlayPanel):void {
         this.prenomSelectionne = prenom;
+        this.data = null; // remettre à null si une chart avait déjà été affichée.
         this.getNaissancesStats();
         overlaypanel.toggle(event); // afficher le pop-up overlay
     }

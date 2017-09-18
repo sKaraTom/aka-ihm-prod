@@ -11,8 +11,9 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class CompteService {
 
-    private urlAka:String = "https://akachan.jelastic.dogado.eu/ws/compte/";
+    // private urlAka:String = "https://akachan.jelastic.dogado.eu/ws/compte/";
     // private urlAka:String = "http://localhost:8080/akachan-0.1/ws/compte/";
+    private urlAka:string =  "https://mw.akachan.fr/akachan-0.1/ws/compte/";
 
     private headers = new Headers({'Content-Type': 'application/json'});
     private headersForm = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});

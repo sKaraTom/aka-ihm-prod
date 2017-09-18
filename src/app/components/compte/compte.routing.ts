@@ -8,7 +8,7 @@ import { CompteComponent } from "./compte.component";
 
 const compteRoutes: Routes = [
   { path: '', component: CompteComponent,
-          canActivate: [AuthentificationGuard]
+          //canActivate: [AuthentificationGuard]
   }];
 
 

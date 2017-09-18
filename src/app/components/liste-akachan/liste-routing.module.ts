@@ -11,7 +11,7 @@ import { ListeNoireComponent } from "./liste-noire.component";
 const listeRoutes: Routes = [
     
     { path: '', component: ListeHomeComponent,
-      canActivate: [AuthentificationGuard],
+      //canActivate: [AuthentificationGuard],
               children : [{ path: '',
                             // canActivateChild: [AuthentificationGuard], 
                             // si guard inutile ici, remonter d'un niveau les sous-rubriques. 

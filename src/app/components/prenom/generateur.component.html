@@ -28,8 +28,8 @@
                 <i class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i>
         </div>
         <!-- prenom aleatoire -->
-        <div class="col-md-6 col-sm-5 col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}" >
-            <span [@fadeInOut] *ngIf="animation">{{ nouveauPrenomAleatoire }} </span>
+        <div class="col-md-6 col-sm-5 col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}">
+            <span [@fadeInOut] *ngIf="animation"  [mdTooltip]="nouveauPrenomAleatoire">{{ nouveauPrenomAleatoire }} </span>
         </div>
         <!-- bouton j aime -->
         <div class="col-md-3 col-sm-2 col-xs-12 btnEstimation" id="btnAime"

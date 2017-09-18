@@ -8,7 +8,7 @@ import { AuthentificationGuard } from "../../services/authentification.guard";
 
 const prenomRoutes: Routes = [
   { path: '', component: GenerateurComponent,
-          canActivate: [AuthentificationGuard]
+         // canActivate: [AuthentificationGuard]
   }];
 
 

@@ -27,11 +27,22 @@ export class AuthentificationGuard implements CanActivate, CanActivateChild, Can
   }
 
   canLoad(route: Route): Observable<boolean> {
-      let url = `/${route.path}`;
+      //let url = `/${route.path}`;
 
-      return this.checkLogin(url);
+      let estConnecte : Observable<boolean>;
+
+      if( (localStorage.getItem('token')) && (localStorage.getItem('id')) && (localStorage.getItem('prenom')) ) {
+        estConnecte = Observable.of(true);
+      }
+
+      else {
+        estConnecte = Observable.of(false);
+        this.router.navigate(['/login']);
+      }
+
+      console.log("canload booleen : ", estConnecte);
+      return estConnecte;
   }
-
   
   
   /**

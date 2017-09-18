@@ -20,12 +20,12 @@ const appRoutes: Routes = [
   {
     path: 'liste',
     loadChildren: './components/liste-akachan/liste.module#ListeModule',
-    canLoad: [AuthentificationGuard]
+    canActivate: [AuthentificationGuard]
   },
    {
     path: 'prenom',
     loadChildren: './components/prenom/prenom.module#PrenomModule',
-    canLoad: [AuthentificationGuard]
+    canActivate: [AuthentificationGuard]
   },
   {
    path:'login',
@@ -34,12 +34,12 @@ const appRoutes: Routes = [
   {
     path: 'compte',
     loadChildren: './components/compte/compte.module#CompteModule',
-    canLoad: [AuthentificationGuard]
+    canActivate: [AuthentificationGuard]
   },
   {
     path: 'recherche',
     loadChildren: './components/recherche/recherche.module#RechercheModule',
-    canLoad: [AuthentificationGuard]
+    canActivate: [AuthentificationGuard]
   },
   { path: 'contact', component: ContactComponent,
     canActivate: [ContactGuard] // pour éviter que la route soit accessible (uniquement en pop-up dialog).

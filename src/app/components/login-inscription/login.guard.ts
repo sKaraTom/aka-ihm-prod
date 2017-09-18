@@ -21,13 +21,13 @@ export class LoginGuard implements CanActivate, CanActivateChild, CanLoad  {
   }
 
 
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
            return this.canActivate(route, state);  
-    }
+  }
 
-    canLoad(route: Route): boolean {
+  canLoad(route: Route): boolean {
     return true;
-}
+  }
 
   /**
    * méthode de redirection : 

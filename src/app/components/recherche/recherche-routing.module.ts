@@ -8,7 +8,8 @@ import { AuthentificationGuard } from "../../services/authentification.guard";
 
 const rechercheRoutes: Routes = [
   { path: '', component: RechercheComponent,
-        canActivate: [AuthentificationGuard]}
+        //canActivate: [AuthentificationGuard]
+  }
 ];
 @NgModule({
   imports: [

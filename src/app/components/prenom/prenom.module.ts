@@ -14,13 +14,13 @@ import { ToggleButtonModule, TooltipModule, RadioButtonModule, ButtonModule, Acc
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { NgSemanticModule } from "ng-semantic/ng-semantic";
-import { MdRadioModule } from "@angular/material";
+import { MdRadioModule, MdTooltipModule } from "@angular/material";
 import { EstimationService } from "../../services/estimation.service";
 
 
 @NgModule({
   imports: [ 
-    OverlayPanelModule,MdRadioModule,NgSemanticModule,NgbModule.forRoot(),ToggleButtonModule,TooltipModule,HttpModule,
+    MdTooltipModule,OverlayPanelModule,MdRadioModule,NgSemanticModule,NgbModule.forRoot(),ToggleButtonModule,TooltipModule,HttpModule,
     ChartModule,FieldsetModule,AccordionModule,CommonModule,FormsModule,
     RadioButtonModule,ButtonModule, PrenomRoutingModule
   ],

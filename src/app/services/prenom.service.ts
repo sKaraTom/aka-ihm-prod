@@ -79,9 +79,8 @@ export class PrenomService {
    */
   public getNaissances(prenom: String, sexe: String): Observable<Number[]>{
           const url = `${this.urlAka + "insee/pop" }/${sexe}/${prenom}`;
-          let options = new RequestOptions({ headers: this.headers });
 
-          return this.http.get(url,options)
+          return this.http.get(url)
               .map((response:Response) => response.json());
      }
 

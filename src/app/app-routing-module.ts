@@ -7,6 +7,9 @@ import { AccueilGuard } from "./components/accueil/accueil.guard";
 import { AuthentificationGuard } from "./services/authentification.guard";
 import { ContactComponent } from "./components/footer/contact.component";
 import { ContactGuard } from "./components/footer/contact.guard";
+import { AdministrationComponent } from "./components/administration/administration.component";
+import { LogAdminComponent } from "./components/administration/log-admin.component";
+import { AdminGuard } from "./components/administration/admin.guard";
 
 
 
@@ -44,6 +47,12 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent,
     canActivate: [ContactGuard] // pour éviter que la route soit accessible (uniquement en pop-up dialog).
     //redirection vers accueil.
+  },  
+  { path: 'admin', component: AdministrationComponent,
+    canActivate: [AdminGuard]
+  },
+  { path: 'admin/connexion', component: LogAdminComponent,
+  
   },  
   
   { path: '', redirectTo: '/accueil/cli', pathMatch: 'full'},

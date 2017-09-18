@@ -35,6 +35,9 @@ import { ClientService } from "./services/client.service";
 import { HeaderComponent } from "./components/header/header.component";
 import { MenuComponent } from "./components/menu/menu.component";
 import { ContactGuard } from "./components/footer/contact.guard";
+import { AdministrationComponent } from "./components/administration/administration.component";
+import { LogAdminComponent } from "./components/administration/log-admin.component";
+import { AdminGuard } from "./components/administration/admin.guard";
 
 
 @NgModule({
@@ -46,11 +49,11 @@ import { ContactGuard } from "./components/footer/contact.guard";
      DataTableModule, InputSwitchModule, GrowlModule,PartageModule,AppRoutingModule
             ],
     declarations:[ 
-    AppComponent,PageNotFoundComponent, HeaderComponent, MenuComponent
+    AppComponent,PageNotFoundComponent, HeaderComponent, MenuComponent,AdministrationComponent,LogAdminComponent
      ],
      exports:[],
     bootstrap: [ AppComponent ],
-    providers: [ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
+    providers: [AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
 })
  
 export class AppModule{

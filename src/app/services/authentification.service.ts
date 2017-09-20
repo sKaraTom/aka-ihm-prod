@@ -11,13 +11,12 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch'
 import { Compte } from "../objetmetier/compte";
 import { Router } from "@angular/router";
+import { UrlMwService } from "./url-mw.service";
 
 @Injectable()
 export class AuthentificationService {
   
-//   private urlAka:String = "https://akachan.jelastic.dogado.eu/ws/";
-//   private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
-    private urlAka:string =  "https://mw.akachan.fr/akachan-0.1/ws/";
+  private urlAka:string =  this.urlMw.urlAka;
  
   private headers = new Headers({'Content-Type': 'application/json'});
   private headersForm = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -38,7 +37,7 @@ export class AuthentificationService {
   // url de redirection après connexion.
   redirectUrl: string;
 
-  constructor(private http:Http, private router: Router) {
+  constructor(private urlMw:UrlMwService,private http:Http, private router: Router) {
     
     this.token = localStorage.getItem('token');
     this.prenomClient = localStorage.getItem('prenom');
@@ -93,6 +92,21 @@ export class AuthentificationService {
       }
 
       /**
+       * se connecter en administrateur.
+       * 
+       * @param compte
+       * @return un token dédié à la partie administration. 
+       */
+      public connecterAdmin(compte:Compte) : Observable<string> {
+
+        const url = `${this.urlAka +"compte/admin/connexion"}`;
+
+        return this.http.post(url, compte)
+                    .map(data =>data.text());
+      }
+
+
+      /**
        * déconnecter un client : réinitialiser toutes les variables
        * et vider le localStorage.
        * 
@@ -132,10 +146,38 @@ export class AuthentificationService {
                 })
             .catch((error) => { 
                 this.deconnecter();
-                this.router.navigateByUrl('/login');
+                this.router.navigate(['/login']);
                 return Observable.of(false); })
         
     }
 
+
+    /**
+     * valider le token : le récupérer depuis le localStorage
+     * et l'envoyer en header au mw.
+     * 
+     * @return booleen si connecté.
+     */
+    public estConnecteAdmin() {
+        
+         const url = `${this.urlAka +"compte/token"}`;
+
+         // passer le token du local storage en Header pour validation côté mw.
+        let headersValid = new Headers({'Content-Type': 'application/json'});
+        headersValid.append('authorization', `Bearer ${sessionStorage.getItem('si')}`);
+
+        let options = new RequestOptions({ headers: headersValid });
+        
+        // si le token est valide : retourner true, si catch d'erreur (=> exception unauthorized)
+        // déconnecter le client et retourner false
+        return this.http.get(url,options)
+            .map((response:Response) => 
+                 {      if(response) {return true;} 
+                })
+            .catch((error) => { 
+                this.router.navigate(['/admin/connexion']);
+                return Observable.of(false); })
+        
+    }
 
 }

@@ -38,6 +38,7 @@ import { ContactGuard } from "./components/footer/contact.guard";
 import { AdministrationComponent } from "./components/administration/administration.component";
 import { LogAdminComponent } from "./components/administration/log-admin.component";
 import { AdminGuard } from "./components/administration/admin.guard";
+import { UrlMwService } from "./services/url-mw.service";
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import { AdminGuard } from "./components/administration/admin.guard";
      ],
      exports:[],
     bootstrap: [ AppComponent ],
-    providers: [AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
+    providers: [UrlMwService,AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
 })
  
 export class AppModule{

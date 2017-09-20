@@ -12,10 +12,11 @@ import { CitationService } from "../../services/citation.service";
 
 
 @Component({
-     templateUrl : './accueil-client.component.html',
-    styleUrls: ['./accueil-client.component.css']
+  templateUrl : './accueil-client.component.html',
+  styleUrls: ['./accueil-client.component.css']
 })
 export class AccueilClientComponent implements OnInit {
+
 
             private uuidClient:string;
 
@@ -68,7 +69,7 @@ export class AccueilClientComponent implements OnInit {
   }
        
     ngOnInit(): void {
-      
+
         this.authService.prenomClientObs.subscribe(
         res => { 
                 if(res) { this.prenomClient = res; }
@@ -218,8 +219,6 @@ export class AccueilClientComponent implements OnInit {
                 }]    
             };
     }
-
-
 
 
 }

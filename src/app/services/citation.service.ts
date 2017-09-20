@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Http, Response, Headers,RequestOptions } from "@angular/http";
 
 import { Citation } from "../objetmetier/citation";
+import { UrlMwService } from "./url-mw.service";
 
 
 
@@ -12,17 +13,15 @@ import { Citation } from "../objetmetier/citation";
 @Injectable()
 export class CitationService {
 
-// private urlAka:String = "https://akachan.jelastic.dogado.eu/ws/";
-// private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
-private urlAka:string =  "https://mw.akachan.fr/akachan-0.1/ws/"
+    private urlAka:string =  this.urlMw.urlAka;
 
-private headers = new Headers ({'content-type': 'application/json'});
-private token:string;
+    private headers = new Headers ({'content-type': 'application/json'});
+    private token:string;
 
-constructor(private http: Http) {
-     this.token = localStorage.getItem('token');
-     this.headers.append('Authorization', `Bearer ${this.token}`);
- }
+    constructor(private urlMw:UrlMwService,private http: Http) {
+        this.token = localStorage.getItem('token');
+        this.headers.append('Authorization', `Bearer ${this.token}`);
+    }
 
  
  /**

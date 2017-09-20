@@ -7,22 +7,23 @@ import { Router } from "@angular/router";
 
 @Component({
     selector:'akachan',
+    host : {'(window:beforeunload)':'quitterSession2($event)' },
     templateUrl:'./app.component.html',
     styleUrls: ['./app.component.css'],
-    
     providers:  [AuthentificationService]
 })
 
-export class AppComponent implements OnInit {
-        
+export class AppComponent implements OnInit  {
 
-    public constructor (){ 
+
+    sessionId:string="";
+
+    public constructor (private authService:AuthentificationService){ 
     }
     
 
     ngOnInit(){
     } 
-
 
 
 }

@@ -6,17 +6,16 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Observable";
 import { Estimation } from "../objetmetier/estimation";
+import { UrlMwService } from "./url-mw.service";
 
 @Injectable()
 export class EmailService {
 
-//  private urlAka:string = "https://akachan.jelastic.dogado.eu/ws/";
-//  private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
-private urlAka:string =  "https://mw.akachan.fr/akachan-0.1/ws/";
+    private urlAka:string =  this.urlMw.urlAka;
  
- private headers = new Headers({'Content-Type': 'application/json'});
+    private headers = new Headers({'Content-Type': 'application/json'});
 
-    constructor(private http: Http) {
+    constructor(private urlMw:UrlMwService,private http: Http) {
         this.headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
      }
 

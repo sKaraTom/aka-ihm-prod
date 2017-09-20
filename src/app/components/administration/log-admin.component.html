@@ -14,30 +14,26 @@
      </div>
   
   
-      <form  #formulaireConnexion="ngForm" class="zoneFormulaire" (submit)="connecter($event)" *ngIf="!isAuthentifie">
+      <form accept-charset="UTF-8" #form="ngForm" class="zoneFormulaire" (submit)="connecterAdmin(form)">
   
-    <table class="formulaireConnexion" cellspacing="0">
-      <tr>
-        <td>
+        <div class="col-md-6 col-sm-6 col-xs-12">
           <md-input-container class="formulaireConnexion">
-            <input mdInput type="text"  #emailConnexion="ngModel" ngModel name="email" [(ngModel)]="email" placeholder="login" required>
+            <input mdInput type="text"  #email="ngModel" ngModel name="email" placeholder="email" required>
           </md-input-container>
-        </td>
-        <td>
+        </div> 
+        <div class="col-md-6 col-sm-6 col-xs-12">
           <md-input-container class="formulaireConnexion">
-            <input mdInput type="password"  #mdpConnexion="ngModel" ngModel name="mdp" [(ngModel)]="password" 
+            <input mdInput type="password"  #mdpConnexion="ngModel" ngModel name="password" 
                 placeholder="mot de passe" minlength="4" required>
           </md-input-container>
-      </td>
-      </tr>
-    </table>
+        </div>
          
          <Button type="submit" class="btn boutonAkachan btnLoginInscription"> Connexion </Button>
     
     </form>
   
-     <div align="center" *ngIf="error" class="alert alert-danger">
-        <i class="fa fa-exclamation" aria-hidden="true" style="font-size:120%;"></i>&nbsp;{{error}}
+     <div align="center" *ngIf="erreur" class="alert alert-danger">
+        <i class="fa fa-exclamation" aria-hidden="true" style="font-size:120%;"></i>&nbsp;{{erreur}}
     </div>
-  
+
   </div>

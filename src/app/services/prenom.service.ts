@@ -7,19 +7,18 @@ import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Observable"
 
 import { Estimation } from "../objetmetier/estimation";
+import { UrlMwService } from "./url-mw.service";
 
 
 @Injectable()
 export class PrenomService {
 
-    // private urlAka:String = "https://akachan.jelastic.dogado.eu/ws/";
-    // private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
-    private urlAka:string =  "https://mw.akachan.fr/akachan-0.1/ws/";
+    private urlAka:string =  this.urlMw.urlAka;
 
     private headers = new Headers ({'content-type': 'application/json'});
     private token:string;
 
-    constructor(private http: Http) { 
+    constructor(private urlMw:UrlMwService,private http: Http) { 
         this.token = localStorage.getItem('token');
         this.headers.append('Authorization', `Bearer ${this.token}`);
     }

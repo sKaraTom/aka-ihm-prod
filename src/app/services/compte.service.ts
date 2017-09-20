@@ -6,21 +6,20 @@ import { Compte } from "../objetmetier/compte";
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Observable";
+import { UrlMwService } from "./url-mw.service";
 
 
 @Injectable()
 export class CompteService {
 
-    // private urlAka:String = "https://akachan.jelastic.dogado.eu/ws/compte/";
-    // private urlAka:String = "http://localhost:8080/akachan-0.1/ws/compte/";
-    private urlAka:string =  "https://mw.akachan.fr/akachan-0.1/ws/compte/";
+    private urlAka:string =  this.urlMw.urlAka;
 
     private headers = new Headers({'Content-Type': 'application/json'});
     private headersForm = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
      private token:string;
 
-constructor(private http: Http) {
+constructor(private urlMw:UrlMwService,private http: Http) {
      this.token = localStorage.getItem('token');
      this.headers.append('Authorization', `Bearer ${this.token}`);
      this.headersForm.append('Authorization', `Bearer ${this.token}`);
@@ -34,7 +33,7 @@ constructor(private http: Http) {
      * @return string message succès.
      */
     public creerCompte(compte:Compte) {
-        const url = `${this.urlAka +"creer"}`;
+        const url = `${this.urlAka +"compte/creer"}`;
 
         return this.http.post(url, compte)
                 .map(data =>data.text());
@@ -49,7 +48,7 @@ constructor(private http: Http) {
      */
     public obtenirCompte(email:string):Observable<Compte> {
 
-        const url = `${this.urlAka +"obtenir"}`;
+        const url = `${this.urlAka +"compte/obtenir"}`;
         
         //header form param + passer token dans 'authorization'
         let options = new RequestOptions({ headers: this.headersForm });
@@ -69,7 +68,7 @@ constructor(private http: Http) {
      */
     public modifierCompte(compte:Compte):Observable<Compte> {
 
-        const url = `${this.urlAka +"modifier"}`;
+        const url = `${this.urlAka +"compte/modifier"}`;
         let options = new RequestOptions({ headers: this.headers });
         
         return this.http.put(url,compte,options)
@@ -87,7 +86,7 @@ constructor(private http: Http) {
      */
     public modifierMotDePasse(email:string, passwordActuel:string, nouveauPassword:string) {
          
-        const url = `${this.urlAka +"modifier/password"}`;
+        const url = `${this.urlAka +"compte/modifier/password"}`;
         let options = new RequestOptions({ headers: this.headers });
 
         let listeChamps : Array<String> = new Array<String>();

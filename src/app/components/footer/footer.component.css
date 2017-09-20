@@ -10,13 +10,17 @@ color: #eb505f;
     padding-right:0.3vw;
 }
 
+#admin {
+    border-left-style:groove;
+}
 
-#btnContact {
+
+#btnFooter {
     font-size: 2vh;
     margin-left:0.3vw;
     font-family: "Century Gothic",calibri,Arial, Helvetica, sans-serif;
 }
 
-    #btnContact:focus {
+    #btnFooter:focus {
         outline: none;
     }

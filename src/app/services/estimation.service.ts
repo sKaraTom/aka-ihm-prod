@@ -8,23 +8,22 @@ import { Estimation } from "../objetmetier/estimation";
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Observable";
+import { UrlMwService } from "./url-mw.service";
 
 
 @Injectable()
 export class EstimationService {
 
-//  private urlAka:string = "https://akachan.jelastic.dogado.eu/ws/";
-// private urlAka:String = "http://localhost:8080/akachan-0.1/ws/";
-private urlAka:string =  "https://mw.akachan.fr/akachan-0.1/ws/";
+    private urlAka:string =  this.urlMw.urlAka;
 
- private headers = new Headers({'Content-Type': 'application/json'});
+    private headers = new Headers({'Content-Type': 'application/json'});
 
- private token:string;
+    private token:string;
 
-constructor(private http: Http) { 
-    this.token = localStorage.getItem('token');
-    this.headers.append('Authorization', `Bearer ${this.token}`);
-}
+    constructor(private urlMw:UrlMwService,private http: Http) { 
+        this.token = localStorage.getItem('token');
+        this.headers.append('Authorization', `Bearer ${this.token}`);
+    }
 
 
     /**

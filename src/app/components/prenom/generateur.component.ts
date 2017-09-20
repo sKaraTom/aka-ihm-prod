@@ -63,7 +63,7 @@ export class GenerateurComponent implements OnInit {
     private prenomService: PrenomService,
     private estimationService: EstimationService,
     private authService: AuthentificationService
-  ) {
+    ) {
     this.client = new Client();
     this.nouvelleEstimation = new Estimation();
 

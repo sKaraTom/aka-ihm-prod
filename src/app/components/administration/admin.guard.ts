@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { AuthentificationService } from "../../services/authentification.service";
 
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-  constructor(private router: Router) {}
+  constructor(private authService:AuthentificationService,private router: Router) {}
   
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -16,8 +17,10 @@ export class AdminGuard implements CanActivate {
 
   private autoriserAcces() : boolean {
 
-    // ajouter vérif mw de la clef.
-    if(sessionStorage.getItem('clef')) { return true;}
+    if(sessionStorage.getItem('si') && this.authService.estConnecteAdmin().toPromise() ) { 
+      
+      return true;
+    }
 
     else { this.router.navigate(['/admin/connexion']);
             return false;}

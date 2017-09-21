@@ -14,15 +14,14 @@ import { MdDialogModule, MdButtonModule } from "@angular/material";
 // primeng
 import { GrowlModule } from "primeng/primeng"; // growl pour mail contact
 import { CapitalizePipe } from "./capitalize.pipe";
-import { CompteAdminComponent } from './administration/compte-admin.component';
-import { EstimationAdminComponent } from './administration/estimation-admin.component';
+import { GenrePipe } from "./genre.pipe";
 
 
 /** Module des composants partagés par toutes les rubriques : footer, formulaire de contact etc.
  */
 @NgModule({
     imports: [ GrowlModule,MdButtonModule,MdDialogModule,FormsModule,CommonModule],
-    declarations: [CapitalizePipe,ContactComponent,FooterComponent, CompteAdminComponent, EstimationAdminComponent],
-    exports: [CapitalizePipe,ContactComponent,FooterComponent]
+    declarations: [GenrePipe,CapitalizePipe,ContactComponent,FooterComponent],
+    exports: [GenrePipe,CapitalizePipe,ContactComponent,FooterComponent]
 })
 export class PartageModule { }

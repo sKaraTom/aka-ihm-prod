@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CompteService } from "../../services/compte.service";
+import { Compte } from "../../objetmetier/compte";
 
 @Component({
   selector: 'app-compte-admin',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompteAdminComponent implements OnInit {
 
-  constructor() { }
+  listeComptes:Compte[] = [];
+
+  constructor(private compteService:CompteService) { }
 
   ngOnInit() {
+
+    this.compteService.obtenirTousComptes()
+                      .subscribe(res => this.listeComptes=res);
+
   }
 
 }

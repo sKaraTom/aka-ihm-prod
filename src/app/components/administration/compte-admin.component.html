@@ -1,3 +1,29 @@
-<p>
-  compte-admin works!
-</p>
+<div class="container-fluid conteneurAdminOnglet">
+
+
+<h3>Liste des comptes</h3>
+
+
+<!-- DATATABLE DES COMPTES  -->
+<p-dataTable [value]="listeComptes" sortField="dateDeCreation" [sortOrder]="-1" [resizableColumns]="true" [responsive]="true">
+
+  <p-column field="email" header="Email" sortable="true"></p-column>
+
+  <p-column field="role" header="Rôle" sortable="true"></p-column>
+
+  <p-column field="dateDeCreation" header="Date de création" sortable="true" >
+      <ng-template let-date let-compte="rowData" pTemplate="body">
+        <span>{{compte.dateDeCreation | date:'dd/MM/y  HH:mm'}}</span>
+    </ng-template>
+  </p-column>
+  
+  <p-column field="client.prenom" header="Prénom" sortable="true"></p-column>
+  <p-column field="client.sexe" header="Sexe" sortable="true">
+      <ng-template let-colonne let-compte="rowData" pTemplate="body">
+        <span *ngIf="compte.client.sexe=='1'">homme</span>
+        <span *ngIf="compte.client.sexe=='2'">femme</span>
+      </ng-template>
+</p-column>
+</p-dataTable>
+
+</div>

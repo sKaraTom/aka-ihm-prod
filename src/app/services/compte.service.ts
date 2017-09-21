@@ -59,6 +59,25 @@ constructor(private urlMw:UrlMwService,private http: Http) {
                         .map(response => response.json())
     }
 
+    /**
+     * obtenir la liste des tous les comptes (interface ADMIN)
+     * 
+     * @return liste de comptes sans données sensibles.
+     */
+    public obtenirTousComptes():Observable<Array<Compte>> {
+        
+        const url = `${this.urlAka +"compte/admin/comptes"}`;
+
+        let headersAdmin:Headers = new Headers({'Content-Type': 'application/json'});
+        headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+
+        let options = new RequestOptions({ headers: headersAdmin });
+
+        return this.http.get(url,options)
+                        .map(res => res.json())
+
+    }
+
 
     /** 
      * modifier un compte existant.

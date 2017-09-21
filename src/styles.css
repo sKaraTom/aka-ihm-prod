@@ -98,6 +98,10 @@ color: #eb505f;
      color: white;
    }
 
+.conteneurAdminOnglet {
+  padding-top : 2vh;
+}
+
 
 /* MISE EN FORME GENERALE */
 div, h1, h2, h3, p, p-contextMenu, button, a {

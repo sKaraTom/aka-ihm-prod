@@ -10,6 +10,9 @@ import { ContactGuard } from "./components/footer/contact.guard";
 import { AdministrationComponent } from "./components/administration/administration.component";
 import { LogAdminComponent } from "./components/administration/log-admin.component";
 import { AdminGuard } from "./components/administration/admin.guard";
+import { CitationAdminComponent } from "./components/administration/citation-admin.component";
+import { CompteAdminComponent } from "./components/administration/compte-admin.component";
+import { EstimationAdminComponent } from "./components/administration/estimation-admin.component";
 
 
 
@@ -49,7 +52,12 @@ const appRoutes: Routes = [
     //redirection vers accueil.
   },  
   { path: 'admin', component: AdministrationComponent,
-    canActivate: [AdminGuard]
+    canActivate: [AdminGuard],
+        children : [
+          { path: '', component: CompteAdminComponent},
+          { path: 'estimations', component: EstimationAdminComponent},
+          { path: 'citations', component: CitationAdminComponent}
+  ]
   },
   { path: 'admin/connexion', component: LogAdminComponent,
   

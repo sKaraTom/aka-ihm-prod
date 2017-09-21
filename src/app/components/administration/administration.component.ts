@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthentificationService } from "../../services/authentification.service";
 
 @Component({
   selector: 'app-administration',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministrationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService:AuthentificationService) { }
 
   ngOnInit() {
   }
+
+  private deconnecter(): void {
+
+    this.authService.deconnecterAdmin();
+
+  }
+
 
 }

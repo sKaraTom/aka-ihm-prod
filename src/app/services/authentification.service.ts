@@ -119,6 +119,13 @@ export class AuthentificationService {
         this.prenomClient = null;
         this.prenomClientSource.next(null);
         localStorage.clear();
+        sessionStorage.clear();
+    }
+
+    public deconnecterAdmin(): void {
+        
+        sessionStorage.clear();
+        this.router.navigate(['/admin/connexion']);
     }
     
 
@@ -164,7 +171,7 @@ export class AuthentificationService {
 
          // passer le token du local storage en Header pour validation côté mw.
         let headersValid = new Headers({'Content-Type': 'application/json'});
-        headersValid.append('authorization', `Bearer ${sessionStorage.getItem('si')}`);
+        headersValid.append('authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
 
         let options = new RequestOptions({ headers: headersValid });
         

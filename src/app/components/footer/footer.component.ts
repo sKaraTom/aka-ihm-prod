@@ -22,7 +22,7 @@ export class FooterComponent implements OnInit {
   constructor( public popUpContact: MdDialog, private router:Router) {}
   
   ngOnInit(): void {
-
+  }
 
 
 

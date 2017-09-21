@@ -39,6 +39,7 @@ import { AdministrationComponent } from "./components/administration/administrat
 import { LogAdminComponent } from "./components/administration/log-admin.component";
 import { AdminGuard } from "./components/administration/admin.guard";
 import { UrlMwService } from "./services/url-mw.service";
+import { CitationAdminComponent } from "./components/administration/citation-admin.component";
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { UrlMwService } from "./services/url-mw.service";
      DataTableModule, InputSwitchModule, GrowlModule,PartageModule,AppRoutingModule
             ],
     declarations:[ 
-    AppComponent,PageNotFoundComponent, HeaderComponent, MenuComponent,AdministrationComponent,LogAdminComponent
+    AppComponent,PageNotFoundComponent, HeaderComponent, MenuComponent,AdministrationComponent,LogAdminComponent,CitationAdminComponent
      ],
      exports:[],
     bootstrap: [ AppComponent ],

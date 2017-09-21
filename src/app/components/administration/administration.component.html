@@ -1,12 +1,26 @@
-<ul class="nav nav-tabs" id="sousMenuTab">
-  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-     <a routerLink="./" class="tab"><i class="fa fa-user-o" aria-hidden="true"></i> Comptes</a>
-  </li>
-  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-    <a routerLink="./n" class="tab"><i class="fa fa-star-half" aria-hidden="true"></i> Estimations</a></li>
-  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-    <a routerLink="./n" class="tab"><i class="fa fa-quote-left" aria-hidden="true"></i> Citations</a></li>
 
-</ul>
+<div class="container-fluid containerGeneral" id="conteneurAdmin">
 
-	<router-outlet></router-outlet>
+  <div class="row" id="ligneMenu">  
+
+    <div class="col-md-11 col-sm-11 col-xs-11">
+      <ul class="nav nav-tabs" id="menuAdmin">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="./" class="tab"><i class="fa fa-user-o" aria-hidden="true"></i> Comptes</a>
+        </li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="./estimations" class="tab"><i class="fa fa-star-half" aria-hidden="true"></i> Estimations</a></li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="./citations" class="tab"><i class="fa fa-quote-left" aria-hidden="true"></i> Citations</a></li>
+      </ul>
+    </div>
+    <div align="center" class="col-md-1 col-sm-1 col-xs-1" id="divDeconnexion">
+        <span id="btnDeconnexion" (click)="deconnecter()"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+    </div>
+
+
+  </div>      
+
+  <router-outlet></router-outlet>
+
+</div>

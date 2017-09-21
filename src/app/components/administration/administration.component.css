@@ -1,0 +1,63 @@
+
+#conteneurAdmin {
+
+    /* border-style:groove; */
+}
+
+#ligneMenu {
+    /* border-style:groove; */
+    width:100%;
+    padding:0;
+    margin:0;
+}
+
+#menuAdmin {
+    /* border-style: groove; */
+}
+
+
+#divDeconnexion {
+    /* border-style: groove; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#btnDeconnexion {
+    border-radius: 5px;
+    padding:3px;
+
+}
+
+        #btnDeconnexion i {
+            font-size: 3vmax;
+            color:#b60000;
+            vertical-align: middle;
+            padding: 2px 10px 2px 10px;
+            text-align: center; 
+        }
+
+        #btnDeconnexion:focus {
+            outline: none;
+            color : #1e9ecc;
+        }
+
+        #btnDeconnexion:hover{
+            /* background-color: #1e9ecc;
+            color:white; */
+            -webkit-box-shadow: inset 3px 0px 10px 1px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow:    inset 3px 0px 10px 1px rgba(0, 0, 0, 0.4);
+            box-shadow: 3px 0px 10px 1px rgba(0, 0, 0, 0.4) inset;
+            /* background-color: #eb505f; */
+        }
+
+        #btnDeconnexion:active {
+            outline: 0 none !important;
+            /* background-color:#cc4350; */
+            background-color: #eb505f;
+        
+        }
+
+        #btnDeconnexion:active i {
+            /* color: white; */
+        }

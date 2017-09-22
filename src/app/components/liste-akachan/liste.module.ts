@@ -42,7 +42,7 @@ import { AuthentificationService } from "../../services/authentification.service
    TabMenuModule,CommonModule,FormsModule,PartageModule,ListeRoutingModule
   ],
   declarations: [ 
-   ListeHomeComponent,ListeAkachanComponent,ListeNoireComponent,GenrePipe
+   ListeHomeComponent,ListeAkachanComponent,ListeNoireComponent
   ],
    providers: [
     AuthentificationService,ConfirmationService,ClientService,PrenomService,EstimationService,EmailService

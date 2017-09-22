@@ -7,6 +7,7 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Observable";
 import { UrlMwService } from "./url-mw.service";
+import { CompteDTO } from "../objetmetier/compteDTO";
 
 
 @Injectable()
@@ -75,6 +76,20 @@ constructor(private urlMw:UrlMwService,private http: Http) {
 
         return this.http.get(url,options)
                         .map(res => res.json())
+
+    }
+
+    public obtenirTousComptesDTO():Observable<Array<CompteDTO>> {
+
+        const url = `${this.urlAka +"compte/admin/comptesDTO"}`;
+        
+                let headersAdmin:Headers = new Headers({'Content-Type': 'application/json'});
+                headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+        
+                let options = new RequestOptions({ headers: headersAdmin });
+        
+                return this.http.get(url,options)
+                                .map(res => res.json())
 
     }
 

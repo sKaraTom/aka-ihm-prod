@@ -1,0 +1,13 @@
+
+#chartTotalClient {
+    width:30vmin;
+}
+
+
+@media (max-width: 768px) {
+
+    #chartTotalClient {
+        width:100%;
+    }
+
+}

@@ -10,7 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleriaModule,ContextMenuModule,OverlayPanelModule, DialogModule,ConfirmDialogModule,RadioButtonModule,
          MenuModule, DropdownModule, SpinnerModule, 
         InputTextModule, InputMaskModule, ButtonModule,
-        DataTableModule,SharedModule, InputSwitchModule, GrowlModule, CheckboxModule } from 'primeng/primeng';
+        DataTableModule, SharedModule, InputSwitchModule, GrowlModule, CheckboxModule, ChartModule
+} from 'primeng/primeng';
 
 // Boostrap
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -46,7 +47,7 @@ import { CompteAdminComponent } from "./components/administration/compte-admin.c
 
 
 @NgModule({
-    imports:[ MdMenuModule,NgSemanticModule,MdTooltipModule,MdButtonModule,MdInputModule,GalleriaModule, MaterialModule,
+    imports:[ ChartModule,MdMenuModule,NgSemanticModule,MdTooltipModule,MdButtonModule,MdInputModule,GalleriaModule, MaterialModule,
     NgbModule.forRoot(),BrowserAnimationsModule,CommonModule,ContextMenuModule,
     OverlayPanelModule,DialogModule,ConfirmDialogModule,SharedModule,
      RadioButtonModule, CheckboxModule, BrowserModule, MenuModule, DropdownModule,

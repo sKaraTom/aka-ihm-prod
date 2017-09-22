@@ -28,11 +28,26 @@ export class ClientService {
  * 
  * @return number le nombre total de clients.
  */ 
-public obtenirTotalClients():Observable<number> {
+public obtenirTotalClients() : Observable<number> {
      const url = `${this.urlAka +"client/total"}`;  
      return this.http.get(url)
                      .map((response:Response) => response.json());
 } 
+
+/**
+ * obtenir le nombre total de clients par sexe.
+ * 
+ * @param sexe 
+ * @return number
+ */
+public obtenirTotalClientsParSexe(sexe:string) : Observable<number> {
+
+    const url = `${this.urlAka +"client/total"}/${sexe}`;
+
+    return this.http.get(url)
+                    .map((response:Response) => response.json());
+
+}
 
 
 /** 
@@ -41,7 +56,7 @@ public obtenirTotalClients():Observable<number> {
  * @param refClient uuid du client. 
  * @return Client le client.
  */
-public obtenirClient(refClient:String):Observable<Client> {
+public obtenirClient(refClient:String) : Observable<Client> {
     const url = `${this.urlAka +"client"}/${refClient}`;
     let options = new RequestOptions({ headers: this.headers });
           

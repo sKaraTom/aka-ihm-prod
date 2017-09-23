@@ -1,7 +1,8 @@
-<!-- <div class="container-fluid conteneurAdminOnglet"> -->
+<div class="container conteneurAdminOnglet">
 
   <h3>Stats clients</h3>
 
+  <!-- STAT TOTAL DE CLIENTS -->
   <div class="ui small statistics">
     <div class="statistic">
         <div class="value">
@@ -15,6 +16,7 @@
 
   <br>
 
+  <!-- CHART NOMBRE CLIENTS PAR GENRE -->
   <div id="chartTotalClient">
       <p-chart type="polarArea" [data]="donneesChartClients"></p-chart>
   </div>
@@ -24,9 +26,11 @@
 <h3>Liste des comptes</h3>
 
 <!-- DATATABLE DES COMPTES  -->
-<p-dataTable [value]="listeComptesDTO" sortField="dateDeCreation" [sortOrder]="-1" [resizableColumns]="true" [responsive]="true">
 
-  <p-column field="email" header="Email" sortable="true"></p-column>
+<p-dataTable styleClass="datatableAdmin" [value]="listeComptesDTO" sortField="dateDeCreation" [sortOrder]="-1" [resizableColumns]="true" [responsive]="true" dataKey="email" [rows]="10" [paginator]="true" [pageLinks]="5"
+[rowsPerPageOptions]="[10,20,30]" emptyMessage="Aucun compte client enregistré." #dt>
+
+  <p-column field="email" header="Email" sortable="true" [filter]="true" filterPlaceholder="chercher un email"></p-column>
 
   <!-- <p-column field="role" header="Rôle" sortable="true"></p-column> -->
 
@@ -37,13 +41,26 @@
   </p-column>
   
   <p-column field="prenom" header="Prénom" sortable="true"></p-column>
-  <p-column field="sexe" header="Sexe" sortable="true">
-      <ng-template let-colonne let-compte="rowData" pTemplate="body">
-        <span *ngIf="sexe=='1'">homme</span>
-        <span *ngIf="sexe=='2'">femme</span>
+
+  <p-column field="sexe" header="Sexe" sortable="true" [filter]="true" filterMatchMode="equals" [style]="{'overflow':'visible'}">
+      <ng-template pTemplate="filter" let-col>
+          <p-dropdown [options]="listeGenre" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
       </ng-template>
-</p-column>
-<p-column field="nombreEstimations" header="nombre d'estimations" sortable="true"></p-column>
+      <ng-template let-colonne let-compte="rowData" pTemplate="body">
+        <span *ngIf="compte.sexe=='1'">homme</span>
+        <span *ngIf="compte.sexe=='2'">femme</span>
+      </ng-template>
+  </p-column>
+
+  <p-column field="nombreEstimations" header="nombre d'estimations" sortable="true"></p-column>
+
+  <p-column header="supprimer">
+      <ng-template let-compte="rowData" pTemplate="body">
+          <button type="button" pButton (click)="supprimerCompte($event,compte.email);" class="ui-button-danger" icon="fa-close "></button>
+      </ng-template>
+  </p-column>
+
 </p-dataTable>
 
-<!-- </div> -->
+
+</div>

@@ -44,11 +44,10 @@ export class AccueilClientGuard implements CanActivate, CanActivateChild, CanLoa
           
           // si token validé : accès accueil client autorisé.
           if(this.authService.estConnecte().toPromise()) {
-            return  Observable.of(true);
+                return  Observable.of(true);
           }
 
           else {
-               this.authService.redirectUrl = url;
                 // échec valid' token : redirection vers page d'accueil prospect.
                 this.router.navigate(['/accueil']);
                 return Observable.of(false);
@@ -57,7 +56,6 @@ export class AccueilClientGuard implements CanActivate, CanActivateChild, CanLoa
       }
 
     else {
-        this.authService.redirectUrl = url;
         // pas de localstorage : redirection vers page d'accueil prospect.
         this.router.navigate(['/accueil']);
         return Observable.of(false);

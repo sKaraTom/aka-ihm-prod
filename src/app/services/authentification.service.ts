@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 
 import { Headers,Http, Response, RequestOptions,URLSearchParams } from "@angular/http";
 
@@ -28,6 +28,8 @@ export class AuthentificationService {
   public idClientSource : BehaviorSubject<string> = new BehaviorSubject<string>('');
   // observable string flux
   public idClientObs : Observable<string> = this.idClientSource.asObservable();
+
+  @Output() prenomEmis: EventEmitter<any> = new EventEmitter();
 
   private prenomClient: string;
   public prenomClientSource : BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -74,6 +76,7 @@ export class AuthentificationService {
                 
                 this.prenomClient = data.json().prenom;
                 this.prenomClientSource.next(data.json().prenom);
+                this.prenomEmis.emit(data.json().prenom);
                 
                 this.idClient = data.json().id;
                 this.idClientSource.next(data.json().id);
@@ -88,7 +91,6 @@ export class AuthentificationService {
                     return false;
                 }
             });
-
       }
 
       /**
@@ -122,6 +124,12 @@ export class AuthentificationService {
         sessionStorage.clear();
     }
 
+    /**
+     * déconnexion de l'interface admin :
+     * - vider le sessionStorage
+     * - rediriger vers la page de connexion admin. 
+     * 
+     */
     public deconnecterAdmin(): void {
         
         sessionStorage.clear();
@@ -183,6 +191,7 @@ export class AuthentificationService {
                 })
             .catch((error) => { 
                 this.router.navigate(['/admin/connexion']);
+                sessionStorage.clear();
                 return Observable.of(false); })
         
     }

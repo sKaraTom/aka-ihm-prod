@@ -3,6 +3,7 @@ import { CompteService } from "../../services/compte.service";
 import { Compte } from "../../objetmetier/compte";
 import { ClientService } from "../../services/client.service";
 import { CompteDTO } from "../../objetmetier/compteDTO";
+import { SelectItem } from "primeng/primeng";
 
 @Component({
   selector: 'app-compte-admin',
@@ -17,8 +18,10 @@ export class CompteAdminComponent implements OnInit {
 
   donneesChartClients: any; // chart total client par sexe.
 
+
   listeComptes:Compte[] = [];
   listeComptesDTO:CompteDTO[] = [];
+  listeGenre: SelectItem[]; // filtre par sexe dans la datatable.
 
   constructor(private compteService:CompteService, private clientService:ClientService) { }
 
@@ -31,6 +34,7 @@ export class CompteAdminComponent implements OnInit {
                       .subscribe(res => {this.listeComptesDTO=res; console.dir(res)});
 
     this.obtenirTotauxClientsEtChart();
+    this.peuplerFiltreGenre();
 
   }
 
@@ -73,5 +77,23 @@ export class CompteAdminComponent implements OnInit {
   }
   }
 
+    /** 
+     * dropdown choix du filtre par genre dans la datatable.
+     * tous, hommes ou femmes.
+     */    
+    private peuplerFiltreGenre() : void {
+      
+      this.listeGenre = [];
+      this.listeGenre.push({label: 'tous', value: null});
+      this.listeGenre.push({label: 'homme', value: '1'});
+      this.listeGenre.push({label: 'femme', value: '2'});
+      console.dir(this.listeGenre);
+  }
+  
+  private supprimerCompte(event,email:string) {
+
+      console.log(email);
+
+  }
 
 }

@@ -15,15 +15,20 @@ export class AdminGuard implements CanActivate {
     return this.autoriserAcces();
   }
 
+  /**
+   * accès interface admin : si le sessionStorage est chargé et le token validé.
+   * 
+   */
   private autoriserAcces() : boolean {
 
     if(sessionStorage.getItem('si') && this.authService.estConnecteAdmin().toPromise() ) { 
-      
-      return true;
+        return true;
     }
 
-    else { this.router.navigate(['/admin/connexion']);
-            return false;}
+    else { 
+        this.router.navigate(['/admin/connexion']);
+        return false;
+    }
 
   }
 

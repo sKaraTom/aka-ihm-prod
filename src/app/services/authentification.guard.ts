@@ -3,47 +3,27 @@
 import { Injectable }     from '@angular/core';
 import { CanActivate, Router,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot, CanActivateChild, NavigationExtras, CanLoad, Route
+  RouterStateSnapshot, CanActivateChild, NavigationExtras, Route
 } from '@angular/router';
 import { AuthentificationService } from "./authentification.service";
 import { Observable } from "rxjs/Observable";
+import { HeaderComponent } from "../components/header/header.component";
 
 
 @Injectable()
-export class AuthentificationGuard implements CanActivate, CanActivateChild, CanLoad  {
+export class AuthentificationGuard implements CanActivate, CanActivateChild  {
 
  constructor(private authService: AuthentificationService, private router: Router) {}
  
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    let url: string = state.url;
 
-    return this.checkLogin(url);
+          return this.checkLogin();
   }
-
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
            
-           return this.canActivate(route, state);  
-  }
-
-  canLoad(route: Route): Observable<boolean> {
-      //let url = `/${route.path}`;
-
-      let estConnecte : Observable<boolean>;
-
-      if( (localStorage.getItem('token')) && (localStorage.getItem('id')) && (localStorage.getItem('prenom')) ) {
-        estConnecte = Observable.of(true);
-      }
-
-      else {
-        estConnecte = Observable.of(false);
-        this.router.navigate(['/login']);
-      }
-
-      console.log("canload booleen : ", estConnecte);
-      return estConnecte;
-  }
-  
+          return this.canActivate(route, state);  
+  }  
   
   /**
    * vérifier que le compte est connecté :
@@ -54,19 +34,19 @@ export class AuthentificationGuard implements CanActivate, CanActivateChild, Can
    * @param url
    * @return boolean si compte connecté et valide.
    */
-  checkLogin(url: string): Observable<boolean> {
+  checkLogin(): Observable<boolean> {
 
     if( (localStorage.getItem('token')) && (localStorage.getItem('id')) && (localStorage.getItem('prenom')) ) { 
           
           // si token validé :navigation autorisée.
           if(this.authService.estConnecte().toPromise()) {
-            return  Observable.of(true);
+                return  Observable.of(true);
           }
 
           else {
-                this.authService.redirectUrl = url;
                 // échec valid' token : redirection vers page de login.
                 this.authService.prenomClientSource.next(null);
+                // this.authService.prenomEmis.emit(null);
                 this.router.navigate(['/login']);
                 return Observable.of(false);
           }
@@ -74,7 +54,6 @@ export class AuthentificationGuard implements CanActivate, CanActivateChild, Can
     }
 
     else {
-        this.authService.redirectUrl = url;
         // pas de localstorage : redirection vers page de login.
         this.router.navigate(['/login']);
         return Observable.of(false);

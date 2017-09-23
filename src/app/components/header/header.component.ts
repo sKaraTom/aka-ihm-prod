@@ -12,16 +12,18 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
 
   public prenomClient : string;
 
+  // private prenomEmis: string;
+
    public constructor (private changeDetectionRef : ChangeDetectorRef,
                         private authService:AuthentificationService,
                         public router: Router,){ 
-
-        this.authService.prenomClientSource.next(localStorage.getItem('prenom'));
+          // this.authService.prenomEmis.subscribe(res => this.prenomEmis = res);
     }
     
 
     ngOnInit(){
-        this.authService.prenomClientObs.subscribe(
+        
+      this.authService.prenomClientObs.subscribe(
         res => { 
             if(res) { this.prenomClient = res; 
                       this.changeDetectionRef.markForCheck(); // permet de détecter le changement de valeur 

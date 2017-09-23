@@ -29,7 +29,8 @@
         </div>
         <!-- prenom aleatoire -->
         <div class="col-md-6 col-sm-5 col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}">
-            <span [@fadeInOut] *ngIf="animation"  [mdTooltip]="nouveauPrenomAleatoire">{{ nouveauPrenomAleatoire }} </span>
+            <span [@fadeInOut] *ngIf="animation" (mouseover)="prenomTypoClassique=true;" (mouseleave)="prenomTypoClassique=false;">{{ nouveauPrenomAleatoire }} </span>
+            
         </div>
         <!-- bouton j aime -->
         <div class="col-md-3 col-sm-2 col-xs-12 btnEstimation" id="btnAime"
@@ -39,7 +40,8 @@
         </div>
 
         </div>
-
+        <!-- prénom affiché en typo classique (souris sur prénom aléatoire) -->
+        <div align="center" *ngIf="prenomTypoClassique" style="font-weight:bold;">{{ nouveauPrenomAleatoire }}</div>
     </div>
 
     <!--COLONNE OPTIONS - LEGENDE-->

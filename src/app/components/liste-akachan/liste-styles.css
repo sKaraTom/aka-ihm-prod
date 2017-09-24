@@ -180,7 +180,7 @@
     }
 
     :host /deep/ .col-noire-date {
-    font-size:initial;
+        font-size:initial;
     }
 
 }

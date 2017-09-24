@@ -6,7 +6,7 @@
     <p-confirmDialog #cd>
         <p-footer>
           <button type="button" pButton icon="fa-close" label="Annuler" (click)="cd.reject()"></button>
-          <button type="button" pButton icon="fa-check" label="Oui" (click)="cd.accept()"></button>
+          <button type="button" pButton icon="fa-check" label="Supprimer" (click)="cd.accept()"></button>
         </p-footer>
 
     </p-confirmDialog>
@@ -42,7 +42,7 @@
         </div>
   </div>
 
-<!--  DATA TABLE LISTE AKACHAN ORDINATEUR -->
+<!--  DATA TABLE LISTE AKACHAN -->
 <div class="row justify-content-center">
     <p-dataTable styleClass="tableAkaNoire" [value]="listeAkachan" sortField="dateEstimation" [sortOrder]="-1" 
     [resizableColumns]="true" [contextMenu]="cm" [responsive]="true"

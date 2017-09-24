@@ -79,17 +79,23 @@ constructor(private urlMw:UrlMwService,private http: Http) {
 
     }
 
+    /**
+     * obtenir la liste des tous les comptes(interface ADMIN)
+     * comptes sous format DTO compteDTO
+     * 
+     * @return liste de compteDTO.
+     */
     public obtenirTousComptesDTO():Observable<Array<CompteDTO>> {
 
         const url = `${this.urlAka +"compte/admin/comptesDTO"}`;
-        
-                let headersAdmin:Headers = new Headers({'Content-Type': 'application/json'});
-                headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
-        
-                let options = new RequestOptions({ headers: headersAdmin });
-        
-                return this.http.get(url,options)
-                                .map(res => res.json())
+
+        let headersAdmin:Headers = new Headers({'Content-Type': 'application/json'});
+        headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+
+        let options = new RequestOptions({ headers: headersAdmin });
+
+        return this.http.get(url,options)
+                        .map(res => res.json())
 
     }
 
@@ -130,6 +136,23 @@ constructor(private urlMw:UrlMwService,private http: Http) {
                         .map((response:Response) => response.text());
     }
 
+    public supprimerCompteEtEstimations(compteDTO:CompteDTO) {
+
+        const url = `${this.urlAka +"compte/admin/suppression"}`;
+
+        let headersAdmin = new Headers({ 'Content-Type': 'application/json' });
+        headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+
+        let options = new RequestOptions({
+          headers: headersAdmin,
+          body : compteDTO
+        });
+
+        return this.http.delete(url,options)
+                        .map(res => res.text());
+
+                        
+    }
 
   
 

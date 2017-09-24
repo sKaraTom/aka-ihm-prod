@@ -4,7 +4,7 @@
 }
 
 #chartTotalClient {
-    width:30vmin;
+    width:20vmax;
 }
 
 :host /deep/ .datatableAdmin {
@@ -12,16 +12,45 @@
     margin-left:auto; 
     margin-right:auto;
     width:75vmax;
-    font-size:1.1vmax;
+    font-size:1vmax;
     box-shadow: -1px 1px 20px rgba(0, 0, 0, 0.18);
+    margin-bottom: 3vh;
 }
 
+:host /deep/ .col-uuid {
+   width:4vw;
+   
+}
+
+#ligneUuid {
+    color:#EB505F;
+}
+
+.btnSupprimer {
+    background-color: #EB505F;
+    color:white;
+
+}
 
 
 @media (max-width: 768px) {
 
     #chartTotalClient {
         width:100%;
+    }
+
+    :host /deep/ .datatableAdmin {
+        font-size:100%;
+    
+    }
+
+    :host /deep/ .col-uuid {
+        width:initial;
+    }
+
+    #ligneUuid {
+        display:none;
+        font-size:100%;
     }
 
 }

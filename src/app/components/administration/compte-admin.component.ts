@@ -3,7 +3,7 @@ import { CompteService } from "../../services/compte.service";
 import { Compte } from "../../objetmetier/compte";
 import { ClientService } from "../../services/client.service";
 import { CompteDTO } from "../../objetmetier/compteDTO";
-import { SelectItem } from "primeng/primeng";
+import { SelectItem, ConfirmationService, Message } from "primeng/primeng";
 
 @Component({
   selector: 'app-compte-admin',
@@ -17,21 +17,19 @@ export class CompteAdminComponent implements OnInit {
   private totalClientsFemme : number;
 
   donneesChartClients: any; // chart total client par sexe.
-
+  options: any; // optiosn de la chart total client par sexe.
 
   listeComptes:Compte[] = [];
   listeComptesDTO:CompteDTO[] = [];
   listeGenre: SelectItem[]; // filtre par sexe dans la datatable.
+  msgs: Message[] = []; // growl primeng
 
-  constructor(private compteService:CompteService, private clientService:ClientService) { }
+  constructor(private compteService:CompteService, private clientService:ClientService,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
 
-    this.compteService.obtenirTousComptes()
-                      .subscribe(res => this.listeComptes=res);
-    
     this.compteService.obtenirTousComptesDTO()
-                      .subscribe(res => {this.listeComptesDTO=res; console.dir(res)});
+                      .subscribe(res => {this.listeComptesDTO=res;});
 
     this.obtenirTotauxClientsEtChart();
     this.peuplerFiltreGenre();
@@ -42,6 +40,7 @@ export class CompteAdminComponent implements OnInit {
 
   private obtenirTotauxClientsEtChart() : void {
 
+    // à voir si supprimer : on peut le faire à partir de this.listeComptesDTO.length
     this.clientService.obtenirTotalClients()
     .subscribe(res => this.totalClients = res,
                 err => console.log(err._body),
@@ -50,7 +49,6 @@ export class CompteAdminComponent implements OnInit {
     }
 
   private obtenirTotauxClientsParSexe() : void {
-
 
     this.clientService.obtenirTotalClientsParSexe("1")
     .subscribe(res => {this.totalClientsHomme=res;
@@ -62,38 +60,76 @@ export class CompteAdminComponent implements OnInit {
   private construireChartTotalClients() : void {
 
     this.donneesChartClients = {
+      labels: ["Hommes","Femmes"],
       datasets: [{
-          data: [ this.totalClientsHomme,this.totalClientsFemme],
+        data: [ this.totalClientsHomme,this.totalClientsFemme],
           backgroundColor: [
             "#1e9ecc",
             "#eb505f"
-          ],
-          label: 'My dataset'
+          ]
       }],
-      labels: [
-          "Hommes",
-          "Femmes",
-      ]
-  }
+    };
+
+    this.options = {
+      title: {
+          display: true,
+          text: 'Proportion hommes/femmes',
+          fontSize: 16
+      },
+      legend: {
+          position: 'bottom'
+      }
+  };
+
   }
 
-    /** 
-     * dropdown choix du filtre par genre dans la datatable.
-     * tous, hommes ou femmes.
-     */    
-    private peuplerFiltreGenre() : void {
-      
-      this.listeGenre = [];
-      this.listeGenre.push({label: 'tous', value: null});
-      this.listeGenre.push({label: 'homme', value: '1'});
-      this.listeGenre.push({label: 'femme', value: '2'});
-      console.dir(this.listeGenre);
+  /** 
+   * dropdown choix du filtre par genre dans la datatable.
+   * tous, hommes ou femmes.
+   */    
+  private peuplerFiltreGenre() : void {
+    
+    this.listeGenre = [];
+    this.listeGenre.push({label: 'tous', value: null});
+    this.listeGenre.push({label: 'homme', value: '1'});
+    this.listeGenre.push({label: 'femme', value: '2'});
   }
   
-  private supprimerCompte(event,email:string) {
+  private confirmerSuppression(compteDTO:CompteDTO) : void {
 
-      console.log(email);
+    this.confirmationService.confirm({
+      message: 'Êtes-vous sûr de supprimer ce compte ? L\'opération est irréversible.',
+      header: 'Confirmation de suppression',
+      icon: 'fa fa-trash',
+      accept: () => {
+          this.supprimerCompte(compteDTO);
+      }
+    })
+  }
+
+
+  private supprimerCompte(compteDTO:CompteDTO) {
+
+      this.compteService.supprimerCompteEtEstimations(compteDTO)
+                        .subscribe(res => {
+                            // retirer le compte de la liste sans repasser par le serveur.
+                            for (let compte of this.listeComptesDTO) {
+                                  this.listeComptesDTO = this.listeComptesDTO.filter(item => item != compteDTO )  
+                            }
+                        },
+                        err => console.log(err._body + " "),
+                        () => {this.msgs = [],
+                                this.msgs.push({severity:'info', summary:compteDTO.email, detail:'compte supprimé avec succès'});
+                                this.rechargerDonnees();
+                        })
 
   }
+
+  private rechargerDonnees() : void {
+
+      this.obtenirTotauxClientsEtChart();
+
+  }
+
 
 }

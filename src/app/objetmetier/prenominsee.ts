@@ -3,5 +3,5 @@ export class PrenomInsee{
     public sexe: String;
     public label: String;
     public annee: Number;
-    public nombreNaissance: Number;
+    public nombreNaissances: Number;
 }

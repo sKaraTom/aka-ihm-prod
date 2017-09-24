@@ -43,8 +43,13 @@ public obtenirTotalClients() : Observable<number> {
 public obtenirTotalClientsParSexe(sexe:string) : Observable<number> {
 
     const url = `${this.urlAka +"client/total"}/${sexe}`;
+    
+    let headersAdmin:Headers = new Headers({'Content-Type': 'application/json'});
+    headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
 
-    return this.http.get(url)
+    let options = new RequestOptions({ headers: headersAdmin });
+
+    return this.http.get(url,options)
                     .map((response:Response) => response.json());
 
 }

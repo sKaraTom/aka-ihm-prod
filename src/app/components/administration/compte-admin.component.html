@@ -1,36 +1,49 @@
+<!--  GROWL -->
+<p-growl [value]="msgs"></p-growl>
+
+
 <div class="container conteneurAdminOnglet">
 
   <h3>Stats clients</h3>
 
-  <!-- STAT TOTAL DE CLIENTS -->
-  <div class="ui small statistics">
-    <div class="statistic">
-        <div class="value">
-        <i class="fa fa-user-o red" style="color:#af0000;"></i> {{totalClients}}
-        </div>
-        <div class="label">
-        clients
-        </div>
+<div class="row">
+
+    <div class="col-md-3 col-sm-3 col-xs-12">
+        <!-- STAT TOTAL DE CLIENTS -->
+        <div class="ui small statistics">
+            <div class="statistic">
+                <div class="value">
+                <i class="fa fa-user-o red" style="color:#af0000;"></i>  {{listeComptesDTO.length}} <!-- {{totalClients}} -->
+                </div>
+                <div class="label">
+                clients
+                </div>
+            </div>
+        </div>        
     </div>
-  </div>        
 
-  <br>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <!-- CHART NOMBRE CLIENTS PAR GENRE -->
+        <div id="chartTotalClient">
+            <p-chart type="pie" [data]="donneesChartClients" [options]="options"></p-chart>
+        </div>
 
-  <!-- CHART NOMBRE CLIENTS PAR GENRE -->
-  <div id="chartTotalClient">
-      <p-chart type="polarArea" [data]="donneesChartClients"></p-chart>
-  </div>
+    </div>
 
-  <br>
+</div>
 
 <h3>Liste des comptes</h3>
 
 <!-- DATATABLE DES COMPTES  -->
 
 <p-dataTable styleClass="datatableAdmin" [value]="listeComptesDTO" sortField="dateDeCreation" [sortOrder]="-1" [resizableColumns]="true" [responsive]="true" dataKey="email" [rows]="10" [paginator]="true" [pageLinks]="5"
-[rowsPerPageOptions]="[10,20,30]" emptyMessage="Aucun compte client enregistré." #dt>
+[rowsPerPageOptions]="[10,20,30]" emptyMessage="Aucun compte client enregistré." expandableRows="true" #dt>
 
-  <p-column field="email" header="Email" sortable="true" [filter]="true" filterPlaceholder="chercher un email"></p-column>
+<p-column styleClass="col-uuid" expander="true"></p-column>
+
+<p-column field="email" header="Email" sortable="true" [filter]="true" filterPlaceholder="chercher un email"></p-column>
+
+  <!-- <p-column styleClass="col-uuid" field="uuid" header="UUID" sortable="true"></p-column> -->
 
   <!-- <p-column field="role" header="Rôle" sortable="true"></p-column> -->
 
@@ -52,15 +65,31 @@
       </ng-template>
   </p-column>
 
-  <p-column field="nombreEstimations" header="nombre d'estimations" sortable="true"></p-column>
+  <p-column field="nombreEstimations" header="nbre d'estimations" sortable="true"></p-column>
 
   <p-column header="supprimer">
       <ng-template let-compte="rowData" pTemplate="body">
-          <button type="button" pButton (click)="supprimerCompte($event,compte.email);" class="ui-button-danger" icon="fa-close "></button>
+        <button type="button" class="btn btnSupprimer" (click)="confirmerSuppression(compte);"><i class="fa fa-times" aria-hidden="true"></i></button>  
+        <!-- <button type="button" pButton (click)="supprimerCompte($event,compte.email);" class="ui-button-danger" icon="fa-close "></button> -->
       </ng-template>
   </p-column>
 
+  <ng-template let-compte pTemplate="rowexpansion">
+      <span id="ligneUuid">uuid client : {{compte.uuid}}</span>
+  </ng-template>
+
 </p-dataTable>
+
+
+<!--  CONFIRM DIALOG SUPPRESSION COMPTE -->
+<p-confirmDialog #cd>
+    <p-footer>
+      <button type="button" pButton icon="fa fa-undo" label="Annuler" (click)="cd.reject()"></button>
+      <button type="button" pButton icon="fa-check" label="Supprimer" (click)="cd.accept()"></button>
+    </p-footer>
+
+</p-confirmDialog>
+
 
 
 </div>

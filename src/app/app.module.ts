@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleriaModule,ContextMenuModule,OverlayPanelModule, DialogModule,ConfirmDialogModule,RadioButtonModule,
          MenuModule, DropdownModule, SpinnerModule, 
         InputTextModule, InputMaskModule, ButtonModule,
-        DataTableModule, SharedModule, InputSwitchModule, GrowlModule, CheckboxModule, ChartModule
+        DataTableModule, SharedModule, InputSwitchModule, GrowlModule, CheckboxModule, ChartModule, ConfirmationService
 } from 'primeng/primeng';
 
 // Boostrap
@@ -59,7 +59,7 @@ import { CompteAdminComponent } from "./components/administration/compte-admin.c
      ],
      exports:[],
     bootstrap: [ AppComponent ],
-    providers: [CompteService,UrlMwService,AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
+    providers: [ConfirmationService,CompteService,UrlMwService,AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
 })
  
 export class AppModule{

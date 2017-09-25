@@ -4,6 +4,7 @@ import { Compte } from "../../objetmetier/compte";
 import { ClientService } from "../../services/client.service";
 import { CompteDTO } from "../../objetmetier/compteDTO";
 import { SelectItem, ConfirmationService, Message } from "primeng/primeng";
+import { EstimationService } from '../../services/estimation.service';
 
 @Component({
   selector: 'app-compte-admin',
@@ -13,18 +14,24 @@ import { SelectItem, ConfirmationService, Message } from "primeng/primeng";
 export class CompteAdminComponent implements OnInit {
 
   private totalClients : number;
-  private totalClientsHomme : number;
-  private totalClientsFemme : number;
+  private totalClientsHommes : number;
+  private totalClientsFemmes : number;
 
-  donneesChartClients: any; // chart total client par sexe.
-  options: any; // optiosn de la chart total client par sexe.
+  private totalEstimations : number;
+  private totalEstimGarcons : number;
+  private totalEstimFilles : number;
 
-  listeComptes:Compte[] = [];
-  listeComptesDTO:CompteDTO[] = [];
-  listeGenre: SelectItem[]; // filtre par sexe dans la datatable.
-  msgs: Message[] = []; // growl primeng
+  private donneesChartClients: any; // chart total client par sexe.
+  private optionsChartClients: any; // options de la chart total client par sexe.
+  private donneesChartEstimations: any; // chart total estimations par sexe.
+  private optionsChartEstimations: any; // options de la chart total estimations par sexe.
 
-  constructor(private compteService:CompteService, private clientService:ClientService,private confirmationService: ConfirmationService) { }
+  // Datatable :
+  private listeComptesDTO:CompteDTO[] = [];
+  private listeGenre: SelectItem[]; // filtre par sexe dans la datatable.
+  private msgs: Message[] = []; // growl primeng
+
+  constructor(private compteService:CompteService, private clientService:ClientService,private confirmationService: ConfirmationService, private estimationService:EstimationService) { }
 
   ngOnInit() {
 
@@ -32,12 +39,16 @@ export class CompteAdminComponent implements OnInit {
                       .subscribe(res => {this.listeComptesDTO=res;});
 
     this.obtenirTotauxClientsEtChart();
+    this.obtenirTotalEstimations();
     this.peuplerFiltreGenre();
 
   }
 
-
-
+  /**
+   * 1. méthode globale : obtenir le nombre total de clients inscrits
+   * puis lancer l'obtention du nombre de clients par genre
+   *  
+   */
   private obtenirTotauxClientsEtChart() : void {
 
     // à voir si supprimer : on peut le faire à partir de this.listeComptesDTO.length
@@ -47,33 +58,48 @@ export class CompteAdminComponent implements OnInit {
                 () => this.obtenirTotauxClientsParSexe());
     
     }
-
+  
+  /**
+   * 2. méthode consécutive à obtenirTotauxClientsEtChart() :
+   *  obtenir le nombre d'hommes inscrits
+   *  totalClients - totalHommes = totalFemmes
+   *  une fois ces stats obtenues, construire la chart.
+   * 
+   */
   private obtenirTotauxClientsParSexe() : void {
 
     this.clientService.obtenirTotalClientsParSexe("1")
-    .subscribe(res => {this.totalClientsHomme=res;
-                       this.totalClientsFemme = this.totalClients-this.totalClientsHomme;},
+    .subscribe(res => {this.totalClientsHommes=res;
+                       this.totalClientsFemmes = this.totalClients-this.totalClientsHommes;},
               err => console.log(err),
               () => {this.construireChartTotalClients()});
   }
 
+  /**
+   * 3. construire la chart "répartition clients par genre"
+   * 
+   */
   private construireChartTotalClients() : void {
 
     this.donneesChartClients = {
       labels: ["Hommes","Femmes"],
       datasets: [{
-        data: [ this.totalClientsHomme,this.totalClientsFemme],
+        data: [ this.totalClientsHommes,this.totalClientsFemmes],
           backgroundColor: [
             "#1e9ecc",
             "#eb505f"
-          ]
+          ],
+          hoverBackgroundColor: [
+            "#4ac2f4",
+            "#f1717e"
+        ]
       }],
     };
 
-    this.options = {
+    this.optionsChartClients = {
       title: {
           display: true,
-          text: 'Proportion hommes/femmes',
+          text: 'répartition CLIENTS par genre',
           fontSize: 16
       },
       legend: {
@@ -82,6 +108,57 @@ export class CompteAdminComponent implements OnInit {
   };
 
   }
+
+    /**
+   * obtenir le nombre total d'estimations dans la bdd
+   * 
+   */
+  private obtenirTotalEstimations() : void {
+    
+    this.estimationService.obtenirTotalEstimations()
+                          .subscribe ( res => {this.totalEstimations = res;this.obtenirTotalEstimationsParSexe()});
+  }
+
+  private obtenirTotalEstimationsParSexe() : void {
+
+    this.estimationService.obtenirTotalEstimationsParSexe("1")
+                          .subscribe ( res => this.totalEstimGarcons = res,
+                                        err => console.log(err._body),
+                                        () => { this.totalEstimFilles = this.totalEstimations - this.totalEstimGarcons;
+                                                this.construireChartTotalEstimations(); })
+
+  }
+
+  private construireChartTotalEstimations() : void {
+    
+        this.donneesChartEstimations = {
+          labels: ["Garçons","Filles"],
+          datasets: [{
+            data: [ this.totalEstimGarcons,this.totalEstimFilles],
+              backgroundColor: [
+                "#4E81B6",
+                "#4ac2f4"
+              ],
+            //   hoverBackgroundColor: [
+            //     "#4ac2f4",
+            //     "#f1717e"
+            // ]
+          }],
+        };
+    
+        this.optionsChartEstimations = {
+          title: {
+              display: true,
+              text: 'répartition ESTIMATIONS par genre',
+              fontSize: 16
+          },
+          legend: {
+              position: 'bottom'
+          }
+      };
+    
+      }
+
 
   /** 
    * dropdown choix du filtre par genre dans la datatable.
@@ -95,6 +172,12 @@ export class CompteAdminComponent implements OnInit {
     this.listeGenre.push({label: 'femme', value: '2'});
   }
   
+  /**
+   * méthode de confirmDialog PrimeNg.
+   * si confirmation, appeler la méthode supprimerCompte(compteDTO)
+   * 
+   * @param compteDTO 
+   */
   private confirmerSuppression(compteDTO:CompteDTO) : void {
 
     this.confirmationService.confirm({
@@ -107,7 +190,11 @@ export class CompteAdminComponent implements OnInit {
     })
   }
 
-
+  /**
+   * supprimer un compte et toutes les estimations liées.
+   * 
+   * @param compteDTO 
+   */
   private supprimerCompte(compteDTO:CompteDTO) {
 
       this.compteService.supprimerCompteEtEstimations(compteDTO)
@@ -125,9 +212,14 @@ export class CompteAdminComponent implements OnInit {
 
   }
 
+  /**
+   * méthode pour recharger les stats après suppression de compte.
+   * 
+   */
   private rechargerDonnees() : void {
 
       this.obtenirTotauxClientsEtChart();
+      this.obtenirTotalEstimations();
 
   }
 

@@ -1,0 +1,95 @@
+<!--  GROWL -->
+<p-growl [value]="msgs"></p-growl>
+
+
+<div class="container conteneurAdminOnglet">
+
+  <div class="row well" id="LigneInput">
+    
+            <!--saisie recherche-->
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <form  #formRecherche="ngForm" (submit)="chercherPrenom()"> 
+                <div id="inputRecherche">
+                    <div class="input-group col-md-12">
+                        <input type="text" class="form-control input-lg" [(ngModel)]="saisieRecherche" placeholder="saisir un prénom" #saisie="ngModel"  ngModel name="saisie" required/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="submit">
+                                <i class="glyphicon glyphicon-search" ></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+              </form>
+            </div>
+    
+            <!--boutons radio sexe-->
+            <div class="col-md-6 col-sm-6 col-xs-12" id="radioSexe">
+            <md-radio-group [(ngModel)]="choixSexe">
+                <md-radio-button value="1">garçon</md-radio-button>
+                <md-radio-button value="2">fille</md-radio-button>
+            </md-radio-group>
+            </div>
+    
+      </div>
+
+  
+<h3 *ngIf="totalNaissances != 0;"> Stats du prénom</h3>
+<div class="row lignePrenomAdmin" *ngIf="totalNaissances != 0;">
+
+    <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">
+        <!-- STAT TOTAL DE NAISSANCES DEPUIS 1900 -->
+        <div class="ui  statistics">
+            <div class="statistic">
+                <div class="value">
+                    <i class="fa fa-birthday-cake" style="color:#af0000;"></i>  {{totalNaissances}}
+                </div>
+                <div class="label"> naissances depuis 1900 </div>
+            </div>
+        </div>        
+
+          <!-- STAT ANNEE MAX NAISSANCES -->
+          <div class="ui  statistics" *ngIf="maxNaissances.length == 1">
+                <div class="statistic">
+                    <div class="value">
+                        <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>  {{maxNaissances[0].annee}}
+                    </div>
+                        <div class="label"> c'est l'année record de {{maxNaissances[0].label}} !<br>  {{maxNaissances[0].nombreNaissances}} naissances </div>
+                </div>        
+
+            </div>
+    </div>
+
+</div>
+
+<div class="row lignePrenomAdmin">
+
+<h3>Consulter les statistiques Insee</h3>
+
+<!-- DATATABLE CONSULTATION STATS INSEE PRENOM  -->
+
+<p-dataTable styleClass="datatableAdmin" [value]="listeStatsPrenom" sortField="reference" [sortOrder]="1" [resizableColumns]="true" [responsive]="true" dataKey="reference" [rows]="20" [paginator]="true" [pageLinks]="5"
+[rowsPerPageOptions]="[10,20,30]" [emptyMessage]="messageEchec" #dt>
+
+  <p-column field="reference" header="Ref" sortable="true" [filter]="true" filterPlaceholder="chercher une référence"></p-column>
+  <p-column field="label" header="Prénom" sortable="true"></p-column>
+  
+
+  <p-column field="sexe" header="Sexe" sortable="true">
+      <ng-template let-colonne let-compte="rowData" pTemplate="body">
+        <span *ngIf="compte.sexe=='1'">homme</span>
+        <span *ngIf="compte.sexe=='2'">femme</span>
+      </ng-template>
+  </p-column>
+
+  <p-column field="annee" header="Année" sortable="true" [filter]="true" filterPlaceholder="chercher une année"></p-column>
+
+  <p-column field="nombreNaissances" header="nbre de naissances" sortable="true"></p-column>
+
+</p-dataTable>
+
+</div>
+
+
+
+
+</div>

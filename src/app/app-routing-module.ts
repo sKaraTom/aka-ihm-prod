@@ -12,7 +12,7 @@ import { LogAdminComponent } from "./components/administration/log-admin.compone
 import { AdminGuard } from "./components/administration/admin.guard";
 import { CitationAdminComponent } from "./components/administration/citation-admin.component";
 import { CompteAdminComponent } from "./components/administration/compte-admin.component";
-import { EstimationAdminComponent } from "./components/administration/estimation-admin.component";
+import { PrenomAdminComponent } from "./components/administration/prenom-admin.component";
 
 
 
@@ -55,7 +55,7 @@ const appRoutes: Routes = [
     canActivate: [AdminGuard],
         children : [
           { path: '', component: CompteAdminComponent},
-          { path: 'estimations', component: EstimationAdminComponent},
+          { path: 'prenoms', component: PrenomAdminComponent},
           { path: 'citations', component: CitationAdminComponent}
   ]
   },

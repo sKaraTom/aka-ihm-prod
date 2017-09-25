@@ -42,8 +42,9 @@ import { AdminGuard } from "./components/administration/admin.guard";
 import { UrlMwService } from "./services/url-mw.service";
 import { CitationAdminComponent } from "./components/administration/citation-admin.component";
 import { CompteService } from "./services/compte.service";
-import { EstimationAdminComponent } from "./components/administration/estimation-admin.component";
 import { CompteAdminComponent } from "./components/administration/compte-admin.component";
+import { PrenomAdminComponent } from './components/administration/prenom-admin.component';
+import { PrenomService } from './services/prenom.service';
 
 
 @NgModule({
@@ -55,11 +56,11 @@ import { CompteAdminComponent } from "./components/administration/compte-admin.c
      DataTableModule, InputSwitchModule, GrowlModule,PartageModule,AppRoutingModule
             ],
     declarations:[ 
-    AppComponent,PageNotFoundComponent, HeaderComponent, MenuComponent,AdministrationComponent,LogAdminComponent,CitationAdminComponent, CompteAdminComponent, EstimationAdminComponent
+    AppComponent,PageNotFoundComponent, HeaderComponent, MenuComponent,AdministrationComponent,LogAdminComponent,CitationAdminComponent, CompteAdminComponent, PrenomAdminComponent
      ],
      exports:[],
     bootstrap: [ AppComponent ],
-    providers: [ConfirmationService,CompteService,UrlMwService,AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
+    providers: [PrenomService,ConfirmationService,CompteService,UrlMwService,AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
 })
  
 export class AppModule{

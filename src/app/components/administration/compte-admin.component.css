@@ -1,10 +1,20 @@
 
-.conteneurAdminOnglet {
-    width:100%;
+
+#colStats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+
 }
 
-#chartTotalClient {
-    width:20vmax;
+.colCharts {
+}
+
+.charts {
+    width:18vmax;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 :host /deep/ .datatableAdmin {
@@ -35,7 +45,7 @@
 
 @media (max-width: 768px) {
 
-    #chartTotalClient {
+    .charts {
         width:100%;
     }
 

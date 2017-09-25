@@ -1,0 +1,63 @@
+
+#LigneInput {
+    margin:0;
+}
+
+#inputRecherche{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+        #inputRecherche input{
+            border: 0;
+            box-shadow: none;
+            -webkit-box-shadow: 0 0 0 1000px white inset; /* pour enlever fond jaune sur champs préremplis de chrome. */
+        }
+
+        #inputRecherche button{
+            margin: 2px 0 0 0;
+            background: none;
+            box-shadow: none;
+            border: 0;
+            color: #666666;
+            border-left: solid 1px #ccc;
+        }
+
+        #inputRecherche button:hover{
+            border: 0;
+            box-shadow: none;
+            color:#1e9ecc;
+            border-left: solid 1px #ccc;
+        }
+
+        #inputRecherche button:active{
+            color:#4e81b6;
+        }
+
+        #inputRecherche button:focus{
+            outline: none;
+        }
+
+        #inputRecherche .glyphicon-search{
+            font-size: 23px;
+        }
+
+#radioSexe {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#colStats {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.lignePrenomAdmin {
+    margin : 2vh 0 2vh 0;
+}

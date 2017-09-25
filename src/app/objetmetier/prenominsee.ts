@@ -1,7 +1,7 @@
 export class PrenomInsee{
-    public reference: Number;
-    public sexe: String;
-    public label: String;
-    public annee: Number;
-    public nombreNaissances: Number;
+    public reference: number;
+    public sexe: string;
+    public label: string;
+    public annee: number;
+    public nombreNaissances: number;
 }

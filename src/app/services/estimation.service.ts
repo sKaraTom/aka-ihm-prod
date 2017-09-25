@@ -33,8 +33,25 @@ export class EstimationService {
      */
     public obtenirTotalEstimations() : Observable<number> {
         return this.http.get(this.urlAka+"estimation/total")
-            .map((response:Response) => response.json());    
+                        .map((response:Response) => response.json());    
+    }
 
+    /**
+     * obtenir le nombre total d'estimations par sexe (tous clients confondus).
+     * 
+     * @return number nombre total pour un sexe donné
+     */
+    public obtenirTotalEstimationsParSexe(sexe:string) : Observable<number> {
+        
+        const url = `${this.urlAka +"estimation/total"}/${sexe}`;
+
+        let headersAdmin:Headers = new Headers({'Content-Type': 'application/json'});
+        headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+
+        let options = new RequestOptions({ headers: headersAdmin });
+
+        return this.http.get(url,options)
+                        .map((response:Response) => response.json());    
     }
 
     /**
@@ -62,7 +79,6 @@ export class EstimationService {
             return this.http.get(url)
             .map((response:Response) => response.json());
     }
-
 
     /**
      * obtenir le nombre total d'estimations d'un client

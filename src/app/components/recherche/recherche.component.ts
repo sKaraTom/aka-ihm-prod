@@ -7,6 +7,7 @@ import { EstimationService } from "../../services/estimation.service";
 import { AuthentificationService } from "../../services/authentification.service";
 import { Observable } from "rxjs/Rx";
 import { Recherche } from "../../objetmetier/recherche";
+import { PrenomInsee } from "../../objetmetier/prenominsee";
 
 
 
@@ -21,8 +22,8 @@ export class RechercheComponent implements OnInit {
         private saisieRecherche:string;
 
         // options recherche
-        private choixSexe:String = '1'; //bouton radio : valeur par défaut sur garçon.
-        private choixClasseCss:string = '1';
+        private choixSexe:string = '1'; //bouton radio : valeur par défaut sur garçon.
+        private choixSexeRecherche:string = '1';
         private estRechercheExacte:boolean = false; // checkbox
         
         private resultatsMap : Map<string,boolean>; // map récupérée du mw, à convertir en array pour datalist.
@@ -35,7 +36,11 @@ export class RechercheComponent implements OnInit {
         private naissances:Number[] = [];
         private data: any;
         private options: any;
-        private annees:String[] = [];
+        private annees:string[] = [];
+
+        // stats complémentaires
+        private totalNaissances : number = 0;
+        private maxNaissances : PrenomInsee[] = [];
 
          msgs: Message[] = []; // growl primeng
 
@@ -85,11 +90,9 @@ export class RechercheComponent implements OnInit {
             //supprimer les blancs superflus (envoi mw et dans input html)
             this.saisieRecherche = this.saisieRecherche.trim();
             
-            // transférer la valeur du bouton radio (choixSexe) dans une autre variable : choixClasseCss
-            // pour afficher style css personnalisé garçon/fille
-            // sans avoir de changement d'habillage en changeant la valeur du bouton radio.
-            if (this.choixSexe == "1") { this.choixClasseCss = "1"; }
-            if(this.choixSexe == "2")  { this.choixClasseCss = "2"; }
+            // transférer la valeur du bouton radio (choixSexe) dans une autre variable : choixSexeRecherche
+            // pour garder le sexe sélectionné lors de la recherche même si on modifie le bouton radio après.
+            this.choixSexeRecherche = this.choixSexe;
 
             // créer une estimation à envoyer au mw.
             let estimationAVerifier = new Estimation();
@@ -181,9 +184,8 @@ export class RechercheComponent implements OnInit {
         else {
             return true;
         }
-        
 
-        }
+    }
 
 
 /////////// PARTIE STATS BAR CHART
@@ -196,8 +198,11 @@ export class RechercheComponent implements OnInit {
      */ 
     public afficherStats(event:Event,prenom:string,overlaypanel: OverlayPanel):void {
         this.prenomSelectionne = prenom;
+
         this.data = null; // remettre à null si une chart avait déjà été affichée.
         this.getNaissancesStats();
+        this.obtenirTotalNaissancesPourUnPrenom(prenom.toUpperCase(),this.choixSexeRecherche);
+        this.obtenirMaxNaissancesPourUnPrenom(prenom.toUpperCase(),this.choixSexeRecherche);
         overlaypanel.toggle(event); // afficher le pop-up overlay
     }
 
@@ -207,7 +212,7 @@ export class RechercheComponent implements OnInit {
      * puis activer la méthode de construction de la chart.
      */
     public getNaissancesStats() {
-            this.prenomService.getNaissances(this.prenomSelectionne.toUpperCase(), this.choixSexe)
+            this.prenomService.getNaissances(this.prenomSelectionne.toUpperCase(), this.choixSexeRecherche)
                                     .subscribe(liste => {(this.naissances) = liste;
                                     this.getStats();
                                         });
@@ -241,7 +246,7 @@ export class RechercheComponent implements OnInit {
                 ]        
         }
         this.options = {
-                        responsive: false,
+                        responsive: true,
                         title: {
                             display: true,
                             fontSize: 16 },
@@ -259,5 +264,28 @@ export class RechercheComponent implements OnInit {
         }; 
 
     }
+
+    
+/**
+ * obtenir les années où il y a eu le + de naissances pour un prénom donné.
+ * @return PrenomInsee[] maxNaissances
+ */
+private obtenirTotalNaissancesPourUnPrenom(prenom:string, sexe:string) : void {
+    
+          this.prenomService.obtenirTotalNaissancesPourUnPrenom(prenom.toUpperCase(), sexe)
+                            .subscribe(res =>this.totalNaissances = res);
+}
+
+
+/**
+ * obtenir les années où il y a eu le + de naissances pour un prénom donné.
+ * @return PrenomInsee[] maxNaissances
+ */
+private obtenirMaxNaissancesPourUnPrenom(prenom:string, sexe:string) : void {
+    
+          this.prenomService.obtenirAnneesMaxNaissancesPourUnPrenom(prenom.toUpperCase(), sexe)
+                            .subscribe(res =>this.maxNaissances = res);
+}
+
 
 }

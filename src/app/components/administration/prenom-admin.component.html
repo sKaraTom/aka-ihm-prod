@@ -32,62 +32,78 @@
     
       </div>
 
-  
-<h3 *ngIf="totalNaissances != 0;"> Stats du prénom</h3>
-<div class="row lignePrenomAdmin" *ngIf="totalNaissances != 0;">
+    
+    <h3 *ngIf="totalNaissances != 0;"> Stats du prénom</h3>
+    <div class="row lignePrenomAdmin" *ngIf="totalNaissances != 0;">
 
-    <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">
-        <!-- STAT TOTAL DE NAISSANCES DEPUIS 1900 -->
-        <div class="ui  statistics">
-            <div class="statistic">
-                <div class="value">
-                    <i class="fa fa-birthday-cake" style="color:#af0000;"></i>  {{totalNaissances}}
-                </div>
-                <div class="label"> naissances depuis 1900 </div>
-            </div>
-        </div>        
-
-          <!-- STAT ANNEE MAX NAISSANCES -->
-          <div class="ui  statistics" *ngIf="maxNaissances.length == 1">
+        <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">
+            <!-- STAT TOTAL DE NAISSANCES DEPUIS 1900 -->
+            <div class="ui  statistics">
                 <div class="statistic">
                     <div class="value">
-                        <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>  {{maxNaissances[0].annee}}
+                        <i class="fa fa-birthday-cake" style="color:#af0000;"></i>  {{totalNaissances.toLocaleString()}}
                     </div>
-                        <div class="label"> c'est l'année record de {{maxNaissances[0].label}} !<br>  {{maxNaissances[0].nombreNaissances}} naissances </div>
-                </div>        
+                    <div class="label"> naissances depuis 1900 </div>
+                </div>
+            </div> 
+        </div>       
+        <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">    
+            <!-- STAT ANNEE MAX NAISSANCES -->
+            <div class="ui  statistics" *ngIf="maxNaissances.length == 1">
+                    <div class="statistic">
+                        <div class="value">
+                            <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>  {{maxNaissances[0].annee}}
+                        </div>
+                            <div class="label"> l'année record de {{maxNaissances[0].label}} : <br>  {{maxNaissances[0].nombreNaissances.toLocaleString()}} naissances </div>
+                    </div>        
+
+                </div>
+            <div class="ui statistics" *ngIf="maxNaissances.length > 1" [ngClass]="maxNaissances.length > 3 ? 'tiny' : 'small'">
+                    <div class="statistic">
+                        <div class="value">
+                            <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>
+                            <span *ngFor="let prenomInsee of maxNaissances; let last=last;">
+                                <span  *ngIf="!last"> {{prenomInsee.annee }} -</span> 
+                                <span *ngIf="last">{{prenomInsee.annee}}</span>
+                            </span>
+                        </div>
+                            <div class="label"> années record de {{maxNaissances[0].label}} !<br>  
+                                    {{maxNaissances[0].nombreNaissances.toLocaleString()}} naissances 
+                            </div>
+                    </div>        
 
             </div>
+        </div>
+
     </div>
 
-</div>
+    <div class="row lignePrenomAdmin">
 
-<div class="row lignePrenomAdmin">
+    <h3>Consulter la table Insee</h3>
 
-<h3>Consulter les statistiques Insee</h3>
+    <!-- DATATABLE CONSULTATION STATS INSEE PRENOM  -->
 
-<!-- DATATABLE CONSULTATION STATS INSEE PRENOM  -->
+    <p-dataTable styleClass="datatableAdmin" [value]="listeStatsPrenom" sortField="reference" [sortOrder]="1" [resizableColumns]="true" [responsive]="true" dataKey="reference" [rows]="20" [paginator]="true" [pageLinks]="5"
+    [rowsPerPageOptions]="[10,20,30]" [emptyMessage]="messageEchec" #dt>
 
-<p-dataTable styleClass="datatableAdmin" [value]="listeStatsPrenom" sortField="reference" [sortOrder]="1" [resizableColumns]="true" [responsive]="true" dataKey="reference" [rows]="20" [paginator]="true" [pageLinks]="5"
-[rowsPerPageOptions]="[10,20,30]" [emptyMessage]="messageEchec" #dt>
+    <p-column field="reference" header="Ref" sortable="true" [filter]="true" filterPlaceholder="chercher une référence"></p-column>
+    <p-column field="label" header="Prénom" sortable="true"></p-column>
+    
 
-  <p-column field="reference" header="Ref" sortable="true" [filter]="true" filterPlaceholder="chercher une référence"></p-column>
-  <p-column field="label" header="Prénom" sortable="true"></p-column>
-  
+    <p-column field="sexe" header="Sexe" sortable="true">
+        <ng-template let-colonne let-compte="rowData" pTemplate="body">
+            <span *ngIf="compte.sexe=='1'">homme</span>
+            <span *ngIf="compte.sexe=='2'">femme</span>
+        </ng-template>
+    </p-column>
 
-  <p-column field="sexe" header="Sexe" sortable="true">
-      <ng-template let-colonne let-compte="rowData" pTemplate="body">
-        <span *ngIf="compte.sexe=='1'">homme</span>
-        <span *ngIf="compte.sexe=='2'">femme</span>
-      </ng-template>
-  </p-column>
+    <p-column field="annee" header="Année" sortable="true" [filter]="true" filterPlaceholder="chercher une année"></p-column>
 
-  <p-column field="annee" header="Année" sortable="true" [filter]="true" filterPlaceholder="chercher une année"></p-column>
+    <p-column field="nombreNaissances" header="nbre de naissances" sortable="true"></p-column>
 
-  <p-column field="nombreNaissances" header="nbre de naissances" sortable="true"></p-column>
+    </p-dataTable>
 
-</p-dataTable>
-
-</div>
+    </div>
 
 
 

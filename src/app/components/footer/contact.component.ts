@@ -53,13 +53,13 @@ export class ContactComponent implements OnInit  {
   }
 
   /**
-   * envoyer un mail : créer une liste Array<String> des champs saisis.
+   * envoyer un mail : créer une liste Array<string> des champs saisis.
    * 
    * @param formContact 
    */
   private envoyerMail(formContact:NgForm) : void {
 
-    let listeChamps : Array<String> = new Array<String>();
+    let listeChamps : Array<string> = new Array<string>();
     
     if(formContact.valid) {
       listeChamps.push(this.prenomClient); // champ disabled si client donc utiliser variable 2 way binding.

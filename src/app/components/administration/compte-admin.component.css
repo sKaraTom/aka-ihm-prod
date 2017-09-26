@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     align-items:center;
-
 }
 
 .colCharts {
@@ -15,16 +14,6 @@
     width:18vmax;
     margin-left: auto;
     margin-right: auto;
-}
-
-:host /deep/ .datatableAdmin {
-    text-align:center;
-    margin-left:auto; 
-    margin-right:auto;
-    width:75vmax;
-    font-size:1vmax;
-    box-shadow: -1px 1px 20px rgba(0, 0, 0, 0.18);
-    margin-bottom: 3vh;
 }
 
 :host /deep/ .col-uuid {
@@ -47,11 +36,6 @@
 
     .charts {
         width:100%;
-    }
-
-    :host /deep/ .datatableAdmin {
-        font-size:100%;
-    
     }
 
     :host /deep/ .col-uuid {

@@ -4,7 +4,7 @@ import { AuthentificationService } from "../../services/authentification.service
 @Component({
   selector: 'app-administration',
   templateUrl: './administration.component.html',
-  styleUrls: ['./administration.component.css']
+  styleUrls: ['./administration.component.css','./administration-styles.css']
 })
 export class AdministrationComponent implements OnInit {
 

@@ -115,13 +115,62 @@
 
     <p-contextMenu #cm appendTo="body" [model]="items"></p-contextMenu>
     
-    <!-- overlay STATS  -->
+    <!-- OVERLAY STATS  -->
     <p-overlayPanel #op3 appendTo="body">
-      <div id="divOverlayChart">  
-    <h2 id="titreChart">Popularité du prénom {{ estimationSelectionnee.prenom | capitalize }}</h2>
-     <p-chart styleClass="chart" type="bar" [data]="data" [options]="options" ></p-chart>
-       <p style="text-align: right;">Source : INSEE.</p>
-      </div>  
+        
+        <!-- Chart -->
+        <div id="divOverlayChart">  
+            <h2 id="titreChart">Popularité du prénom {{ estimationSelectionnee.prenom | capitalize }} ({{estimationSelectionnee.sexe | genre }})</h2>
+            <p-chart styleClass="chart" type="bar" [data]="data" [options]="options" ></p-chart>
+        </div>  
+        <!-- Stats chiffres -->
+        <div class="row">
+                
+            <div class="col-md-6 col-sm-6 col-xs-12 colStats">
+                <!-- STAT TOTAL DE NAISSANCES DEPUIS 1900 -->
+                <div class="ui tiny statistics"  id="surBlocStat">
+                    <div class="statistic" id="blocStat">
+                        <div class="value">
+                            <i class="fa fa-birthday-cake" style="color:#af0000;"></i>  {{totalNaissances.toLocaleString()}}
+                        </div>
+                        <div class="label"> naissances depuis 1900 </div>
+                    </div>
+                </div> 
+            </div>       
+            <div class="col-md-6 col-sm-6 col-xs-12 colStats">    
+                <!-- STAT ANNEE MAX NAISSANCES -->
+                <div class="ui tiny statistics" *ngIf="maxNaissances.length == 1" id="surBlocStat">
+                        <div class="statistic" id="blocStat">
+                            <div class="value">
+                                <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>  {{maxNaissances[0].annee}}
+                            </div>
+                            <div class="label"> 
+                                son année record :<br>  {{maxNaissances[0].nombreNaissances.toLocaleString()}} naissances 
+                            </div>
+                        </div>        
+    
+                    </div>
+                <div class="ui mini statistics" *ngIf="maxNaissances.length > 1" id="surBlocStat">
+                        <div class="statistic" id="blocStat">
+                            <div class="value">
+                                <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>
+                                <span *ngFor="let prenomInsee of maxNaissances; let last=last;">
+                                    <span  *ngIf="!last"> {{prenomInsee.annee }} -</span> 
+                                    <span *ngIf="last">{{prenomInsee.annee}}</span>
+                                </span>
+                            </div>
+                            <div class="label"> ses années record : <br>  
+                                    {{maxNaissances[0].nombreNaissances.toLocaleString()}} naissances 
+                            </div>
+                        </div>        
+    
+                </div>
+            </div>
+    
+        </div>
+
+        <p style="text-align: right;color:#1E9ECC;">Source : INSEE.</p>
+
     </p-overlayPanel>
 
 

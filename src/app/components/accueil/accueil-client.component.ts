@@ -23,8 +23,8 @@ export class AccueilClientComponent implements OnInit {
             //stats générales
             private totalEstimations:number;
             private totalClients:number;
-            private top3Garcons:Array<String>;
-            private top3Filles:Array<String>;
+            private top3Garcons:Array<string>;
+            private top3Filles:Array<string>;
 
             //stats client
             private totalEstimationsClient : number;
@@ -52,8 +52,8 @@ export class AccueilClientComponent implements OnInit {
         private citationService:CitationService,
 
   ) {
-    this.top3Garcons = new Array<String>();
-    this.top3Filles = new Array<String>();
+    this.top3Garcons = new Array<string>();
+    this.top3Filles = new Array<string>();
 
     this.ecrireMessageBonjour();
   

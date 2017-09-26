@@ -1,9 +1,9 @@
 export class Estimation{
-    public uuid: String;
-    public prenom: String;
-    public sexe: String;
+    public uuid: string;
+    public prenom: string;
+    public sexe: string;
     public favori: boolean;
-    public refClient: String;
-    public akachan: String;
+    public refClient: string;
+    public akachan: string;
     public dateEstimation: Date;
 }

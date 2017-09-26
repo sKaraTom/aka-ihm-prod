@@ -117,7 +117,7 @@ constructor(private urlMw:UrlMwService,private http: Http) {
 
     /**
      * modifier un mot de passe.
-     * envoyer une liste Array<String> contenant les champs.
+     * envoyer une liste Array<string> contenant les champs.
      * 
      * @param email du client.
      * @param passwordActuel 
@@ -129,7 +129,7 @@ constructor(private urlMw:UrlMwService,private http: Http) {
         const url = `${this.urlAka +"compte/modifier/password"}`;
         let options = new RequestOptions({ headers: this.headers });
 
-        let listeChamps : Array<String> = new Array<String>();
+        let listeChamps : Array<string> = new Array<string>();
         listeChamps.push(email,passwordActuel,nouveauPassword);
 
         return this.http.put(url,listeChamps,options)

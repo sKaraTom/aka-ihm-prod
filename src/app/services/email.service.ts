@@ -30,7 +30,7 @@ export class EmailService {
      * @param listeChamps liste qui contient les champs saisis
      * @return un texte de confirmation si envoi effectué avec succès.
      */
-    public envoyerMailContact(listeChamps:Array<String>) {
+    public envoyerMailContact(listeChamps:Array<string>) {
         
         const url = `${this.urlAka +"email/contact"}`;
         let options = new RequestOptions({ headers: this.headers });
@@ -49,7 +49,7 @@ export class EmailService {
       * @param mailAutre pathparam : un mail saisi ou "nonVoulu"
       * @return string message succès.
       */
-     public envoyerMailSelectionPrenoms(listePrenomsSelectionnes: Estimation[], prenomClient:String,mailClient:string,mailAutre:string) {
+     public envoyerMailSelectionPrenoms(listePrenomsSelectionnes: Estimation[], prenomClient:string,mailClient:string,mailAutre:string) {
         const url = `${this.urlAka +"email/selection"}/${prenomClient}/${mailClient}/${mailAutre}`;
         let options = new RequestOptions({ headers: this.headers });
 

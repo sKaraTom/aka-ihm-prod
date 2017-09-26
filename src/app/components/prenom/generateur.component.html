@@ -84,20 +84,20 @@
         <div class="col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}" >
             <span>{{ nouveauPrenomAleatoire }} </span>
         </div>
-    <div class="row justify-content-center" id="ligneEstiMobile">
-        <div class="btn-group btn-block" role="group" aria-label="Basic example">
-            <button type="button" class="btn boutonAkachan"  [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('false')">
-                <i class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn boutonAkachan" [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('true')">
-                <i class="fa fa-star fa-5x" aria-hidden="true"></i>
-            </button>
+        <div class="row justify-content-center" id="ligneEstiMobile">
+            <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" class="btn boutonAkachan"  [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('false')">
+                    <i class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn boutonAkachan" [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('true')">
+                    <i class="fa fa-star fa-5x" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
-    </div>
-    <p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms tendances" offLabel="prénoms tendances" [(ngModel)]="estTendance"
-                    (onChange)="activerPrenomsTendances($event)"></p-toggleButton>
-    <p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms anciens" offLabel="prénoms anciens" [(ngModel)]="estAncien"
-                    (onChange)="activerPrenomsAnciens($event)"></p-toggleButton>
+        <p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms tendances" offLabel="prénoms tendances" [(ngModel)]="estTendance"
+                        (onChange)="activerPrenomsTendances($event)"></p-toggleButton>
+        <p-toggleButton [style]="{'width':'100%'}" onLabel="prénoms anciens" offLabel="prénoms anciens" [(ngModel)]="estAncien"
+                        (onChange)="activerPrenomsAnciens($event)"></p-toggleButton>
 
 </div>
 </div>
@@ -137,19 +137,60 @@
     <br/>
 
     <!--POPULARITE DU PRENOM-->
-    <div class="row justify-content-end" id="lignePopularite">
+    <div class="row justify-content-center" id="lignePopularite">
     
-    <div class="col-md-8 col-sm-9 col-xs-12" id="colPopularite">
-        <p-fieldset [style]="{'color':'#1e9ecc'}" legend="Popularité du prénom" [toggleable]="true" [collapsed]="true" (onBeforeToggle)=peuplerChart()>
-            <div style="margin-left: auto; margin-right: auto; width:100%;">
+    <div class="col-md-10 col-sm-12 col-xs-12" id="colPopularite">
+        <p-fieldset [style]="{'color':'#1e9ecc'}" legend="Popularité du prénom" [toggleable]="true" [collapsed]="true" (onBeforeToggle)=peuplerStats(nouveauPrenomAleatoire)>
+            
+            <!-- Chart -->
+            <div class="col-md-9 col-sm-9 col-xs-12" style="margin-left:auto; margin-right:auto; width:100%;">
                     <p-chart type="bar" [data]="data" [options]="options"></p-chart>
                     <p id="insee">Source:INSEE.</p>
             </div>
+
+            
+            <div class="col-md-3 col-sm-3 col-xs-12" id="colStats">
+                <!-- STAT TOTAL DE NAISSANCES DEPUIS 1900 -->
+                <div class="ui small statistics">
+                        <div class="statistic">
+                            <div class="value">
+                                <i class="fa fa-birthday-cake" style="color:#EB505F;"></i>  {{totalNaissances.toLocaleString()}}
+                            </div>
+                            <div class="label"> naissances depuis 1900 </div>
+                        </div>
+                    </div>        
+                <br>
+                <!-- STAT ANNEE MAX NAISSANCES -->
+                <div class="ui small statistics" *ngIf="maxNaissances.length == 1" >
+                    <div class="statistic">
+                        <div class="value">
+                            <i class="fa fa-calendar-check-o" style="color:#EB505F;"></i>  {{maxNaissances[0].annee}}
+                        </div>
+                            <div class="label"> son année record :<br>  {{maxNaissances[0].nombreNaissances.toLocaleString()}} naissances </div>
+                    </div>        
+                </div>
+                
+                <div class="ui mini statistics" *ngIf="maxNaissances.length > 1">
+                        <div class="statistic">
+                            <div class="value">
+                                <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>
+                                <span *ngFor="let prenomInsee of maxNaissances; let last=last;">
+                                    <span  *ngIf="!last"> {{prenomInsee.annee }} -</span> 
+                                    <span *ngIf="last">{{prenomInsee.annee}}</span>
+                                </span>
+                            </div>
+                                <div class="label"> ses années record : <br>  
+                                        {{maxNaissances[0].nombreNaissances.toLocaleString()}} naissances 
+                                </div>
+                        </div>        
+                </div>
+
+            </div>
+
+
         </p-fieldset>
     </div>
 
-     <div class="col-md-3 col-sm-3 col-xs-12">
-     </div>
 
     </div> 
 

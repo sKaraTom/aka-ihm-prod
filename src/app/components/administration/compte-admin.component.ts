@@ -5,11 +5,12 @@ import { ClientService } from "../../services/client.service";
 import { CompteDTO } from "../../objetmetier/compteDTO";
 import { SelectItem, ConfirmationService, Message } from "primeng/primeng";
 import { EstimationService } from '../../services/estimation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-compte-admin',
   templateUrl: './compte-admin.component.html',
-  styleUrls: ['./compte-admin.component.css']
+  styleUrls: ['./compte-admin.component.css','./administration-styles.css']
 })
 export class CompteAdminComponent implements OnInit {
 
@@ -31,7 +32,7 @@ export class CompteAdminComponent implements OnInit {
   private listeGenre: SelectItem[]; // filtre par sexe dans la datatable.
   private msgs: Message[] = []; // growl primeng
 
-  constructor(private compteService:CompteService, private clientService:ClientService,private confirmationService: ConfirmationService, private estimationService:EstimationService) { }
+  constructor(private compteService:CompteService, private clientService:ClientService,private confirmationService: ConfirmationService, private estimationService:EstimationService, private router:Router) { }
 
   ngOnInit() {
 
@@ -71,7 +72,11 @@ export class CompteAdminComponent implements OnInit {
     this.clientService.obtenirTotalClientsParSexe("1")
     .subscribe(res => {this.totalClientsHommes=res;
                        this.totalClientsFemmes = this.totalClients-this.totalClientsHommes;},
-              err => console.log(err),
+              err => { if(err.status == 401) {
+                          sessionStorage.clear();
+                          this.router.navigate(['/admin/connexion']);
+                      }
+              },
               () => {this.construireChartTotalClients()});
   }
 

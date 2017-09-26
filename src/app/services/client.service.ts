@@ -61,7 +61,7 @@ public obtenirTotalClientsParSexe(sexe:string) : Observable<number> {
  * @param refClient uuid du client. 
  * @return Client le client.
  */
-public obtenirClient(refClient:String) : Observable<Client> {
+public obtenirClient(refClient:string) : Observable<Client> {
     const url = `${this.urlAka +"client"}/${refClient}`;
     let options = new RequestOptions({ headers: this.headers });
           

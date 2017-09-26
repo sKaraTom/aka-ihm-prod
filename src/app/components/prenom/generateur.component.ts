@@ -10,6 +10,7 @@ import { AuthentificationService } from "../../services/authentification.service
 
 //primeNg
 import { Message } from "primeng/components/common/api";
+import { PrenomInsee } from "../../objetmetier/prenominsee";
 
 
 
@@ -34,17 +35,9 @@ export class GenerateurComponent implements OnInit {
     
 
     public uuidClient:string;
-    public client:Client;
 
-    public  bouton_sexe:String = '1'; //valeur par défaut du bouton radio
+    public  bouton_sexe:string = '1'; //valeur par défaut du bouton radio
     public nouvelleEstimation:Estimation;
-
-    //variables pour la Bar chart
-    public data: any;
-    public options: any;
-
-    public naissances:Number[] = [];
-    public annees:String[] = [];
 
     // choix des tendances.
     public estTendance : boolean;
@@ -52,9 +45,20 @@ export class GenerateurComponent implements OnInit {
     public choixTendance:Number;
 
     //prénom aléatoire
-    public nouveauPrenomAleatoire:String;
+    public nouveauPrenomAleatoire:string;
     private animation:boolean = true; // booleen pour gérer animation fondu in/out entre chaque prénom.
     
+    //variables pour la Bar chart
+    public data: any;
+    public options: any;
+
+    public naissances:Number[] = [];
+    public annees:string[] = [];
+    
+    // stats complémentaires
+    private totalNaissances : number = 0;
+    private maxNaissances : PrenomInsee[] = [];
+
     //growl Primeng
     public msgs:Message[]=[];
  
@@ -64,7 +68,6 @@ export class GenerateurComponent implements OnInit {
     private estimationService: EstimationService,
     private authService: AuthentificationService
     ) {
-    this.client = new Client();
     this.nouvelleEstimation = new Estimation();
 
     //initialisation des choix de tendances.
@@ -157,7 +160,7 @@ private activerRaccourciClavier(event) : void {
                                             this.nouveauPrenomAleatoire = res;
                                             this.nouveauPrenomAleatoire = res; 
                                             this.animation = true;
-                                            this.getNaissancesStats();
+                                            this.getNaissancesStats(res);
                                         }
                                          },
                                 erreur => { 
@@ -183,49 +186,57 @@ public remplirXChart(): void {
 /**
  * obtenir le nombre de naissances pour un prénom.
  */
-public getNaissancesStats() : void {
-         this.prenomService.getNaissances(this.nouveauPrenomAleatoire.toUpperCase(), this.nouvelleEstimation.sexe)
+public getNaissancesStats(prenom:string) : void {
+         this.prenomService.getNaissances(prenom.toUpperCase(), this.nouvelleEstimation.sexe)
                                 .subscribe(liste => {(this.naissances) = liste;
-                                this.peuplerChart();
-                                    });
+                                                    this.peuplerStats(prenom);
+                                            });
+}
+
+/**
+ * obtenir les données pour les stats (chart et chiffres statistiques)
+ */
+public peuplerStats(prenom:string) {
+
+    this.construireChart();
+    this.obtenirTotalNaissancesPourUnPrenom(prenom,this.nouvelleEstimation.sexe);
+    this.obtenirMaxNaissancesPourUnPrenom(prenom,this.nouvelleEstimation.sexe);
 }
 
 /**
  * construire la chart
  */
-public peuplerChart() {
-
+public construireChart() : void {
     this.data = {
-            labels: this.annees,
-            datasets: [
-                {
-                    label: 'Le prénom ' + this.nouveauPrenomAleatoire + ' a été donné ',
-                    backgroundColor: '#1e9ecc',
-                    hoverBackgroundColor : '#eb505f',	
-                    borderColor: '#1E88E5',
-                    data: this.naissances
-                },
-            ]        
-    }
-    this.options = {
-                    responsive: true,
-                    title: {
-                        display: true,
-                        text: this.nouveauPrenomAleatoire + ' né(e)s depuis 1900',
-                        fontSize: 16 },
-                    legend: {
-                        display: false,
-                        position: 'bottom', },
-                   scales: {
-                        xAxes: [{
-                                    gridLines: { color: "rgba(0, 0, 0, 0.08)" },
-                                    ticks: { autoSkip: true, maxTicksLimit: 12 }    }],
-                         yAxes: [{
+        labels: this.annees,
+        datasets: [
+            {
+                label: 'Le prénom ' + this.nouveauPrenomAleatoire + ' a été donné ',
+                backgroundColor: '#1e9ecc',
+                hoverBackgroundColor : '#eb505f',	
+                borderColor: '#1E88E5',
+                data: this.naissances
+            },
+        ]        
+}
+this.options = {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: this.nouveauPrenomAleatoire + ' né(e)s depuis 1900',
+                    fontSize: 16 },
+                legend: {
+                    display: false,
+                    position: 'bottom', },
+               scales: {
+                    xAxes: [{
                                 gridLines: { color: "rgba(0, 0, 0, 0.08)" },
-                                ticks: { autoSkip: true, maxTicksLimit: 5 }     }]
-                    }
-     }; 
-
+                                ticks: { autoSkip: true, maxTicksLimit: 12 }    }],
+                     yAxes: [{
+                            gridLines: { color: "rgba(0, 0, 0, 0.08)" },
+                            ticks: { autoSkip: true, maxTicksLimit: 5 }     }]
+                }
+ }; 
 }
 
 /**
@@ -234,7 +245,7 @@ public peuplerChart() {
  * 
  * @param choix 
  */
-public choisirSexe(choix:String) : String {     
+public choisirSexe(choix:string) : string {     
        
         if (this.nouvelleEstimation.sexe == choix || null) {
             return this.nouvelleEstimation.sexe;
@@ -251,7 +262,7 @@ public choisirSexe(choix:String) : String {
  * 
  * @param choix 
  */
-public estimerPrenom(choix: String) : void {
+public estimerPrenom(choix: string) : void {
         // aime ou aime pas.
         this.nouvelleEstimation.akachan = choix;
         
@@ -313,5 +324,27 @@ public activerPrenomsAnciens(e) {
             }
             this.getPrenomAleatoireStats();
 }
+
+/**
+ * obtenir les années où il y a eu le + de naissances pour un prénom donné.
+ * @return PrenomInsee[] maxNaissances
+ */
+private obtenirTotalNaissancesPourUnPrenom(prenom:string, sexe:string) : void {
+    
+          this.prenomService.obtenirTotalNaissancesPourUnPrenom(prenom.toUpperCase(), sexe)
+                            .subscribe(res =>this.totalNaissances = res);
+}
+
+
+/**
+ * obtenir les années où il y a eu le + de naissances pour un prénom donné.
+ * @return PrenomInsee[] maxNaissances
+ */
+private obtenirMaxNaissancesPourUnPrenom(prenom:string, sexe:string) : void {
+    
+          this.prenomService.obtenirAnneesMaxNaissancesPourUnPrenom(prenom.toUpperCase(), sexe)
+                            .subscribe(res =>this.maxNaissances = res);
+}
+
 
  }

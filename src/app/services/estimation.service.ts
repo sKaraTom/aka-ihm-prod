@@ -59,9 +59,9 @@ export class EstimationService {
      * pour un sexe donné.
      * 
      * @param sexe
-     * @return Array<String> les 3 prénoms plus aimés.
+     * @return Array<string> les 3 prénoms plus aimés.
      */
-    public obtenirTop3Estimations(sexe:String) : Observable<Array<String>> {
+    public obtenirTop3Estimations(sexe:string) : Observable<Array<string>> {
             const url = `${this.urlAka +"estimation/top"}/${sexe}`;
             return this.http.get(url)
             .map((response:Response) => response.json());
@@ -73,7 +73,7 @@ export class EstimationService {
      * @param refClient
      * @return number nombre total estimations d'un client.
      */
-    public obtenirTotalEstimClient (refClient:String): Observable<number> {
+    public obtenirTotalEstimClient (refClient:string): Observable<number> {
         const url = `${this.urlAka + "estimation/stats" }/${refClient}`;
 
             return this.http.get(url)
@@ -88,7 +88,7 @@ export class EstimationService {
      * @param sexe 
      * @return number le nombtre total d'estimations d'un client.
      */
-    public obtenirTotalEstimClientParSexe(refClient:String, sexe: String): Observable<number>{
+    public obtenirTotalEstimClientParSexe(refClient:string, sexe: string): Observable<number>{
             const url = `${this.urlAka + "estimation/stats" }/${refClient}/${sexe}`; 
 
             return this.http.get(url)
@@ -101,7 +101,7 @@ export class EstimationService {
       * @param refClient
       * @return Array<Estimation> la liste Akachan
       */
-    public obtenirListeAkachan(refClient:String): Observable<Array<Estimation>>{
+    public obtenirListeAkachan(refClient:string): Observable<Array<Estimation>>{
             const url = `${this.urlAka +"estimation/listeA"}/${refClient}`;
             let options = new RequestOptions({ headers: this.headers });
             
@@ -116,7 +116,7 @@ export class EstimationService {
      * @param refClient
      * @return Array<Estimation> la liste noire
      */
-    public obtenirListeNoire(refClient:String): Observable<Array<Estimation>>{
+    public obtenirListeNoire(refClient:string): Observable<Array<Estimation>>{
             const url = `${this.urlAka +"estimation/listeN"}/${refClient}`;
             let options = new RequestOptions({ headers: this.headers });
             
@@ -130,7 +130,7 @@ export class EstimationService {
      * @param refClient
      * @return  Array<Estimation> liste des estimations avec estimation.favori=true.
      */
-    public obtenirListeFavoris(refClient:String): Observable<Array<Estimation>>{
+    public obtenirListeFavoris(refClient:string): Observable<Array<Estimation>>{
             const url = `${this.urlAka +"estimation/listeF"}/${refClient}`;
 
             return this.http.get(url)
@@ -145,7 +145,7 @@ export class EstimationService {
      * @param refClient
      * @return l'estimation créée.
      */
-     public estimerPrenom(estimation: Estimation, refClient:String) {
+     public estimerPrenom(estimation: Estimation, refClient:string) {
         const url = `${this.urlAka +"estimation"}/${refClient}`;
         let options = new RequestOptions({ headers: this.headers });
 
@@ -160,7 +160,7 @@ export class EstimationService {
      * @param akachan
      * @return Array<Estimation> la liste des estimations modifiées.
      */
-    public changerDeListeEstimations(estimations:Array<Estimation>, akachan:String) {
+    public changerDeListeEstimations(estimations:Array<Estimation>, akachan:string) {
 
         const url = `${this.urlAka +"estimation"}/${akachan}`;
         let options = new RequestOptions({ headers: this.headers });
@@ -190,7 +190,7 @@ export class EstimationService {
      * @param refClient
      * @return string un message de confirmation succès.
      */
-    public supprimerToutesEstimationsClient(refClient:String) {
+    public supprimerToutesEstimationsClient(refClient:string) {
 
         const url = `${this.urlAka + "estimation" }/${refClient}`; 
         let options = new RequestOptions({ headers: this.headers });

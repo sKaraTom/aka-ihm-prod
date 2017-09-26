@@ -29,7 +29,7 @@ export class PrenomService {
      * 
      * @param estimation : passer un objet estimation pour ses variables prenom, sexe, uuid client.
      * @param  rechercheExacte : SQL LIKE si false, recherche exacte si true)
-     * @return une map<String le prénom, Booleen si estimation existante)
+     * @return une map<string le prénom, Booleen si estimation existante)
      */
      public rechercherPrenomEtEstimExistante(estimation:Estimation, rechercheExacte:boolean){
            
@@ -54,9 +54,9 @@ export class PrenomService {
    * @param choixSexe 
    * @param refClient 
    * @param choixTendance 
-   * @return String un prénom aléatoire
+   * @return string un prénom aléatoire
    */
-  public getPrenomAleatoire(choixSexe:String, refClient:String, choixTendance:Number): Observable<String> {
+  public getPrenomAleatoire(choixSexe:string, refClient:string, choixTendance:Number): Observable<string> {
         
         const url = `${this.urlAka + "prenom" }/${choixSexe}/${refClient}/${choixTendance}`;
         let options = new RequestOptions({ headers: this.headers });
@@ -78,22 +78,43 @@ export class PrenomService {
    * @param sexe le sexe du prénom
    * @return un tableau Number[] de naissances de 1900 (=index 0) à 2015
    */
-  public getNaissances(prenom: String, sexe: String): Observable<Number[]>{
+  public getNaissances(prenom: string, sexe: string): Observable<Number[]>{
           const url = `${this.urlAka + "insee/pop" }/${sexe}/${prenom}`;
 
           return this.http.get(url)
                           .map((response:Response) => response.json());
   }
 
-  public obtenirMaxNaissancesPourUnPrenom(prenom : string, sexe: string) : Observable<Array<PrenomInsee>> {
+  /**
+   * obtenir le nombre total de naissances depuis 1900 pour un prénom donné (sexe discriminant)
+   * 
+   * @param prenom 
+   * @param sexe 
+   */
+  public obtenirTotalNaissancesPourUnPrenom(prenom : string, sexe: string) : Observable<number> {
 
+    const url = `${this.urlAka + "insee/pop/total" }/${sexe}/${prenom}`;
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(url,options)
+                      .map(res => res.json());
+  }
+
+
+  /**
+   * obtenir les années où il y a le + de naissances pour un prénom
+   * 
+   * @param prenom 
+   * @param sexe 
+   * @return Array<PrenomInsee> liste (plusieurs entrées si égalité sur années)
+   */
+  public obtenirAnneesMaxNaissancesPourUnPrenom(prenom : string, sexe: string) : Observable<Array<PrenomInsee>> {
 
       const url = `${this.urlAka + "insee/pop/max" }/${sexe}/${prenom}`;
 
-      let headersAdmin = new Headers({'Content-Type': 'application/json'});
-      headersAdmin.append('authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
-
-      let options = new RequestOptions({ headers: headersAdmin });
+      let headers = new Headers({'Content-Type': 'application/json'});
+      let options = new RequestOptions({ headers: headers });
 
       return this.http.get(url,options)
                       .map(res => res.json());

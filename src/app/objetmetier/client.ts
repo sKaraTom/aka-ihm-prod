@@ -2,7 +2,7 @@ import { Estimation } from "./estimation";
 import { Compte } from "./compte";
 
 export class Client {
-    public uuid: String;
+    public uuid: string;
     public prenom: string;
     public sexe: string;
     

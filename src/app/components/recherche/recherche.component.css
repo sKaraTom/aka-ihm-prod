@@ -180,8 +180,32 @@
     font-size:1.6vh;
 }
 
+#divOverlayChart {
+    width:30vw;
+}
+
 #titreChart {
-    font-size:3vh;
+    font-size:1.5vw;
+}
+
+
+.colStats {
+    padding-bottom : 0;
+    margin-bottom : 0;
+    /* border-style:groove; */
+}
+
+#surBlocStat {
+    /* width:100%; */
+    margin:0;
+    padding:0;
+    /* border-style:dashed; */
+}
+
+#blocStat {
+    width:100%;
+    margin :0;
+    /* border-style:groove; */
 }
 
 /*////////////MOBILE TABLETTE//////////// */

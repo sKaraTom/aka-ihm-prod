@@ -18,8 +18,8 @@ export class AccueilComponent implements OnInit {
 
     totalEstimations:number;
     totalClients:number;
-    top3Garcons:Array<String>;
-    top3Filles:Array<String>;
+    top3Garcons:Array<string>;
+    top3Filles:Array<string>;
        
 
     constructor(
@@ -27,8 +27,8 @@ export class AccueilComponent implements OnInit {
         private estimationService: EstimationService,
         private clientService: ClientService
         ) { 
-            this.top3Garcons = new Array<String>();
-            this.top3Filles = new Array<String>();
+            this.top3Garcons = new Array<string>();
+            this.top3Filles = new Array<string>();
         }
 
 

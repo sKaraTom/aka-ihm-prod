@@ -12,6 +12,7 @@ import { Client } from "../../objetmetier/client";
 import { Estimation } from "../../objetmetier/estimation";
 import { AuthentificationService } from "../../services/authentification.service";
 import { EmailService } from "../../services/email.service";
+import { PrenomInsee } from "../../objetmetier/prenominsee";
 
 
 
@@ -25,7 +26,7 @@ export class ListeAkachanComponent implements OnInit {
         private client:Client;
         private listeAkachan: Array<Estimation>;
         private estimSelectionnees: Estimation[];
-        private uuidClient:String;
+        private uuidClient:string;
 
         // partie dialog envoi mail
         private dialogMailEstVisible:boolean;
@@ -42,13 +43,16 @@ export class ListeAkachanComponent implements OnInit {
         msgs: Message[] = []; // growl primeng
         items: MenuItem[]; // context menu de la datatable.
 
-        //partie stats
+        //partie stats (chart)
         private estimationSelectionnee:Estimation;
         private naissances:Number[] = [];
         private data: any;
         private options: any;
-        private annees:String[] = [];
+        private annees:string[] = [];
 
+        // stats complémentaires
+        private totalNaissances : number = 0;
+        private maxNaissances : PrenomInsee[] = [];
 
 
     constructor(
@@ -96,7 +100,7 @@ export class ListeAkachanComponent implements OnInit {
     }
     
     /** 
-     * à partir d'une estimation sélectionnée ouvrir l'overlay contenant les stats du prénom (chart).
+     * à partir d'une estimation sélectionnée ouvrir l'overlay contenant les stats du prénom (chart et chiffres).
      * 
      * @param event pour afficher l'overlay de stats (chart)
      * @param estimation permet de récupérer l'estimation depuis la datatable et l'attribuer à une variable
@@ -108,6 +112,8 @@ export class ListeAkachanComponent implements OnInit {
             this.estimationSelectionnee = estimation; 
             this.data = null; // remettre à null si une chart avait déjà été affichée.
             this.getNaissancesStats(); // activer la création de la chart.
+            this.obtenirTotalNaissancesPourUnPrenom(estimation.prenom,estimation.sexe);
+            this.obtenirMaxNaissancesPourUnPrenom(estimation.prenom,estimation.sexe);
             overlaypanel.toggle(event); // afficher le pop-up overlay
     }
 
@@ -409,6 +415,26 @@ public construireGraphique() {
 
 }
 
+/**
+ * obtenir les années où il y a eu le + de naissances pour un prénom donné.
+ * @return PrenomInsee[] maxNaissances
+ */
+private obtenirTotalNaissancesPourUnPrenom(prenom:string, sexe:string) : void {
+    
+          this.prenomService.obtenirTotalNaissancesPourUnPrenom(prenom.toUpperCase(), sexe)
+                            .subscribe(res =>this.totalNaissances = res);
+}
+
+
+/**
+ * obtenir les années où il y a eu le + de naissances pour un prénom donné.
+ * @return PrenomInsee[] maxNaissances
+ */
+private obtenirMaxNaissancesPourUnPrenom(prenom:string, sexe:string) : void {
+    
+          this.prenomService.obtenirAnneesMaxNaissancesPourUnPrenom(prenom.toUpperCase(), sexe)
+                            .subscribe(res =>this.maxNaissances = res);
+}
 
 
 }

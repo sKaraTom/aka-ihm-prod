@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CitationService } from '../../services/citation.service';
 
 @Component({
   selector: 'app-citation-admin',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CitationAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private citationService:CitationService) { }
 
   ngOnInit() {
+
+      this.citationService.obtenirListeCitations()
+                          .subscribe(res => console.dir(res));
+      this.citationService.obtenirTotalCitations()
+                          .subscribe(res => console.log("total", res));
+
   }
 
 }

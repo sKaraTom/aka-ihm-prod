@@ -23,18 +23,48 @@ export class CitationService {
         this.headers.append('Authorization', `Bearer ${this.token}`);
     }
 
- 
- /**
-  * Obtenir une citation aléatoire
-  * destination : accueil prospect et client (pas d'envoi de token).
-  *
-  * @return Citation une citation aléatoire.
-  */
-  public obtenirCitationAleatoire(): Observable<Citation>{
-         const url = `${this.urlAka +"citation/aleatoire"}`;
-          
-            return this.http.get(url)
-                    .map((response:Response) => response.json())
-     }
+    
+    public obtenirTotalCitations() : Observable<number> {
+
+        const url = `${this.urlAka +"citation/total"}`;
+        
+                let headersAdmin = new Headers({'Content-Type': 'application/json'});
+                headersAdmin.append('authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+           
+                let options = new RequestOptions({ headers: headersAdmin });
+           
+               return this.http.get(url,options)
+                                .map(res => res.json());
+    }
+
+
+
+
+    public obtenirListeCitations() : Observable<Array<Citation>> {
+
+        const url = `${this.urlAka +"citation"}`;
+
+        let headersAdmin = new Headers({'Content-Type': 'application/json'});
+        headersAdmin.append('authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+   
+        let options = new RequestOptions({ headers: headersAdmin });
+   
+       return this.http.get(url,options)
+                        .map(res => res.json());
+    }
+
+    /**
+    * Obtenir une citation aléatoire
+    * destination : accueil prospect et client (pas d'envoi de token).
+    *
+    * @return Citation une citation aléatoire.
+    */
+    public obtenirCitationAleatoire(): Observable<Citation>{
+        const url = `${this.urlAka +"citation/aleatoire"}`;
+        
+        return this.http.get(url)
+                .map((response:Response) => response.json())
+    }
+
 
 }

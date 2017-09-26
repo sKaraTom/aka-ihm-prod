@@ -45,6 +45,7 @@ import { CompteService } from "./services/compte.service";
 import { CompteAdminComponent } from "./components/administration/compte-admin.component";
 import { PrenomAdminComponent } from './components/administration/prenom-admin.component';
 import { PrenomService } from './services/prenom.service';
+import { CitationService } from './services/citation.service';
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import { PrenomService } from './services/prenom.service';
      ],
      exports:[],
     bootstrap: [ AppComponent ],
-    providers: [PrenomService,ConfirmationService,CompteService,UrlMwService,AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
+    providers: [CitationService,PrenomService,ConfirmationService,CompteService,UrlMwService,AdminGuard,ContactGuard,ClientService,EmailService,AccueilGuard,EstimationService,AuthentificationGuard, AuthentificationService]
 })
  
 export class AppModule{

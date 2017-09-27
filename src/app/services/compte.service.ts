@@ -136,6 +136,11 @@ constructor(private urlMw:UrlMwService,private http: Http) {
                         .map((response:Response) => response.text());
     }
 
+    /**
+     * supprimer un compte et les estimations liées à ce compte.
+     * 
+     * @param compteDTO 
+     */
     public supprimerCompteEtEstimations(compteDTO:CompteDTO) {
 
         const url = `${this.urlAka +"compte/admin/suppression"}`;

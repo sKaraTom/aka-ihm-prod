@@ -23,7 +23,9 @@ export class CitationService {
         this.headers.append('Authorization', `Bearer ${this.token}`);
     }
 
-    
+    /**
+     * obtenir le nombre total de citations en base
+     */
     public obtenirTotalCitations() : Observable<number> {
 
         const url = `${this.urlAka +"citation/total"}`;
@@ -39,7 +41,9 @@ export class CitationService {
 
 
 
-
+    /**
+     * obtenir la liste de toutes les citations
+     */
     public obtenirListeCitations() : Observable<Array<Citation>> {
 
         const url = `${this.urlAka +"citation"}`;
@@ -65,6 +69,23 @@ export class CitationService {
         return this.http.get(url)
                 .map((response:Response) => response.json())
     }
+    
+    /**
+     * supprimer un compte
+     * 
+     * @param id    
+     */
+    public supprimerCitation(id:number) : Observable<String> {
 
+        const url = `${this.urlAka +"citation"}/${id}`;
+        
+        let headersAdmin = new Headers({ 'Content-Type': 'application/json' });
+        headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+
+        let options = new RequestOptions({ headers: headersAdmin });
+
+        return this.http.delete(url,options)
+                        .map(res => res.text());
+    }
 
 }

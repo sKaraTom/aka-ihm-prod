@@ -142,12 +142,12 @@
     <div class="col-md-10 col-sm-12 col-xs-12" id="colPopularite">
         <p-fieldset [style]="{'color':'#1e9ecc'}" legend="Popularité du prénom" [toggleable]="true" [collapsed]="true" (onBeforeToggle)=peuplerStats(nouveauPrenomAleatoire)>
             
+            <div class="row" style="margin:0;padding:0;">
             <!-- Chart -->
             <div class="col-md-9 col-sm-9 col-xs-12" style="margin-left:auto; margin-right:auto; width:100%;">
                     <p-chart type="bar" [data]="data" [options]="options"></p-chart>
             </div>
 
-            
             <div class="col-md-3 col-sm-3 col-xs-12" id="colStats">
                 <!-- STAT TOTAL DE NAISSANCES DEPUIS 1900 -->
                 <div class="ui small statistics">
@@ -172,7 +172,7 @@
                 <div class="ui mini statistics" *ngIf="maxNaissances.length > 1">
                         <div class="statistic">
                             <div class="value">
-                                <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>
+                                <i class="fa fa-calendar-check-o" style="color:#EB505F;"></i>
                                 <span *ngFor="let prenomInsee of maxNaissances; let last=last;">
                                     <span  *ngIf="!last"> {{prenomInsee.annee }} -</span> 
                                     <span *ngIf="last">{{prenomInsee.annee}}</span>
@@ -185,8 +185,10 @@
                 </div>
 
             </div>
-            <p id="insee">Source:INSEE.</p>
-
+            </div>
+            <div class="row justify-content-end">
+                <p id="insee">Source:INSEE.</p>
+            </div>
         </p-fieldset>
     </div>
 
@@ -201,6 +203,6 @@
         <li><strong>CTRL +</strong> <i class="fa fa-arrow-left fa-lg"></i> &nbsp;je n'aime pas ce prénom.</li>
         <li><strong>CTRL +</strong> <i class="fa fa-arrow-right fa-lg"></i> &nbsp;j'aime ce prénom.</li>
         <li><strong>CTRL +</strong> <i class="fa fa-arrow-down fa-lg"></i> &nbsp;passer.</li>
-        <li><strong>CTRL +</strong> <i class="fa fa-arrow-up fa-lg"></i> &nbsp;changer le genre.</li>
+        <li><strong>CTRL +</strong> <i class="fa fa-arrow-up fa-lg"></i> &nbsp;changer de genre.</li>
         </div>
     </p-overlayPanel>

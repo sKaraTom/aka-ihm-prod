@@ -1,3 +1,117 @@
-<p>
-  citation-admin works!
-</p>
+<!--  GROWL -->
+<p-growl [value]="msgs"></p-growl>
+
+
+<div class="container conteneurAdminOnglet">
+
+  <div class="row well" style="padding:0;">
+    
+            <!--saisie recherche-->
+            <div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
+              <!-- <form  #formRecherche="ngForm" class="form-inline" (submit)="chercherPrenom()"> 
+                <div id="inputRecherche">
+                        <input type="text" class="form-control input-lg" [(ngModel)]="saisieRecherche" placeholder="id(optionnel)" #saisie="ngModel"  ngModel name="saisie" required/>
+                        <span class="input-group-btn">
+                           
+                          <button type="submit" class="btn btn-primary">Submit</button>
+
+                          <button class="btn btn-info" type="submit">
+                                <i class="glyphicon glyphicon-search" ></i>
+                          </button>
+                        </span>
+                </div>
+              </form> -->
+
+              
+              <form #form="ngForm" (submit)="ajouterCitation(form)">
+              <div class="row ligneFormulaire">
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                  <label for="inputId" class="label">id (optionnel)</label>
+                  <input type="text" class="form-control" id="inputId" placeholder="12"
+                  #id="ngModel"  ngModel name="id" style="width:100%;">
+                  <!-- <small id="emailHelp" class="form-text text-muted">saisir un nombre.</small> -->
+                </div>
+                
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                  <label for="inputAuteur" class="label">auteur</label>
+                  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inputAuteur" placeholder="Stan Lee" 
+                  #auteur="ngModel"  ngModel name="auteur"required>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12" >
+                  <label for="inputContenu" class="label">citation (sans guillemets)</label>
+                  <textarea class="form-control mb-1 mr-sm-1 mb-sm-0" id="inputContenu" rows="3" placeholder="Excelsior !" style="min-width:100%;" #contenu="ngModel"  ngModel name="contenu" required></textarea>
+                </div>
+              </div>
+
+              <div class="row ligneFormulaire">
+                  <div align="right" class="col-md-12 col-sm-12 col-xs-12" >
+                      <button type="submit" class="btn boutonAkachan" style="font-size:1em;">Ajouter une citation</button>
+                      <button type="reset" class="btn boutonAkachan" style="font-size:1em;">Annuler</button>
+                  </div>
+              </div>
+              </form>
+
+
+            </div>
+    
+      </div>
+
+    
+    <h3> Stats des citations</h3>
+    <div class="row lignePrenomAdmin">
+
+        <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">
+            <!-- TOTAL DE CITATIONS -->
+            <div class="ui  statistics">
+                <div class="statistic">
+                    <div class="value">
+                        <i class="fa fa-quote-left" style="color:#af0000;"></i>  {{totalCitations.toLocaleString()}}
+                    </div>
+                    <div class="label"> citations disponibles </div>
+                </div>
+            </div> 
+        </div>       
+        <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">    
+            <!-- STAT ANNEE MAX NAISSANCES -->
+            <div class="ui  statistics">
+                    <div class="statistic">
+                        <div class="value">
+                            <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>  <!-- {{maxNaissances[0].annee}} -->
+                        </div>
+                            <div class="label"> l'année record de <!-- {{maxNaissances[0].label}} --> : <br> <!--  {{maxNaissances[0].nombreNaissances.toLocaleString()}} --> naissances </div>
+                    </div>        
+
+                </div>
+        </div>
+
+    </div>
+
+    <div class="row lignePrenomAdmin">
+
+    <h3>Consulter les sources de la table Insee</h3>
+
+    <!-- DATATABLE CONSULTATION STATS INSEE PRENOM  -->
+
+    <p-dataTable styleClass="datatableAdmin" [value]="listeCitations" sortField="id" [sortOrder]="1" [resizableColumns]="true" [responsive]="true" dataKey="id" [rows]="20" [paginator]="true" [pageLinks]="5"
+    [rowsPerPageOptions]="[10,20,30]" [emptyMessage]="messageEchec" #dt>
+
+    <p-column styleClass="col-id" field="id" header="Id" sortable="true"></p-column>
+    <p-column styleClass="col-auteur" field="auteur" header="Auteur" sortable="true" [filter]="true" filterPlaceholder="chercher un auteur"></p-column>
+    <p-column styleClass="col-contenu" field="contenu" header="Contenu" sortable="true"></p-column>
+<!-- 
+    <p-column field="sexe" header="Sexe" sortable="true">
+        <ng-template let-colonne let-compte="rowData" pTemplate="body">
+            <span *ngIf="compte.sexe=='1'">homme</span>
+            <span *ngIf="compte.sexe=='2'">femme</span>
+        </ng-template>
+    </p-column> -->
+
+    </p-dataTable>
+
+    </div>
+
+
+
+
+</div>

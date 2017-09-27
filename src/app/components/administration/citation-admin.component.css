@@ -1,0 +1,43 @@
+
+
+.form-inline {
+    /* display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start; */
+}
+
+.ligneFormulaire {
+    /* border-style:dotted; */
+    width:100%;
+    margin:0;
+    padding:10px;
+}
+
+.label {
+    color:black;
+    font-size:1em;
+}
+
+.form-control {
+    width:100%;
+}
+
+
+:host /deep/ .col-id {
+    width:4vw;
+ }
+
+ :host /deep/ .col-contenu {
+    /* word-wrap: break-word; */
+    /* word-break: break-all; */
+    white-space: normal;
+    text-align: left;
+ }
+
+ :host /deep/ .col-auteur {
+    /* word-wrap: break-word; */
+    /* word-break: break-all; */
+    white-space: normal;
+    text-align: left;
+ }

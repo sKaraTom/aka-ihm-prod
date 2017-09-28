@@ -59,7 +59,10 @@ export class PrenomService {
   public getPrenomAleatoire(choixSexe:string, refClient:string, choixTendance:Number): Observable<string> {
         
         const url = `${this.urlAka + "prenom" }/${choixSexe}/${refClient}/${choixTendance}`;
-        let options = new RequestOptions({ headers: this.headers });
+        let headers = new Headers({'Content-Type': 'application/json'});
+        headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+        let options = new RequestOptions({ headers: headers });
         
         return this.http.get(url,options)
                         .map((response:Response) => {

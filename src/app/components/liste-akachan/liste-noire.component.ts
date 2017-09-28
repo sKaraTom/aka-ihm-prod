@@ -5,6 +5,7 @@ import { AuthentificationService } from "../../services/authentification.service
 import { Estimation } from "../../objetmetier/estimation";
 import { SelectItem, MenuItem, Message } from "primeng/primeng";
 import { EstimationService } from "../../services/estimation.service";
+import { Router } from "@angular/router";
 
 
 
@@ -31,7 +32,8 @@ export class ListeNoireComponent implements OnInit {
 
     constructor( 
         private authService : AuthentificationService,
-        private estimationService : EstimationService) {
+        private estimationService : EstimationService,
+        private router:Router) {
 
 
         this.authService.idClientObs.subscribe(
@@ -72,7 +74,13 @@ export class ListeNoireComponent implements OnInit {
     public obtenirListeNoire() : void {
          this.estimationService.obtenirListeNoire(this.uuidClient)
                                 .subscribe(liste => this.listeNoire = liste,
-                                erreur => {},
+                                erreur => {
+                                    if(erreur.status == 401) {
+                                        alert(erreur._body);
+                                        localStorage.clear();
+                                        this.router.navigate(['/login']);
+                                      }
+                                },
                                 () => this.loading = false
                                 );
     }

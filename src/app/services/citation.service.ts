@@ -23,6 +23,7 @@ export class CitationService {
         this.headers.append('Authorization', `Bearer ${this.token}`);
     }
 
+
     /**
      * obtenir le nombre total de citations en base
      */
@@ -39,7 +40,19 @@ export class CitationService {
                                 .map(res => res.json());
     }
 
+    public ajouterCitation(citation:Citation) : Observable<Citation>{
 
+        const url = `${this.urlAka +"citation"}`;
+
+        let headersAdmin = new Headers({'Content-Type': 'application/json'});
+        headersAdmin.append('authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+   
+        let options = new RequestOptions({ headers: headersAdmin });
+
+        return this.http.post(url,citation,options)
+                        .map(res => res.json());
+
+    }
 
     /**
      * obtenir la liste de toutes les citations
@@ -53,7 +66,7 @@ export class CitationService {
    
         let options = new RequestOptions({ headers: headersAdmin });
    
-       return this.http.get(url,options)
+        return this.http.get(url,options)
                         .map(res => res.json());
     }
 
@@ -70,6 +83,21 @@ export class CitationService {
                 .map((response:Response) => response.json())
     }
     
+
+    public modifierCitation(citation:Citation) : Observable<string> {
+        
+        const url = `${this.urlAka +"citation"}`;
+
+        let headersAdmin = new Headers({ 'Content-Type': 'application/json' });
+        headersAdmin.append('Authorization', `BearerAdmin ${sessionStorage.getItem('si')}`);
+
+        let options = new RequestOptions({ headers: headersAdmin });
+
+        return this.http.put(url,citation,options)
+                        .map(res => res.text());
+
+    }
+
     /**
      * supprimer un compte
      * 

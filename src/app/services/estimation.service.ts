@@ -103,7 +103,11 @@ export class EstimationService {
       */
     public obtenirListeAkachan(refClient:string): Observable<Array<Estimation>>{
             const url = `${this.urlAka +"estimation/listeA"}/${refClient}`;
-            let options = new RequestOptions({ headers: this.headers });
+
+            let headers = new Headers({'Content-Type': 'application/json'});
+            headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    
+            let options = new RequestOptions({ headers: headers });
             
             return this.http.get(url, options)
                     .map((response:Response) => response.json())
@@ -118,7 +122,11 @@ export class EstimationService {
      */
     public obtenirListeNoire(refClient:string): Observable<Array<Estimation>>{
             const url = `${this.urlAka +"estimation/listeN"}/${refClient}`;
-            let options = new RequestOptions({ headers: this.headers });
+            
+            let headers = new Headers({'Content-Type': 'application/json'});
+            headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    
+            let options = new RequestOptions({ headers: headers });
             
             return this.http.get(url, options)
                 .map((response:Response) => response.json());

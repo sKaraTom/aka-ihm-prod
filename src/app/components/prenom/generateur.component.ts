@@ -11,6 +11,7 @@ import { AuthentificationService } from "../../services/authentification.service
 //primeNg
 import { Message } from "primeng/components/common/api";
 import { PrenomInsee } from "../../objetmetier/prenominsee";
+import { Router } from "@angular/router";
 
 
 
@@ -66,8 +67,10 @@ export class GenerateurComponent implements OnInit {
     constructor(
     private prenomService: PrenomService,
     private estimationService: EstimationService,
-    private authService: AuthentificationService
+    private authService: AuthentificationService,
+    private router:Router
     ) {
+    
     this.nouvelleEstimation = new Estimation();
 
     //initialisation des choix de tendances.
@@ -164,12 +167,17 @@ private activerRaccourciClavier(event) : void {
                                         }
                                          },
                                 erreur => { 
-                                    this.msgs = [],
-                                    this.msgs.push({severity:'warn', summary:'problème serveur ',
-                                    detail:erreur._body}); 
-                                        }
-
-                                );
+                                    if(erreur.status == 401) {
+                                        alert(erreur._body);
+                                        localStorage.clear();
+                                        this.router.navigate(['/login']);
+                                      }
+                                    else {
+                                        this.msgs = [],
+                                        this.msgs.push({severity:'warn', summary:'problème serveur ',
+                                        detail:erreur._body}); 
+                                    }
+                                    });
     }
 
 

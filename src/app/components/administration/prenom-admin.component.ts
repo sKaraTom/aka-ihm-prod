@@ -53,6 +53,7 @@ export class PrenomAdminComponent implements OnInit {
                             },
                             err => {
                               if(err.status == 401) {
+                                alert(err._body);
                                 sessionStorage.clear();
                                 this.router.navigate(['/admin/connexion']);
                               }

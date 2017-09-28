@@ -23,6 +23,45 @@
     width:100%;
 }
 
+.ligneStats {
+}
+
+#colStats {
+}
+
+#colGenerateur {
+}
+
+.boutonAkachan {
+    font-size: 1em;
+}
+
+.btnModif {
+    padding:0.5em 0.5em 0.5em 0.5em;
+    margin-top:0.3em;
+    margin-bottom:0.3em;
+}
+
+#preCitationAleat {
+    padding-bottom:0;
+    margin-bottom:0;
+    height:100%;
+}
+
+#citationAleatoire {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+#ligneDataTable {
+    display: flex;
+    flex-direction: column;
+}
+
+#texteIntroTable {
+    font-style: italic;
+    font-size: small;
+}
 
 :host /deep/ .col-id {
     width:4vw;

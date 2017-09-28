@@ -13,6 +13,7 @@ import { Estimation } from "../../objetmetier/estimation";
 import { AuthentificationService } from "../../services/authentification.service";
 import { EmailService } from "../../services/email.service";
 import { PrenomInsee } from "../../objetmetier/prenominsee";
+import { Router } from "@angular/router";
 
 
 
@@ -61,7 +62,8 @@ export class ListeAkachanComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private estimationService: EstimationService,
         private authService:AuthentificationService,
-        private emailService:EmailService
+        private emailService:EmailService,
+        private router:Router
     ) {
     
         this.estimationSelectionnee = new Estimation();
@@ -127,7 +129,13 @@ export class ListeAkachanComponent implements OnInit {
          this.estimationService.obtenirListeAkachan(this.uuidClient)
                                 .subscribe(
                                     liste => this.listeAkachan = liste,
-                                    erreur => {},
+                                    erreur => {
+                                        if(erreur.status == 401) {
+                                            alert(erreur._body);
+                                            localStorage.clear();
+                                            this.router.navigate(['/login']);
+                                          }
+                                    },
                                     () => this.loading = false
                                 );
         }

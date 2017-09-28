@@ -4,62 +4,46 @@
 
 <div class="container conteneurAdminOnglet">
 
-  <div class="row well" style="padding:0;">
+    <!-- FORMULAIRE AJOUT CITATION -->
+    <div class="row well" style="padding:0;">
     
-            <!--saisie recherche-->
-            <div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-              <!-- <form  #formRecherche="ngForm" class="form-inline" (submit)="chercherPrenom()"> 
-                <div id="inputRecherche">
-                        <input type="text" class="form-control input-lg" [(ngModel)]="saisieRecherche" placeholder="id(optionnel)" #saisie="ngModel"  ngModel name="saisie" required/>
-                        <span class="input-group-btn">
-                           
-                          <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
+            
+            <form #form="ngForm" (submit)="ajouterCitation(form)">
+                <div class="row ligneFormulaire">
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <label for="inputId" class="label">id (optionnel)</label>
+                        <input type="text" class="form-control" id="inputId" placeholder="12"
+                        #id="ngModel"  ngModel name="id" style="width:100%;">
+                        <!-- <small id="emailHelp" class="form-text text-muted">saisir un nombre.</small> -->
+                    </div>
+                    
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <label for="inputAuteur" class="label">auteur</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inputAuteur" placeholder="Stan Lee" 
+                        #auteur="ngModel"  ngModel name="auteur"required>
+                    </div>
 
-                          <button class="btn btn-info" type="submit">
-                                <i class="glyphicon glyphicon-search" ></i>
-                          </button>
-                        </span>
-                </div>
-              </form> -->
-
-              
-              <form #form="ngForm" (submit)="ajouterCitation(form)">
-              <div class="row ligneFormulaire">
-                <div class="col-md-2 col-sm-2 col-xs-12">
-                  <label for="inputId" class="label">id (optionnel)</label>
-                  <input type="text" class="form-control" id="inputId" placeholder="12"
-                  #id="ngModel"  ngModel name="id" style="width:100%;">
-                  <!-- <small id="emailHelp" class="form-text text-muted">saisir un nombre.</small> -->
-                </div>
-                
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                  <label for="inputAuteur" class="label">auteur</label>
-                  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inputAuteur" placeholder="Stan Lee" 
-                  #auteur="ngModel"  ngModel name="auteur"required>
+                    <div class="col-md-6 col-sm-6 col-xs-12" >
+                        <label for="inputContenu" class="label">citation (sans guillemets)</label>
+                        <textarea class="form-control mb-1 mr-sm-1 mb-sm-0" id="inputContenu" rows="3" placeholder="Excelsior !" style="min-width:100%;" #contenu="ngModel"  ngModel name="contenu" required></textarea>
+                    </div>
                 </div>
 
-                <div class="col-md-6 col-sm-6 col-xs-12" >
-                  <label for="inputContenu" class="label">citation (sans guillemets)</label>
-                  <textarea class="form-control mb-1 mr-sm-1 mb-sm-0" id="inputContenu" rows="3" placeholder="Excelsior !" style="min-width:100%;" #contenu="ngModel"  ngModel name="contenu" required></textarea>
+                <div class="row ligneFormulaire">
+                    <div align="right" class="col-md-12 col-sm-12 col-xs-12" >
+                        <button type="submit" class="btn boutonAkachan" style="font-size:1em;">Ajouter une citation</button>
+                        <button type="reset" class="btn boutonAkachan" style="font-size:1em;">Annuler</button>
+                    </div>
                 </div>
-              </div>
+            </form>
 
-              <div class="row ligneFormulaire">
-                  <div align="right" class="col-md-12 col-sm-12 col-xs-12" >
-                      <button type="submit" class="btn boutonAkachan" style="font-size:1em;">Ajouter une citation</button>
-                      <button type="reset" class="btn boutonAkachan" style="font-size:1em;">Annuler</button>
-                  </div>
-              </div>
-              </form>
-
-
-            </div>
+        </div>
     
-      </div>
-
+    </div>
     
     <h3> Stats des citations</h3>
-    <div class="row lignePrenomAdmin">
+    <div class="row ligneStats">
 
         <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">
             <!-- TOTAL DE CITATIONS -->
@@ -72,46 +56,77 @@
                 </div>
             </div> 
         </div>       
-        <div class="col-md-6 col-sm-6 col-xs-12" id="colStats">    
-            <!-- STAT ANNEE MAX NAISSANCES -->
-            <div class="ui  statistics">
-                    <div class="statistic">
-                        <div class="value">
-                            <i class="fa fa-calendar-check-o" style="color:#af0000;"></i>  <!-- {{maxNaissances[0].annee}} -->
-                        </div>
-                            <div class="label"> l'année record de <!-- {{maxNaissances[0].label}} --> : <br> <!--  {{maxNaissances[0].nombreNaissances.toLocaleString()}} --> naissances </div>
-                    </div>        
+        <div class="col-md-6 col-sm-6 col-xs-12" id="colGenerateur">    
+            <!-- GENERATEUR CITATION ALEATOIRE -->
+            <pre id="preCitationAleat">
+                <button class="btn boutonAkachan" (click)="obtenirCitationAleatoire()">Générer une citation aléatoire</button>
+                <p id="citationAleatoire">{{citationAleatoire | json}}</p>
 
-                </div>
+            </pre>
         </div>
 
     </div>
 
-    <div class="row lignePrenomAdmin">
+    <div class="row" id="ligneDataTable">
+        
+        <h3>Consulter les sources de la table Insee</h3>
 
-    <h3>Consulter les sources de la table Insee</h3>
+        <p id="texteIntroTable"> Dans la mesure du possible, éviter de créer des "trous" d'id.<br>
+        Favoriser les remplacements de citations supprimées avant la création de nouvelles.</p>
 
-    <!-- DATATABLE CONSULTATION STATS INSEE PRENOM  -->
+        <!-- DATATABLE CONSULTATION STATS INSEE PRENOM  -->
 
-    <p-dataTable styleClass="datatableAdmin" [value]="listeCitations" sortField="id" [sortOrder]="1" [resizableColumns]="true" [responsive]="true" dataKey="id" [rows]="20" [paginator]="true" [pageLinks]="5"
-    [rowsPerPageOptions]="[10,20,30]" [emptyMessage]="messageEchec" #dt>
+        <p-dataTable styleClass="datatableAdmin" [value]="listeCitations" sortField="id" [sortOrder]="1" [resizableColumns]="true" [responsive]="true" dataKey="id" [rows]="20" [paginator]="true" [pageLinks]="5"
+        [rowsPerPageOptions]="[10,20,30]" [emptyMessage]="messageEchec" exportFilename="t_citation" csvSeparator="  " [editable]="true" #dt>
 
-    <p-column styleClass="col-id" field="id" header="Id" sortable="true"></p-column>
-    <p-column styleClass="col-auteur" field="auteur" header="Auteur" sortable="true" [filter]="true" filterPlaceholder="chercher un auteur"></p-column>
-    <p-column styleClass="col-contenu" field="contenu" header="Contenu" sortable="true"></p-column>
-<!-- 
-    <p-column field="sexe" header="Sexe" sortable="true">
-        <ng-template let-colonne let-compte="rowData" pTemplate="body">
-            <span *ngIf="compte.sexe=='1'">homme</span>
-            <span *ngIf="compte.sexe=='2'">femme</span>
-        </ng-template>
-    </p-column> -->
+        <p-header>
+                <div class="ui-helper-clearfix">
+                    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left"></button>
+                </div>
+        </p-header>
 
-    </p-dataTable>
+        <p-column styleClass="col-id" field="id" header="Id" sortable="true"></p-column>
+        
+        <p-column styleClass="col-auteur" field="auteur" header="Auteur" sortable="true" [filter]="true" filterPlaceholder="chercher un auteur" [editable]="true">
+            <!-- Zone d'édition -->
+            <ng-template let-citation="rowData" pTemplate="editor">
+                <input type="text" class="form-control" style="width:100%;" [(ngModel)]="citation.auteur">
+                <button class="btn boutonAkachan btnModif" (click)="modifierCitation(citation)">sauver</button>
+                <button class="btn boutonAkachan btnModif" (click)="obtenirCitations()">annuler</button>
+            </ng-template>
+
+        </p-column>
+        
+        
+        <p-column styleClass="col-contenu" field="contenu" header="Contenu" sortable="true" [editable]="true">
+
+            <!-- Zone d'édition -->
+            <ng-template let-citation="rowData" pTemplate="editor">
+                <textarea class="form-control mb-1 mr-sm-1 mb-sm-0" id="inputContenu" rows="3" [(ngModel)]="citation.contenu"></textarea>
+                <button class="btn boutonAkachan btnModif" (click)="modifierCitation(citation)">sauver</button>
+                <button class="btn boutonAkachan btnModif" (click)="obtenirCitations()">annuler</button>
+            </ng-template>
+
+        </p-column>
+
+        <p-column header="Supprimer">
+                <ng-template let-citation="rowData" pTemplate="body">
+                  <button type="button" class="btn btnSupprimer" (click)="confirmerSuppression(citation.id);"><i class="fa fa-times" aria-hidden="true"></i></button>  
+                </ng-template>
+            </p-column>
+
+        </p-dataTable>
 
     </div>
 
-
+<!--  CONFIRM DIALOG SUPPRESSION CITATION -->
+<p-confirmDialog #cd>
+        <p-footer>
+          <button type="button" pButton icon="fa fa-undo" label="Annuler" (click)="cd.reject()"></button>
+          <button type="button" pButton icon="fa-check" label="Supprimer" (click)="cd.accept()"></button>
+        </p-footer>
+    
+    </p-confirmDialog>
 
 
 </div>

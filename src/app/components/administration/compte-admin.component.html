@@ -84,9 +84,9 @@
       </ng-template>
   </p-column>
 
-  <p-column field="nombreEstimations" header="nbre d'estimations" sortable="true"></p-column>
+  <p-column field="nombreEstimations" header="Estimations" sortable="true"></p-column>
 
-  <p-column header="supprimer">
+  <p-column header="Supprimer">
       <ng-template let-compte="rowData" pTemplate="body">
         <button type="button" class="btn btnSupprimer" (click)="confirmerSuppression(compte);"><i class="fa fa-times" aria-hidden="true"></i></button>  
         <!-- <button type="button" pButton (click)="supprimerCompte($event,compte.email);" class="ui-button-danger" icon="fa-close "></button> -->

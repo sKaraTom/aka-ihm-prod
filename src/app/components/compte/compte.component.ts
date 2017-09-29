@@ -72,7 +72,13 @@ export class CompteComponent implements OnInit {
 private obtenirClient() : void {
     // Client est la référence, les variables prenom et genre sont les variables qui seront modifiables.
     this.clientService.obtenirClient(this.idClient).subscribe(res =>  {this.client = res},
-                                                              err => {},
+                                                              err => {
+                                                                if(err.status == 401) {
+                                                                    localStorage.clear();
+                                                                    this.router.navigate(['/login']);
+                                                                    alert(err._body);
+                                                                }
+                                                              },
                                                               () => { this.emailRef = this.client.compte.email;
                                                                       this.prenom = this.client.prenom;
                                                                       this.genre = this.client.sexe;} );

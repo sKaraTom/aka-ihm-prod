@@ -7,6 +7,7 @@ import { ClientService } from "../../services/client.service";
 import { Estimation } from "../../objetmetier/estimation";
 import { Citation } from "../../objetmetier/citation";
 import { CitationService } from "../../services/citation.service";
+import { Router } from "@angular/router";
 
 
 
@@ -18,38 +19,39 @@ import { CitationService } from "../../services/citation.service";
 export class AccueilClientComponent implements OnInit {
 
 
-            private uuidClient:string;
+    private uuidClient:string;
 
-            //stats générales
-            private totalEstimations:number;
-            private totalClients:number;
-            private top3Garcons:Array<string>;
-            private top3Filles:Array<string>;
+    //stats générales
+    private totalEstimations:number;
+    private totalClients:number;
+    private top3Garcons:Array<string>;
+    private top3Filles:Array<string>;
 
-            //stats client
-            private totalEstimationsClient : number;
-            private totalEstimFillesClient :number;
-            private totalEstimGarconsClient:number;
+    //stats client
+    private totalEstimationsClient : number;
+    private totalEstimFillesClient :number;
+    private totalEstimGarconsClient:number;
 
-            private listeFavoris:Array<Estimation>;
+    private listeFavoris:Array<Estimation>;
 
-            private prenomClient:string;
+    private prenomClient:string;
 
-            // personnaliser le bonjour/bonsoir en fonction de l'heure de la journée.
-            private heure:number;
-            private bonjourOuBonsoir:string = "onjour";
+    // personnaliser le bonjour/bonsoir en fonction de l'heure de la journée.
+    private heure:number;
+    private bonjourOuBonsoir:string = "onjour";
 
-            //chart donut
-            private data: any;
+    //chart donut
+    private data: any;
 
-            // si pas encore de prénoms estimés.
-            private statsEstimsVide:boolean = false;
+    // si pas encore de prénoms estimés.
+    private statsEstimsVide:boolean = false;
 
     constructor(
         private estimationService: EstimationService,
         private authService:AuthentificationService,
         private clientService:ClientService,
         private citationService:CitationService,
+        private router:Router
 
   ) {
     this.top3Garcons = new Array<string>();
@@ -108,7 +110,13 @@ export class AccueilClientComponent implements OnInit {
            
            this.estimationService.obtenirListeFavoris(this.uuidClient)
                                 .subscribe(liste => this.listeFavoris = liste,
-                                err => {},
+                                err => {
+                                  if(err.status == 401) {
+                                    localStorage.clear();
+                                    this.router.navigate(['/login']);
+                                    alert(err._body);
+                                  }
+                                },
                                 () => {
                                   //fonction pour trier la liste par ordre alphabétique (prenom)
                                   this.listeFavoris.sort((a,b) => {

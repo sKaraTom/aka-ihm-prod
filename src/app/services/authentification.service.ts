@@ -160,6 +160,7 @@ export class AuthentificationService {
                  {      if(response) {return true;} 
                 })
             .catch((error) => { 
+                // alert(error);
                 this.deconnecter();
                 this.router.navigate(['/login']);
                 return Observable.of(false); })

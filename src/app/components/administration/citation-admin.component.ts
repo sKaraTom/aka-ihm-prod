@@ -78,9 +78,9 @@ export class CitationAdminComponent implements OnInit {
     this.citationService.obtenirListeCitations()
       .subscribe(res => this.listeCitations = res,
                 err => { if(err.status == 401) {
-                            alert(err._body);
                             sessionStorage.clear();
                             this.router.navigate(['/admin/connexion']);
+                            alert(err._body);
                           }
                         } );
   }
@@ -96,7 +96,8 @@ export class CitationAdminComponent implements OnInit {
   private obtenirCitationAleatoire() : void {
     this.citationService.obtenirCitationAleatoire()
                         .subscribe(res => this.citationAleatoire = res,
-                                    err => console.log(err._body));
+                                    err => {this.msgs = [],
+                                            this.msgs.push({severity:'info', summary:'erreur', detail:err._body});});
   }
 
   private modifierCitation(citation : Citation) : void {

@@ -73,9 +73,9 @@ export class CompteAdminComponent implements OnInit {
     .subscribe(res => {this.totalClientsHommes=res;
                        this.totalClientsFemmes = this.totalClients-this.totalClientsHommes;},
               err => { if(err.status == 401) {
-                          alert(err._body);
                           sessionStorage.clear();
                           this.router.navigate(['/admin/connexion']);
+                          alert(err._body);
                       }
               },
               () => {this.construireChartTotalClients()});
@@ -210,8 +210,9 @@ export class CompteAdminComponent implements OnInit {
                                   this.listeComptesDTO = this.listeComptesDTO.filter(item => item != compteDTO )  
                             }
                         },
-                        err => console.log(err._body + " "),
-                        () => {this.msgs = [],
+                        err => {this.msgs = [],
+                                this.msgs.push({severity:'info', summary:'erreur', detail:err._body});},
+                        () => { this.msgs = [],
                                 this.msgs.push({severity:'info', summary:compteDTO.email, detail:'compte supprimé avec succès'});
                                 this.rechargerDonnees();
                         })

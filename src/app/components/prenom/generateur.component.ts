@@ -35,33 +35,35 @@ import { Router } from "@angular/router";
 export class GenerateurComponent implements OnInit {
     
 
-    public uuidClient:string;
+    private uuidClient:string;
 
-    public  bouton_sexe:string = '1'; //valeur par défaut du bouton radio
-    public nouvelleEstimation:Estimation;
+    private  choixSexe:string = '1'; //valeur par défaut du bouton radio
+    private nouvelleEstimation:Estimation;
+
+    private typo : string = "typoAka";
 
     // choix des tendances.
-    public estTendance : boolean;
-    public estAncien : boolean;
-    public choixTendance:Number;
+    private estTendance : boolean;
+    private estAncien : boolean;
+    private choixTendance:Number;
 
     //prénom aléatoire
-    public nouveauPrenomAleatoire:string;
+    private prenomAleatoire:string;
     private animation:boolean = true; // booleen pour gérer animation fondu in/out entre chaque prénom.
     
     //variables pour la Bar chart
-    public data: any;
-    public options: any;
+    private data: any;
+    private options: any;
 
-    public naissances:Number[] = [];
-    public annees:string[] = [];
+    private naissances:Number[] = [];
+    private annees:string[] = [];
     
     // stats complémentaires
     private totalNaissances : number = 0;
     private maxNaissances : PrenomInsee[] = [];
 
     //growl Primeng
-    public msgs:Message[]=[];
+    private msgs:Message[]=[];
  
     
     constructor(
@@ -78,7 +80,6 @@ export class GenerateurComponent implements OnInit {
     this.estAncien = false;
     this.choixTendance = 1;
 
-    this.nouvelleEstimation.sexe = "1";
     this.naissances = [];
 
     this.authService.idClientObs.subscribe(
@@ -132,13 +133,11 @@ private activerRaccourciClavier(event) : void {
 
              // fleche haut : changer le sexe.
         if (event.keyCode == 38 && event.ctrlKey){
-           if(this.bouton_sexe == "1") {
-              this.bouton_sexe = "2";
-              this.nouvelleEstimation.sexe = "2";
+           if(this.choixSexe == "1") {
+              this.choixSexe = "2";
             }
             else {
-              this.bouton_sexe = "1";
-              this.nouvelleEstimation.sexe = "1";
+              this.choixSexe = "1";
             }
             this.getPrenomAleatoireStats();
         }
@@ -149,10 +148,10 @@ private activerRaccourciClavier(event) : void {
      * obtenir un prénom aléatoire puis activer 
      * la méthode d'obtention des stats de naissances associées.
      */
-    public getPrenomAleatoireStats() : void {
+    private getPrenomAleatoireStats() : void {
         this.animation = false;
         
-        this.prenomService.getPrenomAleatoire(this.nouvelleEstimation.sexe,this.uuidClient, this.choixTendance)
+        this.prenomService.getPrenomAleatoire(this.choixSexe,this.uuidClient, this.choixTendance)
                     .subscribe(res => { 
                                         if(res == "204") {
                                             this.msgs = [],
@@ -160,17 +159,16 @@ private activerRaccourciClavier(event) : void {
                                             detail:'il n\'y a plus de prénom à estimer pour cette catégorie.'});
                                         }
                                         else {
-                                            this.nouveauPrenomAleatoire = res;
-                                            this.nouveauPrenomAleatoire = res; 
+                                            this.prenomAleatoire = res;
                                             this.animation = true;
                                             this.getNaissancesStats(res);
                                         }
                                          },
                                 erreur => { 
-                                    if(erreur.status == 401) {
-                                        alert(erreur._body);
+                                    if(erreur.status == 401) { // si la validation du token est un échec
                                         localStorage.clear();
                                         this.router.navigate(['/login']);
+                                        alert(erreur._body);
                                       }
                                     else {
                                         this.msgs = [],
@@ -184,7 +182,7 @@ private activerRaccourciClavier(event) : void {
 /**
  * générer le tableau de référence abscisse de la chart.
  */
-public remplirXChart(): void {
+private remplirXChart(): void {
     // boucle pour générer x années de la chart.
     for (var i = 1900; i <= 2015; i++) {
             this.annees.push(i.toString());
@@ -194,32 +192,36 @@ public remplirXChart(): void {
 /**
  * obtenir le nombre de naissances pour un prénom.
  */
-public getNaissancesStats(prenom:string) : void {
-         this.prenomService.getNaissances(prenom.toUpperCase(), this.nouvelleEstimation.sexe)
-                                .subscribe(liste => {(this.naissances) = liste;
-                                                    this.peuplerStats(prenom);
-                                            });
+private getNaissancesStats(prenom:string) : void {
+         
+    this.prenomService.getNaissances(prenom.toUpperCase(), this.choixSexe)
+                        .subscribe(res => { this.naissances = res;
+                                            this.peuplerStats(prenom);
+                                    },
+                                err => { this.msgs = [],
+                                    this.msgs.push({severity:'warn', summary:'problème serveur ',
+                                    detail:'une erreur interne est survenue.'}); });
 }
 
 /**
  * obtenir les données pour les stats (chart et chiffres statistiques)
  */
-public peuplerStats(prenom:string) {
+private peuplerStats(prenom:string) {
 
     this.construireChart();
-    this.obtenirTotalNaissancesPourUnPrenom(prenom,this.nouvelleEstimation.sexe);
-    this.obtenirMaxNaissancesPourUnPrenom(prenom,this.nouvelleEstimation.sexe);
+    this.obtenirTotalNaissancesPourUnPrenom(prenom,this.choixSexe);
+    this.obtenirMaxNaissancesPourUnPrenom(prenom,this.choixSexe);
 }
 
 /**
  * construire la chart
  */
-public construireChart() : void {
+private construireChart() : void {
     this.data = {
         labels: this.annees,
         datasets: [
             {
-                label: 'Le prénom ' + this.nouveauPrenomAleatoire + ' a été donné ',
+                label: 'Le prénom ' + this.prenomAleatoire + ' a été donné ',
                 backgroundColor: '#1e9ecc',
                 hoverBackgroundColor : '#eb505f',	
                 borderColor: '#1E88E5',
@@ -231,7 +233,7 @@ this.options = {
                 responsive: true,
                 title: {
                     display: true,
-                    text: this.nouveauPrenomAleatoire + ' né(e)s depuis 1900',
+                    text: this.prenomAleatoire + ' né(e)s depuis 1900',
                     fontSize: 16 },
                 legend: {
                     display: false,
@@ -248,21 +250,14 @@ this.options = {
 }
 
 /**
- * changer le sexe via le bouton radio
- * et relancer l'obtention d'un prénom aléatoire si le sexe change.
+ * au changement de sexe via le bouton radio,
+ * relancer l'obtention d'un prénom aléatoire.
  * 
  * @param choix 
  */
-public choisirSexe(choix:string) : string {     
-       
-        if (this.nouvelleEstimation.sexe == choix || null) {
-            return this.nouvelleEstimation.sexe;
-        }
-        else {
-            this.nouvelleEstimation.sexe = choix;
-            this.getPrenomAleatoireStats();
-            return this.nouvelleEstimation.sexe;
-        }
+private changerSexe() : void {
+
+    this.getPrenomAleatoireStats();
 }
 
 /**
@@ -270,14 +265,15 @@ public choisirSexe(choix:string) : string {
  * 
  * @param choix 
  */
-public estimerPrenom(choix: string) : void {
+private estimerPrenom(choixAkachan: string) : void {
         // aime ou aime pas.
-        this.nouvelleEstimation.akachan = choix;
+        this.nouvelleEstimation.akachan = choixAkachan;
+        this.nouvelleEstimation.sexe = this.choixSexe;
         
         // condition pour éviter d'estimer 2 fois le même prénom (si clics trop rapides...)
         // en + de l'exception côté mw
-        if (this.nouvelleEstimation.prenom != this.nouveauPrenomAleatoire) {
-            this.nouvelleEstimation.prenom = this.nouveauPrenomAleatoire;
+        if (this.nouvelleEstimation.prenom != this.prenomAleatoire) {
+            this.nouvelleEstimation.prenom = this.prenomAleatoire;
             
             this.estimationService.estimerPrenom(this.nouvelleEstimation,this.uuidClient)
                                     .subscribe(res => {},
@@ -295,7 +291,7 @@ public estimerPrenom(choix: string) : void {
  * méthode attribuée au bouton "passer" : 
  * obtenir un nouveau prénom aléatoire uniquement.
  */
-public nePasEstimer() : void {
+private nePasEstimer() : void {
         this.getPrenomAleatoireStats();
     }
 
@@ -306,7 +302,7 @@ public nePasEstimer() : void {
  * 
  * @param e 
  */    
-public activerPrenomsTendances(e) : void {
+private activerPrenomsTendances(e) : void {
             this.estTendance = e.checked;
             this.estAncien = false;
             this.choixTendance = 2;
@@ -323,7 +319,7 @@ public activerPrenomsTendances(e) : void {
  * 
  * @param e 
  */    
-public activerPrenomsAnciens(e) {
+private activerPrenomsAnciens(e) {
             this.estAncien = e.checked;
             this.estTendance = false;
             this.choixTendance = 3;

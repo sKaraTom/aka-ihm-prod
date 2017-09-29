@@ -83,7 +83,11 @@ export class CitationService {
                 .map((response:Response) => response.json())
     }
     
-
+    /**
+     * modifier une citation
+     * 
+     * @param citation 
+     */
     public modifierCitation(citation:Citation) : Observable<string> {
         
         const url = `${this.urlAka +"citation"}`;

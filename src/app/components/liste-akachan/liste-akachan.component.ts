@@ -131,9 +131,9 @@ export class ListeAkachanComponent implements OnInit {
                                     liste => this.listeAkachan = liste,
                                     erreur => {
                                         if(erreur.status == 401) {
-                                            alert(erreur._body);
                                             localStorage.clear();
                                             this.router.navigate(['/login']);
+                                            alert(erreur._body);
                                           }
                                     },
                                     () => this.loading = false

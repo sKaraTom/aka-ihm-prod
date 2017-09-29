@@ -141,7 +141,12 @@ export class EstimationService {
     public obtenirListeFavoris(refClient:string): Observable<Array<Estimation>>{
             const url = `${this.urlAka +"estimation/listeF"}/${refClient}`;
 
-            return this.http.get(url)
+            let headers = new Headers({'Content-Type': 'application/json'});
+            headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    
+            let options = new RequestOptions({ headers: headers });
+
+            return this.http.get(url,options)
                 .map((response:Response) => response.json());
         }
 

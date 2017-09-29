@@ -102,21 +102,67 @@
 /******* PARTIE PRENOM ALEATOIRE *********/
 
 #colPrenomAleatoire {
-  text-align:center;
-  color: white;
-  font-family: AkaPolice;
-  font-size: 6vmax;
-  Line-Height: 0.8;
-  white-space : pre-line;
+  
   min-width: 55%;
   overflow: hidden;
-  display: flex; /* 3 lignes pour centrer verticalement:*/
-  flex-direction: column; /* direction d'affichage verticale */
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin-left:5px;
   margin-right:5px;
   border-radius: 10px;
 }
+
+#prenomAleatoire {
+  text-align:center;
+  color: white;
+  Line-Height: 0.8;
+  white-space : pre-line;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height:100%;
+}
+
+.typoAka {
+  font-family: AkaPolice,'Times New Roman', Times, serif;
+  font-size: 6vmax;
+}
+
+.typoCentury {
+  font-family: "century gothic",calibri,Arial, Helvetica, sans-serif;
+  font-size: 4vmax;
+}
+
+#radioTypo {
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+  font-style: italic;
+  position: absolute;
+  bottom: 0;
+  right: 8%;
+  color:#99E3FA;
+  font-size:small;
+}
+
+/* Bouton radio choix typo : HACK Angular Material  */
+:host /deep/ #btnRadioTypo .mat-radio-outer-circle {
+  border-color: #99E3FA;
+}
+
+:host /deep/ #btnRadioTypo .mat-radio-inner-circle {
+  background-color: #99E3FA;
+}
+
+:host /deep/ #btnRadioTypo .mat-radio-ripple .mat-ripple-element {
+  background-color: rgba(147,220,251,.26); /* HACK */
+}
+
 
    .garcon {
   background-color:#4e81b6 ;
@@ -303,7 +349,15 @@
     }
 
     #colPrenomAleatoire {
-      height:20vh;
+      height:30vh;
+    }
+
+    .typoAka {
+      font-size: 10vmax;
+    }
+    
+    .typoCentury {
+      font-size: 8vmax;
     }
 
     .btnPasser {
@@ -334,16 +388,6 @@
   .btnEstiFille:active {
     background-color: #1e9ecc;
   }
-
-/* 
-  
-  .boutonAkachan:focus {
-    background-color: none;
-  }
-  .boutonAkachan:hover {
-    background-color: none;
-  } */
-
 
   .btnEstimation:active {
     box-shadow: none;

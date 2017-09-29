@@ -24,24 +24,32 @@
 
         <!-- bouton aime pas -->
         <div class="col-md-3 col-sm-2 col-xs-12 btnEstimation" (click)="estimerPrenom('false')" id="btnAimePas"
-        [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}">
+        [ngClass]="{'btnEstiFille' : choixSexe=='2', 'btnEstiGarcon' : choixSexe=='1'}">
                 <i class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i>
         </div>
         <!-- prenom aleatoire -->
-        <div class="col-md-6 col-sm-5 col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}">
-            <span [@fadeInOut] *ngIf="animation" (mouseover)="prenomTypoClassique=true;" (mouseleave)="prenomTypoClassique=false;">{{ nouveauPrenomAleatoire }} </span>
+        <div class="col-md-6 col-sm-5 col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : choixSexe=='2', 'garcon' : choixSexe=='1'}">
+            <div id="prenomAleatoire" [ngClass]="typo">
+                <span [@fadeInOut] *ngIf="animation">{{ prenomAleatoire }} </span>
+            </div>
+            <!-- bouton radio Typo -->
+            <div class="row" id="radioTypo">
+                <md-radio-group  [(ngModel)]="typo" id="btnRadioTypo">
+                        typo :
+                        <md-radio-button value="typoAka">Akachan</md-radio-button>
+                        <md-radio-button value="typoCentury">Century</md-radio-button>
+                </md-radio-group>
+            </div>
             
         </div>
         <!-- bouton j aime -->
         <div class="col-md-3 col-sm-2 col-xs-12 btnEstimation" id="btnAime"
             (click)="estimerPrenom('true')" 
-            [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}"> 
+            [ngClass]="{'btnEstiFille' : choixSexe=='2', 'btnEstiGarcon' : choixSexe=='1'}"> 
                 <i class="fa fa-star fa-5x" aria-hidden="true"></i>
         </div>
 
         </div>
-        <!-- prénom affiché en typo classique (souris sur prénom aléatoire) -->
-        <div align="center" *ngIf="prenomTypoClassique" style="font-weight:bold;">{{ nouveauPrenomAleatoire }}</div>
     </div>
 
     <!--COLONNE OPTIONS - LEGENDE-->
@@ -81,15 +89,25 @@
 <div id="mobile">
     <div class="row justify-content-center">
         <!-- prenom aleatoire -->
-        <div class="col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : bouton_sexe=='2', 'garcon' : bouton_sexe=='1'}" >
-            <span>{{ nouveauPrenomAleatoire }} </span>
+        <div class="col-xs-12" id="colPrenomAleatoire" [ngClass]="{'fille' : choixSexe=='2', 'garcon' : choixSexe=='1'}" >
+            <div class="row" id="prenomAleatoire" [ngClass]="typo">
+                    <span>{{ prenomAleatoire }} </span>
+                </div>
+                <!-- bouton radio Typo -->
+                <div class="row" id="radioTypo">
+                    <md-radio-group  [(ngModel)]="typo" id="btnRadioTypo">
+                            typo :
+                            <md-radio-button value="typoAka">Akachan</md-radio-button>
+                            <md-radio-button value="typoCentury">Century</md-radio-button>
+                    </md-radio-group>
+                </div>
         </div>
         <div class="row justify-content-center" id="ligneEstiMobile">
             <div class="btn-group btn-block" role="group" aria-label="Basic example">
-                <button type="button" class="btn boutonAkachan"  [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('false')">
+                <button type="button" class="btn boutonAkachan"  [ngClass]="{'btnEstiFille' : choixSexe=='2', 'btnEstiGarcon' : choixSexe=='1'}" (click)="estimerPrenom('false')">
                     <i class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i>
                 </button>
-                <button type="button" class="btn boutonAkachan" [ngClass]="{'btnEstiFille' : bouton_sexe=='2', 'btnEstiGarcon' : bouton_sexe=='1'}" (click)="estimerPrenom('true')">
+                <button type="button" class="btn boutonAkachan" [ngClass]="{'btnEstiFille' : choixSexe=='2', 'btnEstiGarcon' : choixSexe=='1'}" (click)="estimerPrenom('true')">
                     <i class="fa fa-star fa-5x" aria-hidden="true"></i>
                 </button>
             </div>
@@ -109,9 +127,9 @@
     <!-- boutons radio sexe -->
     <div align="right" class="col-md-3 centrerVerti" id="colBoutonRadioSexe">
         <div>
-        <md-radio-group  [(ngModel)]="bouton_sexe">
-            <md-radio-button value="1" (change)="choisirSexe('1')">garçon</md-radio-button>
-            <md-radio-button value="2" (change)="choisirSexe('2')">fille</md-radio-button>
+        <md-radio-group  [(ngModel)]="choixSexe" (change)="changerSexe()">
+            <md-radio-button value="1">garçon</md-radio-button>
+            <md-radio-button value="2">fille</md-radio-button>
         </md-radio-group>
         </div>
      
@@ -140,7 +158,7 @@
     <div class="row justify-content-center" id="lignePopularite">
     
     <div class="col-md-10 col-sm-12 col-xs-12" id="colPopularite">
-        <p-fieldset [style]="{'color':'#1e9ecc'}" legend="Popularité du prénom" [toggleable]="true" [collapsed]="true" (onBeforeToggle)=peuplerStats(nouveauPrenomAleatoire)>
+        <p-fieldset [style]="{'color':'#1e9ecc'}" legend="Popularité du prénom" [toggleable]="true" [collapsed]="true" (onBeforeToggle)=peuplerStats(prenomAleatoire)>
             
             <div class="row" style="margin:0;padding:0;">
             <!-- Chart -->

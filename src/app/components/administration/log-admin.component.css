@@ -23,12 +23,12 @@ input:-webkit-autofill{
 
 }
 
-/* .formulaireConnexion {
+.formulaireConnexion {
     width: 90%;
     color:#4e81b6;
     margin-right:auto;
     margin-left:auto;
-} */
+}
 
 
 
@@ -41,6 +41,10 @@ input:-webkit-autofill{
         justify-content: center;
         text-align:center;
         
+    }
+
+    .formulaireConnexion {
+        width:100%;
     }
 
     h2 {

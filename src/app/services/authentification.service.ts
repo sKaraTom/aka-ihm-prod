@@ -29,8 +29,6 @@ export class AuthentificationService {
   // observable string flux
   public idClientObs : Observable<string> = this.idClientSource.asObservable();
 
-  @Output() prenomEmis: EventEmitter<any> = new EventEmitter();
-
   private prenomClient: string;
   public prenomClientSource : BehaviorSubject<string> = new BehaviorSubject<string>('');
   public prenomClientObs : Observable<string> = this.prenomClientSource.asObservable();
@@ -76,7 +74,6 @@ export class AuthentificationService {
                 
                 this.prenomClient = data.json().prenom;
                 this.prenomClientSource.next(data.json().prenom);
-                this.prenomEmis.emit(data.json().prenom);
                 
                 this.idClient = data.json().id;
                 this.idClientSource.next(data.json().id);
@@ -133,7 +130,7 @@ export class AuthentificationService {
     public deconnecterAdmin(): void {
         
         sessionStorage.clear();
-        this.router.navigate(['/admin/connexion']);
+        this.router.navigate(['/admin-connexion']);
     }
     
 
@@ -191,7 +188,7 @@ export class AuthentificationService {
                  {      if(response) {return true;} 
                 })
             .catch((error) => { 
-                this.router.navigate(['/admin/connexion']);
+                this.router.navigate(['/admin-connexion']);
                 sessionStorage.clear();
                 return Observable.of(false); })
         

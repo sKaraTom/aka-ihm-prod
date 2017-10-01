@@ -79,7 +79,7 @@ export class CitationAdminComponent implements OnInit {
       .subscribe(res => this.listeCitations = res,
                 err => { if(err.status == 401) {
                             sessionStorage.clear();
-                            this.router.navigate(['/admin/connexion']);
+                            this.router.navigate(['/admin-connexion']);
                             alert(err._body);
                           }
                         } );

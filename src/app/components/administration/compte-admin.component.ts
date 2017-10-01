@@ -74,7 +74,7 @@ export class CompteAdminComponent implements OnInit {
                        this.totalClientsFemmes = this.totalClients-this.totalClientsHommes;},
               err => { if(err.status == 401) {
                           sessionStorage.clear();
-                          this.router.navigate(['/admin/connexion']);
+                          this.router.navigate(['/admin-connexion']);
                           alert(err._body);
                       }
               },

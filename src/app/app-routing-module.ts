@@ -59,7 +59,7 @@ const appRoutes: Routes = [
           { path: 'citations', component: CitationAdminComponent}
   ]
   },
-  { path: 'admin/connexion', component: LogAdminComponent,
+  { path: 'admin-connexion', component: LogAdminComponent,
   
   },  
   

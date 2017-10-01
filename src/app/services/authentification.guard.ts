@@ -46,7 +46,6 @@ export class AuthentificationGuard implements CanActivate, CanActivateChild  {
           else {
                 // échec valid' token : redirection vers page de login.
                 this.authService.prenomClientSource.next(null);
-                // this.authService.prenomEmis.emit(null);
                 this.router.navigate(['/login']);
                 return Observable.of(false);
           }

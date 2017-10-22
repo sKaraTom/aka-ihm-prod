@@ -63,7 +63,11 @@ public obtenirTotalClientsParSexe(sexe:string) : Observable<number> {
  */
 public obtenirClient(refClient:string) : Observable<Client> {
     const url = `${this.urlAka +"client"}/${refClient}`;
-    let options = new RequestOptions({ headers: this.headers });
+
+    let headerClient:Headers = new Headers({'Content-Type': 'application/json'});
+    headerClient.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    let options = new RequestOptions({ headers: headerClient });
           
     return this.http.get(url, options)
                      .map((response:Response) => response.json())

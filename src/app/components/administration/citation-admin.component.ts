@@ -105,7 +105,7 @@ export class CitationAdminComponent implements OnInit {
     this.citationService.modifierCitation(citation)
                         .subscribe(res => {
                           this.msgs = [],
-                          this.msgs.push({severity:'warn', summary:'Succès', detail:res});
+                          this.msgs.push({severity:'info', summary:'Succès', detail:res});
                           this.obtenirCitations();
                         },
                         err => { 

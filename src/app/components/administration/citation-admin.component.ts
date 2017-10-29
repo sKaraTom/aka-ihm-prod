@@ -56,6 +56,7 @@ export class CitationAdminComponent implements OnInit {
                             this.msgs.push({severity:'info', summary:'Succès', detail:'Citation correctement créée,<br>' + res.id + " <br> " + res.auteur + " <br> " + res.contenu});
                             this.obtenirCitations();
                             this.obtenirTotalCitations();
+                            form.resetForm();
                             },
                             err => {
                               this.msgs = [],
@@ -145,6 +146,7 @@ export class CitationAdminComponent implements OnInit {
                           this.msgs = [],
                           this.msgs.push({severity:'info', summary:'Succès', detail:res.toString()});
                           this.listeCitations = this.listeCitations.filter(item => item.id != id);
+                          this.obtenirTotalCitations();
                           },
                           err =>{this.msgs = [],
                                 this.msgs.push({severity:'warn', summary:'Echec', detail:err._body});

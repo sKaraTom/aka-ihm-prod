@@ -44,6 +44,7 @@ export class PrenomAdminComponent implements OnInit {
       this.prenomService.obtenirStatsInseePrenom(this.saisieRecherche,this.choixSexe)
                           .subscribe(res => { 
                             if(res == 204) {
+                              this.totalNaissances = 0;
                               this.messageEchec = "aucun prénom trouvé pour cette saisie.";
                             }
                             else {
